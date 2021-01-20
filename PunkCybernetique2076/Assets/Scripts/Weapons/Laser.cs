@@ -40,7 +40,7 @@ public class Laser : MonoBehaviour
     private IEnumerator SetInactive()
     {
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.8f);
 
         linkedExplosion.SetActive(false);
         this.gameObject.SetActive(false);

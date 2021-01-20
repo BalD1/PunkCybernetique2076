@@ -230,7 +230,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &566521203
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,7 +340,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &1243542138
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,7 +425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pools:
   - tag: 0
-    prefab: {fileID: 6046398197876100215, guid: 3e189c21fecf26b41bd4d2cf6112375e,
+    prefab: {fileID: 5365034266025550724, guid: 81a903ce50f3ab4428df2fef1f3c8f39,
       type: 3}
     size: 30
   - tag: 1
@@ -726,7 +726,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1001 &2658701896225115486
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-
     [SerializeField] private float fireTimer = 0.3f;
     [SerializeField] private ParticleSystem smoke;
     Player player;
