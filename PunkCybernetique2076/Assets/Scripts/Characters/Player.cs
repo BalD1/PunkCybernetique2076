@@ -104,6 +104,8 @@ public class Player : LivingEntities
         zMovement = Input.GetAxis("Vertical");
 
         move = transform.right * xMovement + transform.forward * zMovement;
+        if (move != Vector3.zero)
+            characterState = CharacterState.Idle;
 
         controller.Move(move * speed.Value * Time.deltaTime);
     }
