@@ -43,7 +43,9 @@ public class Player : LivingEntities
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         this.level.ChangeData(null, 0);
         LevelUp(
                   (int)neededExpPerLevelCurve.Evaluate(level.Value + 1),

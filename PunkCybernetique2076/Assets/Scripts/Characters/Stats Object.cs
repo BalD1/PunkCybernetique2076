@@ -66,8 +66,7 @@ public class StatsObject : ScriptableObject
 
     public override string ToString()
     {
-        string output = "";
-        output += statName + " : " + statCurrent + "/" + statMax;
+        string output = statName + " : " + statCurrent + "/" + statMax;
         return output;
     }
 
