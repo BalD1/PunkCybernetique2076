@@ -14,19 +14,25 @@ public class StatsObject : ScriptableObject
         experience,
         // ...
     }
+    bool initialized;
 
     stats statName;
     int statMax;
     int statCurrent;
+
 
     public int Value { get => this.statCurrent; }
     public int Max { get => this.statMax; }
 
     public void Data(stats statName, int statMax, int statCurrent)
     {
+        if (initialized)
+            throw new System.Exception("Stat already initalized. Please use \"Change Data\" function.");
         this.statName = statName;
         this.statMax = statMax;
         this.statCurrent = statCurrent;
+
+        initialized = true;
     }
 
     public void ChangeData(int? newStatMax, int? newStatCurrent)

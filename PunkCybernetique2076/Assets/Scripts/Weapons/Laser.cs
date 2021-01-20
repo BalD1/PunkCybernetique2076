@@ -4,17 +4,45 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    private float speed = 30;
-    public int brutDamages;
+    [SerializeField] private float speed = 30;
+    [SerializeField] private Rigidbody rb;
+    public bool move;
+    private GameObject linkedExplosion;
 
-    private void Update()
+    private void OnEnable()
     {
-        transform.position += transform.forward * (speed * Time.deltaTime);
+        move = true;
     }
+
+    private void FixedUpdate()
+    {
+        if (move)
+            rb.MovePosition(this. transform.position + (transform.forward * (speed * Time.deltaTime)));
+    }
+
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Unmovable Object"))
-            Destroy(this.gameObject);
+        {
+            Debug.Log(collision);
+            Death();
+        }
+    }
+
+    private void Death()
+    {
+        move = false;
+        linkedExplosion = PoolManager.Instance.SpawnFromPool(PoolManager.tags.PlasmaExplosion, this.transform.position, Quaternion.identity);
+        StartCoroutine(SetInactive());
+    }
+
+    private IEnumerator SetInactive()
+    {
+
+        yield return new WaitForSeconds(2);
+
+        linkedExplosion.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 }

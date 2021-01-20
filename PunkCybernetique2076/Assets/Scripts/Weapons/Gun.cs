@@ -6,9 +6,11 @@ public class Gun : MonoBehaviour
 {
 
     [SerializeField] private float fireTimer = 0.3f;
-    [SerializeField] private GameObject laser;
+    [SerializeField] private ParticleSystem smoke;
     Player player;
     private float nextFire;
+    [SerializeField] private float smokeTimer = 3;
+    private float smokeCooldown;
 
     private void Start()
     {
@@ -20,8 +22,19 @@ public class Gun : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && Time.time > nextFire)
         {
             nextFire = Time.time + (fireTimer / player.GetStatValue(StatsObject.stats.fireRate));
-            GameObject firedLaser = Instantiate(laser, this.transform.position, this.transform.parent.transform.rotation);
-            firedLaser.GetComponent<Laser>().brutDamages = player.GetStatValue(StatsObject.stats.attack);
+            PoolManager.Instance.SpawnFromPool(PoolManager.tags.Laser, this.transform.position, this.transform.parent.transform.rotation);
+
+            if (!smoke.isPlaying)
+            {
+                smoke.Play();
+            }
+            smokeCooldown = smokeTimer;
         }
+
+        smokeCooldown = Mathf.Clamp(smokeCooldown - Time.deltaTime, 0, smokeTimer);
+        if (smokeCooldown == 0)
+            smoke.Stop();
     }
+
+
 }
