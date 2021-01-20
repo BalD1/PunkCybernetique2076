@@ -9,6 +9,15 @@ public class Player : LivingEntities
     [SerializeField] private Camera playerCamera;
     [SerializeField] private CharacterController controller;
 
+    #region animation curves
+
+    [SerializeField] private AnimationCurve healthPerLevelCurve;
+    [SerializeField] private AnimationCurve attackPerLevelCurve;
+    [SerializeField] private AnimationCurve speedPerLevelCurve;
+    [SerializeField] private AnimationCurve neededExpPerLevelCurve;
+
+    #endregion
+
     #region camera variables
     [SerializeField] private float mouseSensitivity;
     private float mouseX;
@@ -16,25 +25,57 @@ public class Player : LivingEntities
     private float xRotation = 0f;
     #endregion
 
+    #region character movements variables
+
     private float xMovement;
     private float zMovement;
     private Vector3 move;
+
+    #endregion
 
 
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
-        AlterateStat(StatsObject.stats.HP, 20, 20);
-        AlterateStat(StatsObject.stats.attack, 2, 2);
-        AlterateStat(StatsObject.stats.speed, 10, 10);
+        this.level.ChangeData(null, 0);
+        LevelUp(
+                  (int)neededExpPerLevelCurve.Evaluate(level.Value + 1),
+                  (int)healthPerLevelCurve.Evaluate(level.Value + 1),
+                  (int)attackPerLevelCurve.Evaluate(level.Value + 1),
+                  (int)speedPerLevelCurve.Evaluate(level.Value + 1)
+         );
+
+        // TEST CODE
+
+        level.DebugLog();
+        HP.DebugLog();
+        attack.DebugLog();
+        speed.DebugLog();
+
     }
 
     void Update()
     {
         CameraMovements();
         PlayerMovements();
+
+
+
+
+        // TEST CODE
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            GainExperience(experience.Max);
+            level.DebugLog();
+            HP.DebugLog();
+            attack.DebugLog();
+            speed.DebugLog();
+        }
     }
+
+    #region camera + movements
 
     private void CameraMovements()
     {
@@ -55,7 +96,23 @@ public class Player : LivingEntities
 
         move = transform.right * xMovement + transform.forward * zMovement;
 
-        controller.Move(move * speed.Current * Time.deltaTime);
+        controller.Move(move * speed.Value * Time.deltaTime);
+    }
+
+    #endregion
+
+    private void GainExperience(int amount)
+    {
+        this.experience.ChangeData(null, experience.Value + amount);
+
+        if (experience.Value >= experience.Max)
+            LevelUp(
+                      (int)neededExpPerLevelCurve.Evaluate(level.Value + 1),
+                      (int)healthPerLevelCurve.Evaluate(level.Value + 1),
+                      (int)attackPerLevelCurve.Evaluate(level.Value + 1),
+                      (int)speedPerLevelCurve.Evaluate(level.Value + 1)
+                    );
+        return;
     }
 
 

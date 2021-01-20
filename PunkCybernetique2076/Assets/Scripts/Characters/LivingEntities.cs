@@ -8,6 +8,8 @@ public class LivingEntities : MonoBehaviour
     protected StatsObject HP;
     protected StatsObject attack;
     protected StatsObject speed;
+    protected StatsObject level;
+    protected StatsObject experience;
 
     protected enum CharacterState { Idle, Moving }
     protected CharacterState characterState { get; set; }
@@ -30,6 +32,9 @@ public class LivingEntities : MonoBehaviour
 
         speed = new StatsObject();
         speed.Data(StatsObject.stats.speed, 5, 5);
+
+        level = new StatsObject();
+        level.Data(StatsObject.stats.level, 100, 1);
     }
 
     protected void AlterateStat(StatsObject.stats statName, int? newMax, int? newCurrent)
@@ -64,6 +69,20 @@ public class LivingEntities : MonoBehaviour
                 break;
 
         }
+    }
+
+    protected void LevelUp(int newNeededExp, int? newMaxHealth, int? newMaxAttack, int? newMaxSpeed)
+    {
+        if (level.Value == 100)
+            return;
+        level.ChangeData(null, level.Value + 1);
+        experience.ChangeData(newNeededExp, 0);
+        if (newMaxHealth.HasValue)
+            HP.ChangeData(newMaxHealth.Value, newMaxHealth.Value);
+        if (newMaxAttack.HasValue)
+            attack.ChangeData(newMaxAttack.Value, newMaxAttack.Value);
+        if (newMaxSpeed.HasValue)
+            speed.ChangeData(newMaxSpeed.Value, newMaxSpeed.Value);
     }
 
     #endregion

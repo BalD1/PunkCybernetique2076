@@ -9,6 +9,8 @@ public class StatsObject : ScriptableObject
         HP,
         attack,
         speed,
+        level,
+        experience,
         // ...
     }
 
@@ -16,7 +18,7 @@ public class StatsObject : ScriptableObject
     int statMax;
     int statCurrent;
 
-    public int Current { get => this.statCurrent; }
+    public int Value { get => this.statCurrent; }
     public int Max { get => this.statMax; }
 
     public void Data(stats statName, int statMax, int statCurrent)
@@ -60,5 +62,10 @@ public class StatsObject : ScriptableObject
         string output = "";
         output += statName + " : " + statCurrent + "/" + statMax;
         return output;
+    }
+
+    public void DebugLog()
+    {
+        Debug.Log(this.ToString());
     }
 }
