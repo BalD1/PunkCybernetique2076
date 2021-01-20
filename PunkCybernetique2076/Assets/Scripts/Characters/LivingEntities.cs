@@ -9,9 +9,13 @@ public class LivingEntities : MonoBehaviour
     protected StatsObject attack;
     protected StatsObject speed;
 
+    protected enum CharacterState { Idle, Moving }
+    protected CharacterState characterState { get; set; }
+
     void Awake()
     {
         BaseStats();
+        characterState = CharacterState.Idle;
     }
 
     #region Stats
@@ -45,11 +49,23 @@ public class LivingEntities : MonoBehaviour
         }
     }
 
-    #endregion
-
-    protected void Destination(Vector3 destination)
+    protected void AlterateStat(StatsObject.stats statName, int? newMax, int? newCurrent, bool canExceed)
     {
-        // move
+        switch (statName)
+        {
+            case StatsObject.stats.HP:
+                HP.ChangeData(newMax, newCurrent, canExceed);
+                break;
+            case StatsObject.stats.attack:
+                attack.ChangeData(newMax, newCurrent, canExceed);
+                break;
+            case StatsObject.stats.speed:
+                speed.ChangeData(newMax, newCurrent, canExceed);
+                break;
+
+        }
     }
+
+    #endregion
 
 }

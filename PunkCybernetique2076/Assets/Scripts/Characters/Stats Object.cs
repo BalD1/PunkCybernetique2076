@@ -13,9 +13,12 @@ public class StatsObject : ScriptableObject
     }
 
     stats statName;
-    int? statMax;
-    int? statCurrent;
-    
+    int statMax;
+    int statCurrent;
+
+    public int Current { get => this.statCurrent; }
+    public int Max { get => this.statMax; }
+
     public void Data(stats statName, int statMax, int statCurrent)
     {
         this.statName = statName;
@@ -25,11 +28,32 @@ public class StatsObject : ScriptableObject
 
     public void ChangeData(int? newStatMax, int? newStatCurrent)
     {
-        if (newStatMax != null)
-            this.statMax = newStatMax;
-        if (newStatCurrent != null)
-            this.statCurrent = newStatCurrent;
+        if (newStatMax.HasValue)
+            this.statMax = newStatMax.Value;
+        if (newStatCurrent.HasValue)
+        {
+            if (newStatCurrent >= statMax)
+                this.statCurrent = this.statMax;
+            else
+                this.statCurrent = newStatCurrent.Value;
+        }
     }
+
+    public void ChangeData(int? newStatMax, int? newStatCurrent, bool canExceed)
+    {
+        if (newStatMax.HasValue)
+            this.statMax = newStatMax.Value;
+        if (newStatCurrent != null)
+        {
+            if (newStatCurrent > statMax && canExceed)
+                this.statCurrent = newStatCurrent.Value;
+            else if (newStatCurrent > statMax && !canExceed)
+                this.statCurrent = this.statMax;
+            else if (newStatCurrent <= statMax)
+                this.statCurrent = newStatCurrent.Value;
+        }
+    }
+
 
     public override string ToString()
     {
