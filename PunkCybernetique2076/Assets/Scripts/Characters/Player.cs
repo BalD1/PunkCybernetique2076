@@ -15,6 +15,7 @@ public class Player : LivingEntities
     [SerializeField] private AnimationCurve attackPerLevelCurve;
     [SerializeField] private AnimationCurve speedPerLevelCurve;
     [SerializeField] private AnimationCurve neededExpPerLevelCurve;
+    [SerializeField] private AnimationCurve fireRateLevelCurve;
 
     #endregion
 
@@ -33,9 +34,14 @@ public class Player : LivingEntities
 
     #endregion
 
+    private void Awake()
+    {
+        experience = new StatsObject();
+        experience.Data(StatsObject.stats.experience, 0, 0);
+        BaseStats();
+    }
 
-
-    void Start()
+    private void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
         this.level.ChangeData(null, 0);
@@ -43,7 +49,8 @@ public class Player : LivingEntities
                   (int)neededExpPerLevelCurve.Evaluate(level.Value + 1),
                   (int)healthPerLevelCurve.Evaluate(level.Value + 1),
                   (int)attackPerLevelCurve.Evaluate(level.Value + 1),
-                  (int)speedPerLevelCurve.Evaluate(level.Value + 1)
+                  (int)speedPerLevelCurve.Evaluate(level.Value + 1),
+                  (int)fireRateLevelCurve.Evaluate(level.Value + 1)
          );
 
         // TEST CODE
@@ -52,6 +59,7 @@ public class Player : LivingEntities
         HP.DebugLog();
         attack.DebugLog();
         speed.DebugLog();
+        fireRate.DebugLog();
 
     }
 
@@ -72,6 +80,7 @@ public class Player : LivingEntities
             HP.DebugLog();
             attack.DebugLog();
             speed.DebugLog();
+            fireRate.DebugLog();
         }
     }
 
@@ -110,7 +119,8 @@ public class Player : LivingEntities
                       (int)neededExpPerLevelCurve.Evaluate(level.Value + 1),
                       (int)healthPerLevelCurve.Evaluate(level.Value + 1),
                       (int)attackPerLevelCurve.Evaluate(level.Value + 1),
-                      (int)speedPerLevelCurve.Evaluate(level.Value + 1)
+                      (int)speedPerLevelCurve.Evaluate(level.Value + 1),
+                      (int)fireRateLevelCurve.Evaluate(level.Value + 1)
                     );
         return;
     }

@@ -8,6 +8,7 @@ public class StatsObject : ScriptableObject
     {
         HP,
         attack,
+        fireRate,
         speed,
         level,
         experience,
