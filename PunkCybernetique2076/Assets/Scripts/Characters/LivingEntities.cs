@@ -61,7 +61,6 @@ public class LivingEntities : MonoBehaviour
     {
         foreach (StatsObject stat in stats)
         {
-            Debug.Log(stat.name + " " + searchedStat);
             if (stat.StatName == searchedStat)
                 return stat;
         }
@@ -69,7 +68,7 @@ public class LivingEntities : MonoBehaviour
         return null;
     }
 
-    public int GetStatValue(StatsObject.stats stat)
+    public float GetStatValue(StatsObject.stats stat)
     {
         switch (stat)
         {
@@ -90,7 +89,7 @@ public class LivingEntities : MonoBehaviour
         }
     }
 
-    protected void LevelUp(int newNeededExp, int? newMaxHealth, int? newMaxAttack, int? newMaxSpeed, int? newFireRate)
+    protected void LevelUp(float newNeededExp, float? newMaxHealth, float? newMaxAttack, float? newMaxSpeed, float? newFireRate)
     {
         if (level.Value == 100)
             return;
@@ -108,12 +107,12 @@ public class LivingEntities : MonoBehaviour
 
 
 
-    public void ApplyEffect()
+    public void ApplyEffect(EffectsObject effect)
     {
-
+        effect.Apply(this);
     }
 
-    public void InflictDamage(int amount)
+    public void InflictDamage(float amount)
     {
         HP.ChangeData(null, HP.Value - amount);
         if (HP.Value <= 0)

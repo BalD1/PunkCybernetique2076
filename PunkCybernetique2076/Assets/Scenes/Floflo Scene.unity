@@ -264,10 +264,10 @@ RectTransform:
   m_Father: {fileID: 654761206}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 57.0229, y: -60.760185}
+  m_SizeDelta: {x: 114.0458, y: 121.52037}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &467917637
 MonoBehaviour:
@@ -546,12 +546,12 @@ GameObject:
   - component: {fileID: 913693449}
   - component: {fileID: 913693448}
   m_Layer: 5
-  m_Name: Filter
+  m_Name: Power Up Filter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &913693447
 RectTransform:
   m_ObjectHideFlags: 0
@@ -642,10 +642,10 @@ RectTransform:
   m_Father: {fileID: 654761206}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 305.1145, y: -60.760185}
+  m_SizeDelta: {x: 114.0458, y: 121.52037}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &942440588
 MonoBehaviour:
@@ -817,6 +817,7 @@ GameObject:
   - component: {fileID: 1243542140}
   - component: {fileID: 1243542139}
   - component: {fileID: 1243542143}
+  - component: {fileID: 1243542144}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -837,21 +838,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilities:
-  - image: {fileID: 21300000, guid: e3900023c7e520d478a01cc44faf8291, type: 3}
+  - sprite: {fileID: 21300000, guid: e3900023c7e520d478a01cc44faf8291, type: 3}
     name: minorAttBoost
-  - image: {fileID: 21300000, guid: cf0dfbc4bbd70a14bb1f3d6949669d3c, type: 3}
+  - sprite: {fileID: 21300000, guid: cf0dfbc4bbd70a14bb1f3d6949669d3c, type: 3}
     name: majorAttBoost
-  - image: {fileID: 21300000, guid: 8d91fa5b03af85949968542d0f2e8ec2, type: 3}
+  - sprite: {fileID: 21300000, guid: 8d91fa5b03af85949968542d0f2e8ec2, type: 3}
     name: minorFirerateBoost
-  - image: {fileID: 21300000, guid: e46e035ae98650a47867ef614e29d301, type: 3}
+  - sprite: {fileID: 21300000, guid: e46e035ae98650a47867ef614e29d301, type: 3}
     name: majorFirerateBoost
-  - image: {fileID: 21300000, guid: bb790375ea9100c40a3c48fbdc07f55d, type: 3}
+  - sprite: {fileID: 21300000, guid: bb790375ea9100c40a3c48fbdc07f55d, type: 3}
     name: fireAbility
-  - image: {fileID: 21300000, guid: 0f8a86dab0ad76d4988efdd137639088, type: 3}
+  - sprite: {fileID: 21300000, guid: 0f8a86dab0ad76d4988efdd137639088, type: 3}
     name: poisonAbility
-  - image: {fileID: 21300000, guid: f529acb28c1bc7b4493ad14aa3a4e443, type: 3}
+  - sprite: {fileID: 21300000, guid: f529acb28c1bc7b4493ad14aa3a4e443, type: 3}
     name: vampireAbility
-  abilitiesCanvas: {fileID: 0}
+  choices:
+  - {fileID: 467917637}
+  - {fileID: 1960977195}
+  - {fileID: 942440588}
+  powerUpCanvas: {fileID: 913693446}
 --- !u!114 &1243542140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -876,6 +881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6523f3e329cded84ca4371b575109b53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1535203469}
 --- !u!4 &1243542142
 Transform:
   m_ObjectHideFlags: 0
@@ -910,6 +916,18 @@ MonoBehaviour:
   - tag: 1
     prefab: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9, type: 3}
     size: 30
+--- !u!114 &1243542144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243542138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fbe0718f7ba5234daeaa9bc4cf12e2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1447543590
 GameObject:
   m_ObjectHideFlags: 0
@@ -1101,6 +1119,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1535203469 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2658701896900700068, guid: 09da2c6e1cd18f04b97834f4f0553699,
+    type: 3}
+  m_PrefabInstance: {fileID: 2658701896225115486}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a92b4370e465e234194d2c49e942001d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1563861150
 GameObject:
   m_ObjectHideFlags: 0
@@ -1136,7 +1166,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.16717686, y: 0.24922045}
   m_AnchorMax: {x: 0.8282155, y: 0.79238975}
-  m_AnchoredPosition: {x: -0.22999573, y: -0.20999908}
+  m_AnchoredPosition: {x: -0.22998047, y: -0.20999146}
   m_SizeDelta: {x: -0.9466858, y: 0.07647705}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1563861152
@@ -1309,10 +1339,10 @@ RectTransform:
   m_Father: {fileID: 654761206}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 181.0687, y: -60.760185}
+  m_SizeDelta: {x: 114.0458, y: 121.52037}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1960977195
 MonoBehaviour:

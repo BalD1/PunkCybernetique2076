@@ -10,9 +10,11 @@ public class EffectsObject : ScriptableObject
         NegativeStatModifier,
     }
 
+    private string effectName;
+    public string EffectName { get => effectName; }
     private bool initialized;
     private Effect effectType;
-    private int amount;
+    private float amount;
     private StatsObject.stats statToAffect;
     private bool temporary;
     private int? time;
@@ -21,12 +23,13 @@ public class EffectsObject : ScriptableObject
     private bool canExceed;
     private StatsObject stat;
 
-    public void Data(Effect effectType, int amountInPercentage, StatsObject.stats statToAffect, bool temporary, int? time, Sprite image, string summary)
+    public void Data(Effect effectType, string name, float amountInPercentage, StatsObject.stats statToAffect, bool temporary, int? time, Sprite image, string summary)
     {
         if (initialized)
             throw new System.Exception("Effect already initalized.");
 
         this.effectType = effectType;
+        this.effectName = name;
         this.amount = amountInPercentage / 100;
         this.statToAffect = statToAffect;
         this.temporary = temporary;
@@ -41,16 +44,16 @@ public class EffectsObject : ScriptableObject
         if (temporary)
         {
             if (effectType == Effect.PositiveStatModifier)
-                stat.ChangeData(null, stat.Value + (stat.Value * amount), true);
+                stat.AddPositiveModifier((stat.Value + (stat.Value * amount)));
             else
-                stat.ChangeData(null, stat.Value - (stat.Value * amount));
+                stat.AddNegativeModifier((stat.Value + (stat.Value * amount)));
         }
         else
         {
             if (effectType == Effect.PositiveStatModifier)
-                stat.ChangeData(stat.Max + (stat.Max * amount), stat.Value + (stat.Value * amount));
+                stat.AddPositiveModifier(stat.Max + (stat.Max * amount));
             else
-                stat.ChangeData(stat.Max - (stat.Max * amount), stat.Value - (stat.Value * amount));
+                stat.AddNegativeModifier(stat.Max + (stat.Max * amount));
         }
     }
 

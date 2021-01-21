@@ -17,14 +17,16 @@ public class StatsObject : ScriptableObject
     private bool initialized;
 
     private stats statName;
-    private int statMax;
-    private int statCurrent;
+    private float statMax;
+    private float statCurrent;
+    private float modifier;
 
     public stats StatName { get => this.statName; }
-    public int Value { get => this.statCurrent; }
-    public int Max { get => this.statMax; }
+    public float Value { get => this.statCurrent; }
+    public float Max { get => this.statMax; }
+    public float Modifier { get => this.modifier; }
 
-    public void Data(stats statName, int statMax, int statCurrent)
+    public void Data(stats statName, float statMax, float statCurrent)
     {
         if (initialized)
             throw new System.Exception("Stat already initalized. Please use \"Change Data\" function.");
@@ -35,7 +37,7 @@ public class StatsObject : ScriptableObject
         initialized = true;
     }
 
-    public void ChangeData(int? newStatMax, int? newStatCurrent)
+    public void ChangeData(float? newStatMax, float? newStatCurrent)
     {
         if (newStatMax.HasValue)
             this.statMax = newStatMax.Value;
@@ -46,9 +48,11 @@ public class StatsObject : ScriptableObject
             else
                 this.statCurrent = newStatCurrent.Value;
         }
+
+        this.statCurrent += modifier;
     }
 
-    public void ChangeData(int? newStatMax, int? newStatCurrent, bool canExceed)
+    public void ChangeData(float? newStatMax, float? newStatCurrent, bool canExceed)
     {
         if (newStatMax.HasValue)
             this.statMax = newStatMax.Value;
@@ -65,6 +69,18 @@ public class StatsObject : ScriptableObject
             statCurrent = 0;
         if (this.statMax < 0)
             statMax = 0;
+
+        this.statCurrent += modifier;
+    }
+
+    public void AddPositiveModifier(float modifier)
+    {
+        this.modifier += modifier;
+    }
+
+    public void AddNegativeModifier(float modifier)
+    {
+        this.modifier -= modifier;
     }
 
 

@@ -43,47 +43,34 @@ public class Player : LivingEntities
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
         this.level.ChangeData(null, 0);
         LevelUp(
-                  (int)neededExpPerLevelCurve.Evaluate(level.Value + 1),
-                  (int)healthPerLevelCurve.Evaluate(level.Value + 1),
-                  (int)attackPerLevelCurve.Evaluate(level.Value + 1),
-                  (int)speedPerLevelCurve.Evaluate(level.Value + 1),
-                  (int)fireRateLevelCurve.Evaluate(level.Value + 1)
+                  (float)neededExpPerLevelCurve.Evaluate(level.Value + 1),
+                  (float)healthPerLevelCurve.Evaluate(level.Value + 1),
+                  (float)attackPerLevelCurve.Evaluate(level.Value + 1),
+                  (float)speedPerLevelCurve.Evaluate(level.Value + 1),
+                  (float)fireRateLevelCurve.Evaluate(level.Value + 1)
          );
-
-
-        // TEST CODE
-
-        level.DebugLog();
-        HP.DebugLog();
-        attack.DebugLog();
-        speed.DebugLog();
-        fireRate.DebugLog();
 
     }
 
     void Update()
     {
-        CameraMovements();
-        PlayerMovements();
+        if (GameManager.Instance.GameState == GameManager.gameState.InGame)
+        {
+            CameraMovements();
+            PlayerMovements();
+        }
 
 
-
+        Debug.Log("Attaque : " + attack.Value + "/" + attack.Max);
+        Debug.Log("vit att : " + fireRate.Value + "/" + fireRate.Max);
 
         // TEST CODE
 
         if (Input.GetKeyDown(KeyCode.L))
         {
             GainExperience(experience.Max);
-            level.DebugLog();
-            HP.DebugLog();
-            attack.DebugLog();
-            speed.DebugLog();
-            fireRate.DebugLog();
         }
     }
 
@@ -115,11 +102,12 @@ public class Player : LivingEntities
 
     #endregion
 
-    private void GainExperience(int amount)
+    private void GainExperience(float amount)
     {
         this.experience.ChangeData(null, experience.Value + amount);
 
         if (experience.Value >= experience.Max)
+        {
             LevelUp(
                       (int)neededExpPerLevelCurve.Evaluate(level.Value + 1),
                       (int)healthPerLevelCurve.Evaluate(level.Value + 1),
@@ -127,6 +115,8 @@ public class Player : LivingEntities
                       (int)speedPerLevelCurve.Evaluate(level.Value + 1),
                       (int)fireRateLevelCurve.Evaluate(level.Value + 1)
                     );
+            GameManager.Instance.GameState = GameManager.gameState.Levelup;
+        }
         return;
     }
 

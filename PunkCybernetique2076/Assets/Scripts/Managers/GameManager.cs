@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private Player player;
+    public Player PlayerRef { get => player; }
+
+    private List<EffectsObject> overallEffectObjects;
+    public List<EffectsObject> OverallEffectObjects { get; set; }
+
     public enum gameState
     {
         MainMenu,
         InGame,
         Pause,
+        Levelup,
         Win,
         GameOver
     }
@@ -37,18 +44,27 @@ public class GameManager : MonoBehaviour
         }
         set
         {
-            switch (value)
+            currentState = value;
+            switch (currentState)
             {
                 case gameState.MainMenu:
                     // passer au main menu
                     break;
 
                 case gameState.InGame:
-                    // passer au in game
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    Time.timeScale = 1;
                     break;
 
                 case gameState.Pause:
                     // passer en pause
+                    break;
+
+                case gameState.Levelup:
+                    Cursor.lockState = CursorLockMode.Confined;
+                    Cursor.visible = true;
+                    Time.timeScale = 0;
                     break;
 
                 case gameState.Win:
@@ -58,7 +74,12 @@ public class GameManager : MonoBehaviour
                 case gameState.GameOver:
                     // passer en go
                     break;
+
+                default:
+                    Debug.LogError("\"" + value + "\"" + " not found in switch statement.");
+                    break;
             }
+            UIManager.Instance.WindowManager(currentState);
         }
     }
 
@@ -69,6 +90,5 @@ public class GameManager : MonoBehaviour
         instance = this;
         GameState = gameState.InGame;
     }
-
 
 }
