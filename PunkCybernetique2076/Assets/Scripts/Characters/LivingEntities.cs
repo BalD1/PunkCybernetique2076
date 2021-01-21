@@ -12,15 +12,31 @@ public class LivingEntities : MonoBehaviour
     protected StatsObject level;
     protected StatsObject experience;
 
+    private List<EffectsObject> badEffects = new List<EffectsObject>();
+    private List<EffectsObject> goodEffects = new List<EffectsObject>();
+
+    private List<StatsObject> stats = new List<StatsObject>();
+
     protected enum CharacterState { Idle, Moving }
     protected CharacterState characterState { get; set; }
 
     void Awake()
     {
         characterState = CharacterState.Idle;
+        InitalizeStats();
     }
 
     #region Stats
+
+    private void InitalizeStats()
+    {
+        stats.Add(HP);
+        stats.Add(attack);
+        stats.Add(fireRate);
+        stats.Add(speed);
+        stats.Add(level);
+        stats.Add(experience);
+    }
 
     protected void BaseStats()
     {
@@ -38,6 +54,17 @@ public class LivingEntities : MonoBehaviour
 
         speed = new StatsObject();
         speed.Data(StatsObject.stats.speed, 5, 5);
+    }
+
+    public StatsObject GetStat(StatsObject.stats searchedStat)
+    {
+        foreach (StatsObject stat in stats)
+        {
+            if (stat.StatName == searchedStat)
+                return stat;
+        }
+        Debug.Log("\"" + searchedStat + "\"" + " not found in list");
+        return null;
     }
 
     protected void LevelUp(int newNeededExp, int? newMaxHealth, int? newMaxAttack, int? newMaxSpeed, int? newFireRate)
@@ -75,6 +102,20 @@ public class LivingEntities : MonoBehaviour
             default:
                 throw new Exception(" \" " + stat + " \" " + "not found in switch statement.");
         }
+    }
+
+
+
+    public void InflictDamage(int amount)
+    {
+        HP.ChangeData(null, HP.Value - amount);
+        if (HP.Value <= 0)
+            Death();
+    }
+
+    private void Death()
+    {
+        Destroy(gameObject);
     }
 
     #endregion

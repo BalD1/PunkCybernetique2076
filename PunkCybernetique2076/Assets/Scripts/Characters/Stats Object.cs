@@ -14,13 +14,13 @@ public class StatsObject : ScriptableObject
         experience,
         // ...
     }
-    bool initialized;
+    private bool initialized;
 
-    stats statName;
-    int statMax;
-    int statCurrent;
+    private stats statName;
+    private int statMax;
+    private int statCurrent;
 
-
+    public stats StatName { get => this.StatName; }
     public int Value { get => this.statCurrent; }
     public int Max { get => this.statMax; }
 
