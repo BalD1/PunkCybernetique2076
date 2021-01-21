@@ -4,43 +4,34 @@ using UnityEngine;
 
 public class OverallEffects : MonoBehaviour
 {
+    [System.Serializable]
+    public class Data
+    {
+        public string effectName;
+        public EffectsObject.Effect effectType;
+        public int amount;
+        public StatsObject.stats statToAffect;
+        public bool temporary;
+        public int time;
+        public string summary;
+    }
+    [SerializeField] private List<Data> dataList;
+
     private List<UIManager.Abilities> abilitiesList;
     private List<EffectsObject> overallEffectsObjects;
     private Sprite abilitySprite;
-
-    // à refaire dans l'éditeur, là c'est trop moche 
+    
     private void Start()
     {
         overallEffectsObjects = new List<EffectsObject>();
-
         abilitiesList = UIManager.Instance.abilitiesList;
-        EffectsObject minorAttackBoost = new EffectsObject();
-        minorAttackBoost = CreateEffect(minorAttackBoost, "minorAttackBoost", EffectsObject.Effect.PositiveStatModifier, 15, StatsObject.stats.attack, false, null, "A minor attack boost. +15% permanantly.");
-        overallEffectsObjects.Add(minorAttackBoost);
 
-        EffectsObject majorAttackBoost = new EffectsObject();
-        majorAttackBoost = CreateEffect(majorAttackBoost, "majorAttackBoost", EffectsObject.Effect.PositiveStatModifier, 30, StatsObject.stats.attack, false, null, "A major attack boost. +30% permanantly.");
-        overallEffectsObjects.Add(majorAttackBoost);
-
-        EffectsObject minorFirerateBoost = new EffectsObject();
-        minorFirerateBoost = CreateEffect(minorFirerateBoost, "minorFirerateBoost", EffectsObject.Effect.PositiveStatModifier, 5, StatsObject.stats.fireRate, false, null, "A minor fire rate boost. +5% permanantly.");
-        overallEffectsObjects.Add(minorFirerateBoost);
-
-        EffectsObject majorFirerateBoost = new EffectsObject();
-        majorFirerateBoost = CreateEffect(majorFirerateBoost, "majorFirerateBoost", EffectsObject.Effect.PositiveStatModifier, 10, StatsObject.stats.fireRate, false, null, "A major fire rate boost. +10% permanantly.");
-        overallEffectsObjects.Add(majorFirerateBoost);
-
-        EffectsObject fireStatut = new EffectsObject();
-        fireStatut = CreateEffect(fireStatut, "fireStatut", EffectsObject.Effect.NegativeStatModifier, 5, StatsObject.stats.HP, true, 5, "A burning state. Inflicts 5% of total HP damages every seconds for 5 seconds.");
-        overallEffectsObjects.Add(fireStatut);
-
-        EffectsObject poisonStatut = new EffectsObject();
-        poisonStatut = CreateEffect(poisonStatut, "poisonStatut", EffectsObject.Effect.NegativeStatModifier, 2, StatsObject.stats.HP, true, 15, "A poison state. Inflicts 2% of total HP damages every seconds for 15 seconds.");
-        overallEffectsObjects.Add(poisonStatut);
-
-        EffectsObject vampire = new EffectsObject();
-        vampire = CreateEffect(vampire, "vampire", EffectsObject.Effect.PositiveStatModifier, 5, StatsObject.stats.HP, false, null, "Regenerates 5% of total HP when an ennemy is killed.");
-        overallEffectsObjects.Add(vampire);
+        foreach(Data ability in dataList)
+        {
+            EffectsObject newAbility = new EffectsObject();
+            newAbility = CreateEffect(newAbility, ability.effectName, ability.effectType, ability.amount, ability.statToAffect, ability.temporary, ability.time, ability.summary);
+            overallEffectsObjects.Add(newAbility);
+        }
 
         GameManager.Instance.OverallEffectObjects = overallEffectsObjects;
 
@@ -48,10 +39,10 @@ public class OverallEffects : MonoBehaviour
 
     private EffectsObject CreateEffect(EffectsObject effect, string name, EffectsObject.Effect effectType, int amountInPercentage, StatsObject.stats statToAffect, bool temporary, int? time, string summary)
     {
-        foreach (UIManager.Abilities abilities in abilitiesList)
+        foreach (UIManager.Abilities ability in abilitiesList)
         {
-            if (abilities.name.Equals(effect.ToString()))
-                abilitySprite = abilities.sprite;
+            if (ability.name.Equals(effect.EffectName))
+                abilitySprite = ability.sprite;
 
         }
         effect.Data(

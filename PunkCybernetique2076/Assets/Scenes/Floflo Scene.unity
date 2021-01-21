@@ -928,6 +928,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fbe0718f7ba5234daeaa9bc4cf12e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dataList:
+  - effectName: minorAttackBoost
+    effectType: 0
+    amount: 15
+    statToAffect: 1
+    temporary: 0
+    time: -1
+    summary: A minor attack boost. +15% permanantly.
+  - effectName: majorAttackBoost
+    effectType: 0
+    amount: 30
+    statToAffect: 1
+    temporary: 0
+    time: -1
+    summary: A major attack boost. +30% permanantly.
+  - effectName: minorFirerateBoost
+    effectType: 0
+    amount: 5
+    statToAffect: 2
+    temporary: 0
+    time: 0
+    summary: A minor fire rate boost. +5% permanantly.
+  - effectName: majorFirerateBoost
+    effectType: 0
+    amount: 10
+    statToAffect: 2
+    temporary: 0
+    time: -1
+    summary: A major fire rate boost. +10% permanantly.
+  - effectName: fireStatut
+    effectType: 1
+    amount: 5
+    statToAffect: 0
+    temporary: 1
+    time: 5
+    summary: A burning state. Inflicts 5% of total HP damages every seconds for 5
+      seconds.
+  - effectName: poisonStatut
+    effectType: 1
+    amount: 2
+    statToAffect: 0
+    temporary: 1
+    time: 15
+    summary: A poison state. Inflicts 2% of total HP damages every seconds for 15
+      seconds.
+  - effectName: vampire
+    effectType: 0
+    amount: 5
+    statToAffect: 0
+    temporary: 0
+    time: -1
+    summary: Regenerates 5% of total HP when an ennemy is killed.
 --- !u!1 &1447543590
 GameObject:
   m_ObjectHideFlags: 0

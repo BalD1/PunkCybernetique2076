@@ -9,19 +9,24 @@ public class EffectsObject : ScriptableObject
         PositiveStatModifier,
         NegativeStatModifier,
     }
+    private Effect effectType;
 
     private string effectName;
     public string EffectName { get => effectName; }
+
     private bool initialized;
-    private Effect effectType;
-    private float amount;
-    private StatsObject.stats statToAffect;
     private bool temporary;
-    private int? time;
-    private Sprite image;
-    private string summary;
     private bool canExceed;
+
+    private string summary;
+
+    private float amount;
+    private int? time;
+
+    private StatsObject.stats statToAffect;
     private StatsObject stat;
+    
+    private Sprite image;
 
     public void Data(Effect effectType, string name, float amountInPercentage, StatsObject.stats statToAffect, bool temporary, int? time, Sprite image, string summary)
     {
