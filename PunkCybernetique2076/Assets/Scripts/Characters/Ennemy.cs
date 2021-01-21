@@ -30,7 +30,7 @@ public class Ennemy : LivingEntities
 
             Debug.Log(this.HP);
 
-            InflictDamage(player.GetStat(StatsObject.stats.attack).Value);
+            InflictDamage(player.GetStatValue(StatsObject.stats.attack));
             Death();
         }
     }
