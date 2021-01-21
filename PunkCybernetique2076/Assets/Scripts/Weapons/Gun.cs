@@ -30,11 +30,20 @@ public class Gun : MonoBehaviour
                 smoke.Play();
             }
             smokeCooldown = smokeTimer;
+
+            //Recoil();
         }
 
         smokeCooldown = Mathf.Clamp(smokeCooldown - Time.deltaTime, 0, smokeTimer);
         if (smokeCooldown == 0)
             smoke.Stop();
+    }
+
+    private void Recoil()
+    {
+        // l'arme se lève à chaque tire
+        // se rebaisse seule progressivement
+        // le joueur peut tirer une fois qu'elle est revenue à l'étape initiale
     }
 
 
