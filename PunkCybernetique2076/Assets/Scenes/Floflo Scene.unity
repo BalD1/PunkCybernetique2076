@@ -945,20 +945,20 @@ MonoBehaviour:
     summary: A major attack boost. +30% permanantly.
   - effectName: minorFirerateBoost
     effectType: 0
-    amount: 5
+    amount: 15
     statToAffect: 2
     temporary: 0
     time: 0
-    summary: A minor fire rate boost. +5% permanantly.
+    summary: A minor fire rate boost. +15% permanantly.
   - effectName: majorFirerateBoost
     effectType: 0
-    amount: 10
+    amount: 30
     statToAffect: 2
     temporary: 0
     time: -1
-    summary: A major fire rate boost. +10% permanantly.
+    summary: A major fire rate boost. +30% permanantly.
   - effectName: fireStatut
-    effectType: 1
+    effectType: 2
     amount: 5
     statToAffect: 0
     temporary: 1
@@ -966,7 +966,7 @@ MonoBehaviour:
     summary: A burning state. Inflicts 5% of total HP damages every seconds for 5
       seconds.
   - effectName: poisonStatut
-    effectType: 1
+    effectType: 2
     amount: 2
     statToAffect: 0
     temporary: 1
@@ -974,7 +974,7 @@ MonoBehaviour:
     summary: A poison state. Inflicts 2% of total HP damages every seconds for 15
       seconds.
   - effectName: vampire
-    effectType: 0
+    effectType: 2
     amount: 5
     statToAffect: 0
     temporary: 0
@@ -1612,7 +1612,7 @@ PrefabInstance:
     - target: {fileID: 2658701896204737348, guid: 09da2c6e1cd18f04b97834f4f0553699,
         type: 3}
       propertyPath: m_Name
-      value: Player
+      value: PlayerController
       objectReference: {fileID: 0}
     - target: {fileID: 2658701896204737349, guid: 09da2c6e1cd18f04b97834f4f0553699,
         type: 3}
@@ -1668,6 +1668,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658701896900700070, guid: 09da2c6e1cd18f04b97834f4f0553699,
+        type: 3}
+      propertyPath: m_Name
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5198039547295571199, guid: 09da2c6e1cd18f04b97834f4f0553699,
         type: 3}

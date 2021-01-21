@@ -119,6 +119,18 @@ public class LivingEntities : MonoBehaviour
             Death();
     }
 
+    public void LogStats(LivingEntities entity)
+    {
+        string output = this.name + " stats : " + "\n" +
+                        level.ToString() + "\n" +
+                        experience.ToString() + "\n" +
+                        HP.ToString() + "\n" +
+                        attack.ToString() + "\n" +
+                        fireRate.ToString() + "\n" +
+                        speed.ToString() + "\n";
+        Debug.Log(output);
+    }
+
     protected void Death()
     {
         Destroy(gameObject);

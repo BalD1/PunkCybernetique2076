@@ -8,6 +8,7 @@ public class EffectsObject : ScriptableObject
     {
         PositiveStatModifier,
         NegativeStatModifier,
+        WeaponModifier
     }
     private Effect effectType;
 
@@ -48,14 +49,14 @@ public class EffectsObject : ScriptableObject
         {
             if (effectType == Effect.PositiveStatModifier)
                 stat.AddPositiveModifier(stat.Max * amount);
-            else
+            else if (effectType == Effect.NegativeStatModifier)
                 stat.AddNegativeModifier(stat.Max * amount);
         }
         else
         {
             if (effectType == Effect.PositiveStatModifier)
                 stat.AddPositiveModifier(stat.Max * amount);
-            else
+            else if(effectType == Effect.NegativeStatModifier)
                 stat.AddNegativeModifier(stat.Max * amount);
         }
     }

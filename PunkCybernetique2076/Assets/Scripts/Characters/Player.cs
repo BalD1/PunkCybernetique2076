@@ -61,7 +61,7 @@ public class Player : LivingEntities
             CameraMovements();
             PlayerMovements();
         }
-
+        
         // TEST CODE
 
         if (Input.GetKeyDown(KeyCode.L))
