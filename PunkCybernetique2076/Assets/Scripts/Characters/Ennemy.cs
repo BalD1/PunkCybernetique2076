@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class Ennemy : LivingEntities
 {
+    [SerializeField] private Player player;
     [SerializeField] private Transform characterTransform;
 
     private void Awake()
@@ -27,8 +28,8 @@ public class Ennemy : LivingEntities
         if (collision.collider.CompareTag("Laser"))
         {
 
-            Debug.Log(collision);
-            InflictDamage();
+            Debug.Log(this.HP);
+            InflictDamage(20);
             Death();
         }
     }
