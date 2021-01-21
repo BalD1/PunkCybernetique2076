@@ -20,7 +20,7 @@ public class StatsObject : ScriptableObject
     private int statMax;
     private int statCurrent;
 
-    public stats StatName { get => this.StatName; }
+    public stats StatName { get => this.statName; }
     public int Value { get => this.statCurrent; }
     public int Max { get => this.statMax; }
 

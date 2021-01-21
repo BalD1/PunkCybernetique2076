@@ -36,9 +36,9 @@ public class Player : LivingEntities
 
     private void Awake()
     {
+        CallAwake();
         experience = new StatsObject();
         experience.Data(StatsObject.stats.experience, 0, 0);
-        BaseStats();
     }
 
     private void Start()
@@ -54,6 +54,7 @@ public class Player : LivingEntities
                   (int)speedPerLevelCurve.Evaluate(level.Value + 1),
                   (int)fireRateLevelCurve.Evaluate(level.Value + 1)
          );
+
 
         // TEST CODE
 

@@ -6,12 +6,15 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [System.Serializable]
-    private class SpriteImages
+    public class Abilities
     {
-
+        public Sprite image;
+        public string name;
     }
-    [SerializeField] private GridLayoutGroup abilitiesButtonsGrid;
-    [SerializeField] private List<Sprite> abilitiesImages;
+    [SerializeField] private List<Abilities> abilities;
+    public List<Abilities> abilitiesList { get { return abilities; } }
+
+    [SerializeField] private Canvas abilitiesCanvas;
 
     private static UIManager instance;
     public static UIManager Instance
@@ -30,13 +33,10 @@ public class UIManager : MonoBehaviour
         instance = this;
     }
 
-
     void Start()
     {
 
     }
-
-
 
     public void OnClickEnter(string button)
     {

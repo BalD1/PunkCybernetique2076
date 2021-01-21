@@ -11,7 +11,7 @@ public class Ennemy : LivingEntities
 
     private void Awake()
     {
-        BaseStats();
+        CallAwake();
     }
 
     private void Start()
@@ -29,6 +29,7 @@ public class Ennemy : LivingEntities
         {
 
             Debug.Log(this.HP);
+
             InflictDamage(player.GetStat(StatsObject.stats.attack).Value);
             Death();
         }

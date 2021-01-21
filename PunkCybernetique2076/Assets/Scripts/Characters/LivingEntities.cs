@@ -20,9 +20,10 @@ public class LivingEntities : MonoBehaviour
     protected enum CharacterState { Idle, Moving }
     protected CharacterState characterState { get; set; }
 
-    void Awake()
+    protected void CallAwake()
     {
         characterState = CharacterState.Idle;
+        BaseStats();
         InitalizeStats();
     }
 
@@ -60,11 +61,33 @@ public class LivingEntities : MonoBehaviour
     {
         foreach (StatsObject stat in stats)
         {
+            Debug.Log(stat.name + " " + searchedStat);
             if (stat.StatName == searchedStat)
                 return stat;
         }
         Debug.Log("\"" + searchedStat + "\"" + " not found in list");
         return null;
+    }
+
+    public int GetStatValue(StatsObject.stats stat)
+    {
+        switch (stat)
+        {
+            case StatsObject.stats.attack:
+                return attack.Value;
+            case StatsObject.stats.experience:
+                return experience.Value;
+            case StatsObject.stats.fireRate:
+                return fireRate.Value;
+            case StatsObject.stats.HP:
+                return HP.Value;
+            case StatsObject.stats.level:
+                return level.Value;
+            case StatsObject.stats.speed:
+                return speed.Value;
+            default:
+                throw new Exception(" \" " + stat + " \" " + "not found in switch statement.");
+        }
     }
 
     protected void LevelUp(int newNeededExp, int? newMaxHealth, int? newMaxAttack, int? newMaxSpeed, int? newFireRate)
@@ -83,26 +106,7 @@ public class LivingEntities : MonoBehaviour
             fireRate.ChangeData(newFireRate.Value, newFireRate.Value);
     }
 
-    public int GetStatValue(StatsObject.stats stat)
-    {
-        switch(stat)
-        {
-            case StatsObject.stats.attack:
-                return attack.Value;
-            case StatsObject.stats.experience:
-                return experience.Value;
-            case StatsObject.stats.fireRate:
-                return fireRate.Value;
-            case StatsObject.stats.HP:
-                return HP.Value;
-            case StatsObject.stats.level:
-                return level.Value;
-            case StatsObject.stats.speed:
-                return speed.Value;
-            default:
-                throw new Exception(" \" " + stat + " \" " + "not found in switch statement.");
-        }
-    }
+
 
     public void ApplyEffect()
     {
