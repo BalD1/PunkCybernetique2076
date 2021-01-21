@@ -75,7 +75,9 @@ public class StatsObject : ScriptableObject
 
     public void AddPositiveModifier(float modifier)
     {
+        Debug.Log(modifier);
         this.modifier += modifier;
+        this.ChangeData(null, null);
     }
 
     public void AddNegativeModifier(float modifier)

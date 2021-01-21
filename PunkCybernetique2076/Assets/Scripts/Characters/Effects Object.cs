@@ -16,7 +16,6 @@ public class EffectsObject : ScriptableObject
 
     private bool initialized;
     private bool temporary;
-    private bool canExceed;
 
     private string summary;
 
@@ -24,7 +23,6 @@ public class EffectsObject : ScriptableObject
     private int? time;
 
     private StatsObject.stats statToAffect;
-    private StatsObject stat;
     
     private Sprite image;
 
@@ -49,16 +47,16 @@ public class EffectsObject : ScriptableObject
         if (temporary)
         {
             if (effectType == Effect.PositiveStatModifier)
-                stat.AddPositiveModifier((stat.Value + (stat.Value * amount)));
+                stat.AddPositiveModifier(stat.Max * amount);
             else
-                stat.AddNegativeModifier((stat.Value + (stat.Value * amount)));
+                stat.AddNegativeModifier(stat.Max * amount);
         }
         else
         {
             if (effectType == Effect.PositiveStatModifier)
-                stat.AddPositiveModifier(stat.Max + (stat.Max * amount));
+                stat.AddPositiveModifier(stat.Max * amount);
             else
-                stat.AddNegativeModifier(stat.Max + (stat.Max * amount));
+                stat.AddNegativeModifier(stat.Max * amount);
         }
     }
 

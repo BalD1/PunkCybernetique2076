@@ -62,10 +62,6 @@ public class Player : LivingEntities
             PlayerMovements();
         }
 
-
-        Debug.Log("Attaque : " + attack.Value + "/" + attack.Max);
-        Debug.Log("vit att : " + fireRate.Value + "/" + fireRate.Max);
-
         // TEST CODE
 
         if (Input.GetKeyDown(KeyCode.L))
