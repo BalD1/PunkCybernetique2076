@@ -6,112 +6,60 @@ public class EffectsObject : ScriptableObject
 {
     public enum Effect
     {
-        // Bad ones
-        Poison,
-        Burning,
-        LowerFireRate,
-        DeacreasedAttack,
-        Slowed,
-
-        // Good ones
-        HealthBuff,
-        AttackBuff,
-        FireRateBuff,
-        SpeedBuff,
-        GainedExpBuff,
+        PositiveStatModifier,
+        NegativeStatModifier,
     }
 
     private bool initialized;
     private Effect effectType;
     private int amount;
+    private StatsObject.stats statToAffect;
     private bool temporary;
     private int? time;
+    private Sprite image;
+    private string summary;
     private bool canExceed;
-    
-    public void Data(Effect effectType, int amount, bool temporary, int? time)
+    private StatsObject stat;
+
+    public void Data(Effect effectType, int amountInPercentage, StatsObject.stats statToAffect, bool temporary, int? time, Sprite image, string summary)
     {
         if (initialized)
             throw new System.Exception("Effect already initalized.");
 
         this.effectType = effectType;
-        this.amount = amount;
+        this.amount = amountInPercentage / 100;
+        this.statToAffect = statToAffect;
         this.temporary = temporary;
         this.time = time;
+        this.image = image;
+        this.summary = summary;
     }
 
     public void Apply(LivingEntities entity)
     {
-        StatsObject stat;
-
-        switch (effectType)
+        StatsObject stat = entity.GetStat(statToAffect);
+        if (temporary)
         {
-            // Bad ones
-            case Effect.Poison:
-                break;
-
-            case Effect.Burning:
-                break;
-
-            case Effect.LowerFireRate:
-                stat = entity.GetStat(StatsObject.stats.fireRate);
-                StatDecrease(stat);
-                break;
-
-            case Effect.DeacreasedAttack:
-                stat = entity.GetStat(StatsObject.stats.attack);
-                StatDecrease(stat);
-                break;
-
-            case Effect.Slowed:
-                stat = entity.GetStat(StatsObject.stats.speed);
-                StatDecrease(stat);
-                break;
-
-
-            // Good ones
-            case Effect.HealthBuff:
-                stat = entity.GetStat(StatsObject.stats.HP);
-                StatIncrease(stat);
-                break;
-
-            case Effect.AttackBuff:
-                stat = entity.GetStat(StatsObject.stats.attack);
-                StatIncrease(stat);
-                break;
-
-            case Effect.FireRateBuff:
-                stat = entity.GetStat(StatsObject.stats.fireRate);
-                StatIncrease(stat);
-                break;
-
-            case Effect.SpeedBuff:
-                stat = entity.GetStat(StatsObject.stats.speed);
-                StatIncrease(stat);
-                break;
-
-            case Effect.GainedExpBuff:
-                break;
-
-            default:
-                Debug.LogError("\"" + effectType + "\"" + " not found in switch statement");
-                break;
+            if (effectType == Effect.PositiveStatModifier)
+                stat.ChangeData(null, stat.Value + (stat.Value * amount), true);
+            else
+                stat.ChangeData(null, stat.Value - (stat.Value * amount));
         }
-
-    }
-
-    private void StatDecrease(StatsObject stat)
-    {
-        stat.ChangeData(null, stat.Value - amount);
-    }
-
-    private void StatIncrease(StatsObject stat)
-    {
-        stat.ChangeData(null, stat.Value + amount, canExceed);
+        else
+        {
+            if (effectType == Effect.PositiveStatModifier)
+                stat.ChangeData(stat.Max + (stat.Max * amount), stat.Value + (stat.Value * amount));
+            else
+                stat.ChangeData(stat.Max - (stat.Max * amount), stat.Value - (stat.Value * amount));
+        }
     }
 
     public void UnApply(LivingEntities entity)
     {
-
+        this.amount *= -1;
+        Apply(entity);
+        this.amount *= -1;
     }
+
 
 }

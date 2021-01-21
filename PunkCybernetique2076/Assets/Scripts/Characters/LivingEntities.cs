@@ -104,7 +104,10 @@ public class LivingEntities : MonoBehaviour
         }
     }
 
+    public void ApplyEffect()
+    {
 
+    }
 
     public void InflictDamage(int amount)
     {

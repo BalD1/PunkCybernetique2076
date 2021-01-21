@@ -61,6 +61,10 @@ public class StatsObject : ScriptableObject
             else if (newStatCurrent <= statMax)
                 this.statCurrent = newStatCurrent.Value;
         }
+        if (this.statCurrent < 0)
+            statCurrent = 0;
+        if (this.statMax < 0)
+            statMax = 0;
     }
 
 
