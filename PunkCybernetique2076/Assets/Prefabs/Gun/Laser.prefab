@@ -211,6 +211,8 @@ MonoBehaviour:
   speed: 30
   rb: {fileID: -7910217817036356488}
   move: 0
+  Glow: {fileID: 910985361}
+  Lightning: {fileID: 7140095897139623251}
 --- !u!54 &-7910217817036356488
 Rigidbody:
   m_ObjectHideFlags: 0
