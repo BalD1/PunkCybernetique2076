@@ -45,7 +45,6 @@ public class Player : LivingEntities
     {
         Initialization();
 
-
     }
 
     private void Initialization()
@@ -71,8 +70,10 @@ public class Player : LivingEntities
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            GainExperience(experience.Max * 0.15f);
+            GainExperience(experience.Max);
         }
+        if (Input.GetKeyDown(KeyCode.P))
+            this.InflictDamage(this.HP.Max / 2);
 
     }
 

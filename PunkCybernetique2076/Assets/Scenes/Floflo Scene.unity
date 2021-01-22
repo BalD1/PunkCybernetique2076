@@ -127,7 +127,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 43478628}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &3023476
+--- !u!65 &3023477
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1218,8 +1218,8 @@ MonoBehaviour:
     name: ultimateFirerateBoost
     rarity: 2
     elementNumber: 8
-  commonPercentage: 65
-  rarePercentage: 30
+  commonPercentage: 70
+  rarePercentage: 25
   legendaryPercentage: 5
   choices:
   - {fileID: 467917637}
@@ -2325,7 +2325,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 23.95
+  m_fontSize: 7.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

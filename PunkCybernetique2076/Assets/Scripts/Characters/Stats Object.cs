@@ -25,7 +25,7 @@ public class StatsObject : ScriptableObject
     public float Value { get => this.statCurrent; }
     public float Max { get => this.statMax; }
     public float Modifier { get => this.modifier; }
-    
+
     public void Data(stats statName, float statMax, float statCurrent)
     {
         if (initialized)
@@ -59,7 +59,10 @@ public class StatsObject : ScriptableObject
         if (newStatCurrent != null)
         {
             if (newStatCurrent > statMax && canExceed)
-                this.statCurrent = newStatCurrent.Value;
+                if (this.statName.Equals(stats.HP))
+                    this.statCurrent = this.statMax;
+                else
+                    this.statCurrent = newStatCurrent.Value;
             else if (newStatCurrent > statMax && !canExceed)
                 this.statCurrent = this.statMax;
             else if (newStatCurrent <= statMax)

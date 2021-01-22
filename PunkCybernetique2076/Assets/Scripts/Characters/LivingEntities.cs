@@ -19,6 +19,8 @@ public class LivingEntities : MonoBehaviour
 
     protected List<EffectsObject> tickDamagers;
     public List<EffectsObject> TickDamagers { get => tickDamagers; }
+    protected EffectsObject leach;
+    public EffectsObject Leach { get => leach; set => leach = value; }
 
     protected enum CharacterState { Idle, Moving }
     protected CharacterState characterState { get; set; }
@@ -129,6 +131,7 @@ public class LivingEntities : MonoBehaviour
         if (this.name.Equals("Player"))
             UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
         if (attacker != null)
+        {
             if (attacker.TickDamagers != null)
                 foreach (EffectsObject damager in attacker.TickDamagers)
                 {
@@ -136,14 +139,26 @@ public class LivingEntities : MonoBehaviour
                     finalDamages *= 100;             // Calculate how many tick damages should be dealed, based on the entity's max HP
                     InflickTickDamages(finalDamages, (int)damager.activeTime);
                 }
-        
+        }
+
+
+
         if (HP.Value <= 0)
+        {
+            if (attacker.leach != null)
+            {
+                float pointsToDrain = this.HP.Max - (this.HP.Max * ((100 - (float)attacker.Leach.Amount) / 100));
+                pointsToDrain *= 100;
+                attacker.Heal(pointsToDrain);
+            }
             Death();
+        }
     }
 
     public void InflictDamage(float amount)
     {
         HP.ChangeData(null, HP.Value - amount);
+
         if (this.name.Equals("Player"))
             UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
 
@@ -163,6 +178,13 @@ public class LivingEntities : MonoBehaviour
             yield break;
         yield return new WaitForSeconds(1);
         InflickTickDamages(amount, --time);
+    }
+
+    protected void Heal(float amount)
+    {
+        this.HP.ChangeData(null, this.HP.Value + amount);
+        if (this.name.Equals("Player"))
+            UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
     }
 
     public void LogStats(LivingEntities entity)

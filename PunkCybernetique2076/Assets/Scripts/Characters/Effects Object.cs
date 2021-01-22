@@ -27,7 +27,7 @@ public class EffectsObject : ScriptableObject
     public int? activeTime { get => this.time; }
 
     private StatsObject.stats statToAffect;
-    
+
     private Sprite image;
 
     public void Data(Effect effectType, string name, float amountInPercentage, StatsObject.stats statToAffect, bool temporary, int? time, Sprite image, string summary)
@@ -55,7 +55,11 @@ public class EffectsObject : ScriptableObject
             else if (effectType == Effect.NegativeStatModifier)
                 stat.AddNegativeModifier(stat.Max * amount);
             else if (effectType == Effect.WeaponModifier)
-                entity.AddTickDamager(this);
+                if (!effectName.Equals("vampire"))
+                    entity.AddTickDamager(this);
+                else
+                    entity.Leach = this;
+
         }
         else if (!temporary)
         {
@@ -64,7 +68,10 @@ public class EffectsObject : ScriptableObject
             else if (effectType == Effect.NegativeStatModifier)
                 stat.AddNegativeModifier(stat.Max * amount);
             else if (effectType == Effect.WeaponModifier)
-                entity.AddTickDamager(this);
+                if (effectName != "vampire")
+                    entity.AddTickDamager(this);
+                else
+                    entity.Leach = this;
         }
     }
 
