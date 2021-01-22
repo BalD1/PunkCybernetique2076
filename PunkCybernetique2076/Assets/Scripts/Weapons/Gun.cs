@@ -11,7 +11,12 @@ public class Gun : MonoBehaviour
 
     [SerializeField] private float smokeTimer = 3;
     [SerializeField] private ParticleSystem smoke;
+    [SerializeField] private GameObject spawnPoint;
     private float smokeCooldown;
+    private Ray ray;
+    private RaycastHit hit;
+    private Vector3 center = new Vector3(0.5f, 0.5f, 0);
+      
 
     private void Start()
     {
@@ -23,7 +28,13 @@ public class Gun : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && Time.time > nextFire && GameManager.Instance.GameState == GameManager.gameState.InGame)
         {
             nextFire = Time.time + (fireTimer / player.GetStatValue(StatsObject.stats.fireRate));
-            PoolManager.Instance.SpawnFromPool(PoolManager.tags.Laser, this.transform.position, this.transform.parent.transform.rotation);
+
+            ray = Camera.main.ViewportPointToRay(center);
+
+            if (Physics.Raycast(ray, out hit, 10000))
+                spawnPoint.transform.LookAt(hit.point);
+
+            PoolManager.Instance.SpawnFromPool(PoolManager.tags.Laser, spawnPoint.transform.position, spawnPoint.transform.rotation);
             SoundManager.Instance.Play("laser");
 
             if (!smoke.isPlaying)
