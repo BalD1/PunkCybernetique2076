@@ -19,6 +19,7 @@ public class EffectsObject : ScriptableObject
     private bool temporary;
 
     private string summary;
+    public string Summary { get => this.summary; }
 
     private float amount;
     private int? time;

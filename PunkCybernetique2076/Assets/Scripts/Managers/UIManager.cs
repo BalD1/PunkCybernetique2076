@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
     }
 
     [SerializeField] private List<Abilities> abilities;
-    public List<Abilities> abilitiesList { get { return abilities; } }
+    public List<Abilities> abilitiesList { get { return abilities; } set { abilities = value; } }
     [SerializeField] private int commonPercentage;
     [SerializeField] private int rarePercentage;
     [SerializeField] private int legendaryPercentage;
@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private List<Button> choices;
     [SerializeField] private GameObject powerUpCanvas;
+    [SerializeField] private TMP_Text powerUpSummary;
     [SerializeField] private Image hpBar;
     [SerializeField] private Image xpBar;
     [SerializeField] private TMP_Text levelText;
@@ -59,15 +60,15 @@ public class UIManager : MonoBehaviour
         switch (button)
         {
             case "First":
-                GameManager.Instance.OverallEffectObjects[buttonsRef[0]].Apply(player);
+                ApplyEffectToPlayer(player, 0);
                 break;
 
             case "Second":
-                GameManager.Instance.OverallEffectObjects[buttonsRef[1]].Apply(player);
+                ApplyEffectToPlayer(player, 1);
                 break;
 
             case "Third":
-                GameManager.Instance.OverallEffectObjects[buttonsRef[2]].Apply(player);
+                ApplyEffectToPlayer(player, 2);
                 break;
 
             default:
@@ -77,6 +78,63 @@ public class UIManager : MonoBehaviour
         buttonsRef.Clear();
         GameManager.Instance.GameState = GameManager.gameState.InGame;
     }
+
+    public void OnPointerOver(string button)
+    {
+        EffectsObject overAbility = new EffectsObject();
+        switch (button)
+        {
+            case "First":
+                powerUpSummary.text = GetSummary(overAbility, 0);
+                break;
+
+            case "Second":
+                powerUpSummary.text = GetSummary(overAbility, 1);
+                break;
+
+            case "Third":
+                powerUpSummary.text = GetSummary(overAbility, 2);
+                break;
+
+            default:
+                Debug.LogError("\"" + button + "\"" + " not found in switch statement");
+                break;
+        }
+    }
+
+    public void OnPointerExit()
+    {
+        powerUpSummary.text = "";
+    }
+
+    private string GetSummary(EffectsObject ability, int buttonRef)
+    {
+        int effectRef = buttonsRef[buttonRef];
+        ability = GameManager.Instance.OverallEffectObjects[effectRef];
+        return ability.Summary;
+    }
+
+    private void ApplyEffectToPlayer(Player player, int buttonRef)
+    {
+        int effectRef = buttonsRef[buttonRef];
+        GameManager.Instance.OverallEffectObjects[effectRef].Apply(player);
+        Abilities appliedAbility = abilitiesList[effectRef];
+        if (appliedAbility.name.Contains("_Unique"))
+        {
+            List<Abilities> tempList = new List<Abilities>();
+            foreach (Abilities ability in abilitiesList)
+            {
+
+                if (ability.rarity == appliedAbility.rarity && !ability.name.Contains("_Unique"))
+                {
+                    tempList.Add(ability);
+                }
+            }
+            if (tempList.Count > 0)
+                abilitiesList[effectRef] = tempList[Random.Range(0, tempList.Count)];
+        }
+    }
+
 
     public void WindowManager(GameManager.gameState state)
     {
@@ -135,7 +193,7 @@ public class UIManager : MonoBehaviour
             if (ability.rarity.Equals(searchedRarity))
                 tempList.Add(ability);
         }
-        
+
         return tempList;
     }
 
