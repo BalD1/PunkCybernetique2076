@@ -22,7 +22,9 @@ public class EffectsObject : ScriptableObject
     public string Summary { get => this.summary; }
 
     private float amount;
+    public float Amount { get => this.amount; }
     private int? time;
+    public int? activeTime { get => this.time; }
 
     private StatsObject.stats statToAffect;
     
@@ -52,22 +54,18 @@ public class EffectsObject : ScriptableObject
                 stat.AddPositiveModifier(stat.Max * amount);
             else if (effectType == Effect.NegativeStatModifier)
                 stat.AddNegativeModifier(stat.Max * amount);
+            else if (effectType == Effect.WeaponModifier)
+                entity.AddTickDamager(this);
         }
-        else
+        else if (!temporary)
         {
             if (effectType == Effect.PositiveStatModifier)
                 stat.AddPositiveModifier(stat.Max * amount);
-            else if(effectType == Effect.NegativeStatModifier)
+            else if (effectType == Effect.NegativeStatModifier)
                 stat.AddNegativeModifier(stat.Max * amount);
+            else if (effectType == Effect.WeaponModifier)
+                entity.AddTickDamager(this);
         }
     }
-
-    public void UnApply(LivingEntities entity)
-    {
-        this.amount *= -1;
-        Apply(entity);
-        this.amount *= -1;
-    }
-
 
 }

@@ -65,9 +65,7 @@ public class Player : LivingEntities
     private void Update()
     {
         if (GameManager.Instance.GameState == GameManager.gameState.InGame)
-        {
             CameraMovements();
-        }
 
         // TEST CODE
 
@@ -75,17 +73,13 @@ public class Player : LivingEntities
         {
             GainExperience(experience.Max * 0.15f);
         }
-        if (Input.GetKey(KeyCode.P))
-            InflictDamage(HP.Max * (0.15f * Time.deltaTime));
 
     }
 
     private void FixedUpdate()
     {
         if (GameManager.Instance.GameState == GameManager.gameState.InGame)
-        {
             PlayerMovements();
-        }
     }
 
     #region camera + movements

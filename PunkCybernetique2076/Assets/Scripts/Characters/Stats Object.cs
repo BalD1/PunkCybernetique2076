@@ -25,7 +25,7 @@ public class StatsObject : ScriptableObject
     public float Value { get => this.statCurrent; }
     public float Max { get => this.statMax; }
     public float Modifier { get => this.modifier; }
-
+    
     public void Data(stats statName, float statMax, float statCurrent)
     {
         if (initialized)
@@ -83,7 +83,6 @@ public class StatsObject : ScriptableObject
     {
         this.modifier -= modifier;
     }
-
 
     public override string ToString()
     {

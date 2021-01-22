@@ -28,10 +28,6 @@ public class Laser : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Unmovable Object") || collision.collider.CompareTag("Ennemie"))
-        {
-            Debug.Log(collision);
-        }
         Death();
     }
 
@@ -40,6 +36,8 @@ public class Laser : MonoBehaviour
         move = false;
         if (linkedExplosion == null)
             linkedExplosion = PoolManager.Instance.SpawnFromPool(PoolManager.tags.PlasmaExplosion, this.transform.position, Quaternion.identity);
+        linkedExplosion.SetActive(true);
+        linkedExplosion.transform.position = this.transform.position;
         StartCoroutine(SetInactive());
     }
 

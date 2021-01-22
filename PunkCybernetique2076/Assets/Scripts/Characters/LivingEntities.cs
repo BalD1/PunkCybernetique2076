@@ -17,6 +17,9 @@ public class LivingEntities : MonoBehaviour
 
     private List<StatsObject> stats = new List<StatsObject>();
 
+    protected List<EffectsObject> tickDamagers;
+    public List<EffectsObject> TickDamagers { get => tickDamagers; }
+
     protected enum CharacterState { Idle, Moving }
     protected CharacterState characterState { get; set; }
 
@@ -45,16 +48,18 @@ public class LivingEntities : MonoBehaviour
         level.Data(StatsObject.stats.level, 100, 1);
 
         HP = new StatsObject();
-        HP.Data(StatsObject.stats.HP, 10, 10);
+        HP.Data(StatsObject.stats.HP, 100, 100);
 
         attack = new StatsObject();
-        attack.Data(StatsObject.stats.attack, 1, 1);
+        attack.Data(StatsObject.stats.attack, 20, 20);
 
         fireRate = new StatsObject();
         fireRate.Data(StatsObject.stats.fireRate, 1, 1);
 
         speed = new StatsObject();
         speed.Data(StatsObject.stats.speed, 5, 5);
+
+        tickDamagers = new List<EffectsObject>();
     }
 
     public StatsObject GetStat(StatsObject.stats searchedStat)
@@ -91,6 +96,7 @@ public class LivingEntities : MonoBehaviour
 
     protected void LevelUp(float newNeededExp, float? newMaxHealth, float? newMaxAttack, float? newMaxSpeed, float? newFireRate)
     {
+
         if (level.Value == 100)
             return;
         level.ChangeData(null, level.Value + 1);
@@ -112,6 +118,29 @@ public class LivingEntities : MonoBehaviour
         effect.Apply(this);
     }
 
+    public void AddTickDamager(EffectsObject damager)
+    {
+        this.tickDamagers.Add(damager);
+    }
+
+    public void InflictDamage(float amount, LivingEntities attacker)
+    {
+        HP.ChangeData(null, HP.Value - amount);
+        if (this.name.Equals("Player"))
+            UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
+        if (attacker != null)
+            if (attacker.TickDamagers != null)
+                foreach (EffectsObject damager in attacker.TickDamagers)
+                {
+                    float finalDamages = this.HP.Max - (this.HP.Max * ((100 - (float)damager.Amount) / 100));
+                    finalDamages *= 100;             // Calculate how many tick damages should be dealed, based on the entity's max HP
+                    InflickTickDamages(finalDamages, (int)damager.activeTime);
+                }
+        
+        if (HP.Value <= 0)
+            Death();
+    }
+
     public void InflictDamage(float amount)
     {
         HP.ChangeData(null, HP.Value - amount);
@@ -120,6 +149,20 @@ public class LivingEntities : MonoBehaviour
 
         if (HP.Value <= 0)
             Death();
+    }
+
+    private void InflickTickDamages(float amount, int time)
+    {
+        InflictDamage(amount);
+        StartCoroutine(TickDamage(amount, time));
+    }
+
+    private IEnumerator TickDamage(float amount, int time)
+    {
+        if (time <= 0)
+            yield break;
+        yield return new WaitForSeconds(1);
+        InflickTickDamages(amount, --time);
     }
 
     public void LogStats(LivingEntities entity)
@@ -135,7 +178,7 @@ public class LivingEntities : MonoBehaviour
     }
 
     protected void Death()
-    { 
+    {
         Destroy(gameObject);
     }
 

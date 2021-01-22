@@ -30,6 +30,7 @@ public class Ennemy : LivingEntities
 
     private void Update()
     {
+        HP.DebugLog();
         float distance = Vector3.Distance(target.position, transform.position);
 
         if (distance <= lookRadius)
@@ -73,10 +74,7 @@ public class Ennemy : LivingEntities
     {
         if (collision.collider.CompareTag("Laser"))
         {
-
-            Debug.Log(this.HP);
-
-            InflictDamage(player.GetStatValue(StatsObject.stats.attack));
+            InflictDamage(player.GetStatValue(StatsObject.stats.attack), player);
             if (HP.Value <= 0)
             {
                 Death();
