@@ -34,4 +34,10 @@ public class Ennemy : LivingEntities
             Death();
         }
     }
+
+    new void Death()
+    {
+        SoundManager.Instance.Play("boom");
+        Destroy(gameObject);
+    }
 }

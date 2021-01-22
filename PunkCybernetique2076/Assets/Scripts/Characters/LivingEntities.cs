@@ -132,7 +132,7 @@ public class LivingEntities : MonoBehaviour
     }
 
     protected void Death()
-    {
+    { 
         Destroy(gameObject);
     }
 

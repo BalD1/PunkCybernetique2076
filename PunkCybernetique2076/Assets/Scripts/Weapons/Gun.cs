@@ -24,6 +24,7 @@ public class Gun : MonoBehaviour
         {
             nextFire = Time.time + (fireTimer / player.GetStatValue(StatsObject.stats.fireRate));
             PoolManager.Instance.SpawnFromPool(PoolManager.tags.Laser, this.transform.position, this.transform.parent.transform.rotation);
+            SoundManager.Instance.Play("laser");
 
             if (!smoke.isPlaying)
             {
