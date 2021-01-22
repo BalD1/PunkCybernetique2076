@@ -31,7 +31,7 @@ public class Gun : MonoBehaviour
 
             ray = Camera.main.ViewportPointToRay(center);
 
-            if (Physics.Raycast(ray, out hit, 100000))
+            if (Physics.Raycast(ray, out hit, 10000))
                 spawnPoint.transform.LookAt(hit.point);
 
             PoolManager.Instance.SpawnFromPool(PoolManager.tags.Laser, spawnPoint.transform.position, spawnPoint.transform.rotation);
