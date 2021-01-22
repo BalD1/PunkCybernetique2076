@@ -115,19 +115,22 @@ public class LivingEntities : MonoBehaviour
     public void InflictDamage(float amount)
     {
         HP.ChangeData(null, HP.Value - amount);
+        if (this.name.Equals("Player"))
+            UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
+
         if (HP.Value <= 0)
             Death();
     }
 
     public void LogStats(LivingEntities entity)
     {
-        string output = this.name + " stats : " + "\n" +
-                        level.ToString() + "\n" +
-                        experience.ToString() + "\n" +
-                        HP.ToString() + "\n" +
-                        attack.ToString() + "\n" +
-                        fireRate.ToString() + "\n" +
-                        speed.ToString() + "\n";
+        string output = entity.name + " stats : " + "\n" +
+                        entity.level.ToString() + "\n" +
+                        entity.experience.ToString() + "\n" +
+                        entity.HP.ToString() + "\n" +
+                        entity.attack.ToString() + "\n" +
+                        entity.fireRate.ToString() + "\n" +
+                        entity.speed.ToString() + "\n";
         Debug.Log(output);
     }
 

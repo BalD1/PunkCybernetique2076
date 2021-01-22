@@ -20,7 +20,7 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && Time.time > nextFire)
+        if (Input.GetMouseButtonDown(0) && Time.time > nextFire && GameManager.Instance.GameState == GameManager.gameState.InGame)
         {
             nextFire = Time.time + (fireTimer / player.GetStatValue(StatsObject.stats.fireRate));
             PoolManager.Instance.SpawnFromPool(PoolManager.tags.Laser, this.transform.position, this.transform.parent.transform.rotation);

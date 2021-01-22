@@ -22,7 +22,7 @@ public class Laser : MonoBehaviour
     private void FixedUpdate()
     {
         if (move)
-            rb.MovePosition(this. transform.position + (transform.forward * (speed * Time.deltaTime)));
+            rb.MovePosition(this.transform.position + (transform.forward * (speed * Time.deltaTime)));
     }
 
 
@@ -31,14 +31,15 @@ public class Laser : MonoBehaviour
         if (collision.collider.CompareTag("Unmovable Object") || collision.collider.CompareTag("Ennemie"))
         {
             Debug.Log(collision);
-            Death();
         }
+        Death();
     }
 
     private void Death()
     {
         move = false;
-        linkedExplosion = PoolManager.Instance.SpawnFromPool(PoolManager.tags.PlasmaExplosion, this.transform.position, Quaternion.identity);
+        if (linkedExplosion == null)
+            linkedExplosion = PoolManager.Instance.SpawnFromPool(PoolManager.tags.PlasmaExplosion, this.transform.position, Quaternion.identity);
         StartCoroutine(SetInactive());
     }
 

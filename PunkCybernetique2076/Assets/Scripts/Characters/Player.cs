@@ -43,6 +43,13 @@ public class Player : LivingEntities
 
     private void Start()
     {
+        Initialization();
+
+
+    }
+
+    private void Initialization()
+    {
         this.level.ChangeData(null, 0);
         LevelUp(
                   (float)neededExpPerLevelCurve.Evaluate(level.Value + 1),
@@ -51,22 +58,31 @@ public class Player : LivingEntities
                   (float)speedPerLevelCurve.Evaluate(level.Value + 1),
                   (float)fireRateLevelCurve.Evaluate(level.Value + 1)
          );
-
+        UIManager.Instance.UpdateLevel("1");
+        UIManager.Instance.FillBar(0, "XP");
     }
 
-    void Update()
+    private void Update()
     {
         if (GameManager.Instance.GameState == GameManager.gameState.InGame)
         {
             CameraMovements();
-            PlayerMovements();
         }
-        
+
         // TEST CODE
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            GainExperience(experience.Max);
+            GainExperience(experience.Max * 0.15f);
+        }
+
+    }
+
+    private void FixedUpdate()
+    {
+        if (GameManager.Instance.GameState == GameManager.gameState.InGame)
+        {
+            PlayerMovements();
         }
     }
 
@@ -101,7 +117,7 @@ public class Player : LivingEntities
     private void GainExperience(float amount)
     {
         this.experience.ChangeData(null, experience.Value + amount);
-
+        UIManager.Instance.FillBar(experience.Value / experience.Max, "XP");
         if (experience.Value >= experience.Max)
         {
             LevelUp(
@@ -112,6 +128,9 @@ public class Player : LivingEntities
                       (int)fireRateLevelCurve.Evaluate(level.Value + 1)
                     );
             GameManager.Instance.GameState = GameManager.gameState.Levelup;
+            UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
+            UIManager.Instance.FillBar(experience.Value / experience.Max, "XP");
+            UIManager.Instance.UpdateLevel(level.Value.ToString());
         }
         return;
     }
