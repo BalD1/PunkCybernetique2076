@@ -32,7 +32,8 @@ public class PoolManager : MonoBehaviour
     public enum tags
     {
         Laser,
-        PlasmaExplosion
+        PlasmaExplosion,
+        LaserEnnemy
     }
 
     public List<Pool> pools;

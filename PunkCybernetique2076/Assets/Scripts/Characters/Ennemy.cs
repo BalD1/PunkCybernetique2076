@@ -7,12 +7,14 @@ using UnityEngine.AI;
 public class Ennemy : LivingEntities
 {
     [SerializeField] private Player player;
-
-
+    [SerializeField] private float fireTimer = 1f;
+    private float nextFire;
+    public int EnnemyDamage = 10;
     public float lookRadius = 30f;
 
     Transform target;
     NavMeshAgent agent;
+    Vector3 shootpos;
 
     private void Awake()
     {
@@ -36,8 +38,20 @@ public class Ennemy : LivingEntities
 
             if (distance <= agent.stoppingDistance)
             {
-                //attack
                 FaceTarget();
+
+                //Attack 
+
+                if (Time.time > nextFire)
+                {
+                    shootpos = new Vector3(this.transform.position.x, this.transform.position.y + 0.8f, this.transform.position.z);
+                    nextFire = Time.time + (fireTimer / 0.5f);
+                    PoolManager.Instance.SpawnFromPool(PoolManager.tags.LaserEnnemy, shootpos, this.transform.rotation);
+                    SoundManager.Instance.Play("laser");
+
+                }
+
+
             }
         }
     }
@@ -63,7 +77,10 @@ public class Ennemy : LivingEntities
             Debug.Log(this.HP);
 
             InflictDamage(player.GetStatValue(StatsObject.stats.attack));
-            Death();
+            if (HP.Value <= 0)
+            {
+                Death();
+            }
         }
     }
 
