@@ -18,7 +18,9 @@ public class UIManager : MonoBehaviour
             legendary
         }
         public Rarity rarity;
+        public int elementNumber;
     }
+
     [SerializeField] private List<Abilities> abilities;
     public List<Abilities> abilitiesList { get { return abilities; } }
     [SerializeField] private int commonPercentage;
@@ -97,9 +99,10 @@ public class UIManager : MonoBehaviour
                 foreach (Button button in choices)
                 {
                     List<Abilities> tempList = GetAbilityByRarity();
-                    int rand = Random.Range(0, tempList.Count);
-                    buttonsRef.Add(rand);
-                    button.image.sprite = abilitiesList[rand].sprite;
+                    int abilityRef = tempList[Random.Range(0, tempList.Count)].elementNumber;
+
+                    buttonsRef.Add(abilityRef);
+                    button.image.sprite = abilitiesList[abilityRef].sprite;
                 }
                 break;
 
@@ -117,14 +120,21 @@ public class UIManager : MonoBehaviour
     {
         int randResult = Random.Range(1, 101);
         Abilities.Rarity searchedRarity = new Abilities.Rarity();
-        if (randResult < 60)
-            searchedRarity = Abilities.Rarity.common;
 
         List<Abilities> tempList = new List<Abilities>();
 
+        if (randResult <= legendaryPercentage)
+            searchedRarity = Abilities.Rarity.legendary;
+        else if (randResult > legendaryPercentage && randResult <= (legendaryPercentage + rarePercentage))
+            searchedRarity = Abilities.Rarity.rare;
+        else if (randResult > (commonPercentage - 100))
+            searchedRarity = Abilities.Rarity.common;
+
         foreach (Abilities ability in abilitiesList)
-            if (ability.rarity == Abilities.Rarity.common)
+        {
+            if (ability.rarity.Equals(searchedRarity))
                 tempList.Add(ability);
+        }
         
         return tempList;
     }

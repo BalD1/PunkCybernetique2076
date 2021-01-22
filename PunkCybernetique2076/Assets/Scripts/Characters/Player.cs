@@ -75,6 +75,8 @@ public class Player : LivingEntities
         {
             GainExperience(experience.Max * 0.15f);
         }
+        if (Input.GetKey(KeyCode.P))
+            InflictDamage(HP.Max * (0.15f * Time.deltaTime));
 
     }
 
