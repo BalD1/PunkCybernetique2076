@@ -66,10 +66,11 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (abilityDisplaySummary.activeSelf)
-        {
-            PutTextOnMousePos();
-        }
+        if (GameManager.Instance.GameState.Equals(GameManager.gameState.Pause))
+            if (abilityDisplaySummary.activeSelf)
+            {
+                PutTextOnMousePos();
+            }
     }
 
     private void PutTextOnMousePos()

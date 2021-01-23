@@ -49,15 +49,17 @@ public class GameManager : MonoBehaviour
             switch (currentState)
             {
                 case gameState.MainMenu:
+                    Cursor.lockState = CursorLockMode.Confined;
+                    Cursor.visible = true;
                     SceneManager.LoadScene("MainMenu");
                     break;
 
                 case gameState.InGame:
-                    if (SceneManager.GetActiveScene().name.Equals("MainMenu"))
-                        SceneManager.LoadScene("Floflo Scene");
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                     Time.timeScale = 1;
+                    if (SceneManager.GetActiveScene().name.Equals("MainMenu"))
+                        SceneManager.LoadScene("Floflo Scene");
                     break;
 
                 case gameState.Pause:
@@ -95,6 +97,11 @@ public class GameManager : MonoBehaviour
         instance = this;
         if (!SceneManager.GetActiveScene().name.Equals("MainMenu"))
             GameState = gameState.InGame;
+        if (SceneManager.GetActiveScene().name.Equals("MainMenu"))
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+        }
     }
 
 
