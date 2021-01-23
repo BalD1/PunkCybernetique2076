@@ -38,7 +38,11 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject HUDAndPopUpCanvas;
     [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private GameObject abilitiesImages;
+    [SerializeField] private GameObject pauseMenuAbilitiesDisplay;
+    [SerializeField] private GameObject abilityDisplayImage;
+    [SerializeField] private GameObject abilityDisplaySummary;
+    private GameObject pauseOverAbility;
+    public GameObject PauseOverAbility { get => pauseOverAbility; set => pauseOverAbility = value; }
 
     private float bottom;
 
@@ -60,6 +64,21 @@ public class UIManager : MonoBehaviour
         buttonsRef = new List<int>();
     }
 
+    private void Update()
+    {
+        if (abilityDisplaySummary.activeSelf)
+        {
+            PutTextOnMousePos();
+        }
+    }
+
+    private void PutTextOnMousePos()
+    {
+        Vector3 newPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z - abilityDisplaySummary.transform.position.z));
+        newPos.z = abilityDisplaySummary.transform.position.z;
+        abilityDisplaySummary.transform.parent.position = Vector3.Lerp(abilityDisplaySummary.transform.position, newPos, 0.5f);
+    }
+
     public void OnClickEnter(string button)
     {
         Player player = GameManager.Instance.PlayerRef;
@@ -79,6 +98,12 @@ public class UIManager : MonoBehaviour
             case "Play":
                 GameManager.Instance.GameState = GameManager.gameState.InGame;
                 break;
+            case "Continue":
+                GameManager.Instance.GameState = GameManager.gameState.InGame;
+                break;
+            case "MainMenu":
+                GameManager.Instance.GameState = GameManager.gameState.MainMenu;
+                break;
             case "Quit":
                 Application.Quit();
                 break;
@@ -91,10 +116,10 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.GameState = GameManager.gameState.InGame;
     }
 
-    public void OnPointerOver(string button)
+    public void OnPointerOver(string overObject)
     {
         EffectsObject overAbility = new EffectsObject();
-        switch (button)
+        switch (overObject)
         {
             case "First":
                 powerUpSummary.text = GetSummary(overAbility, 0);
@@ -107,16 +132,34 @@ public class UIManager : MonoBehaviour
             case "Third":
                 powerUpSummary.text = GetSummary(overAbility, 2);
                 break;
+            case "DisplayAbility":
+                abilityDisplaySummary.SetActive(true);
+                abilityDisplaySummary.GetComponentInChildren<TextMeshProUGUI>().text = pauseOverAbility.GetComponent<AbilityDisplayImage>().Summary;
+                break;
 
             default:
-                Debug.LogError("\"" + button + "\"" + " not found in switch statement");
+                Debug.LogError("\"" + overObject + "\"" + " not found in switch statement");
                 break;
         }
     }
 
-    public void OnPointerExit()
+    public void OnPointerExit(string overObject)
     {
-        powerUpSummary.text = "";
+        if (overObject.Equals("First") || overObject.Equals("Second") || overObject.Equals("Third"))
+        { 
+            powerUpSummary.text = "";
+            return;
+        }
+
+        switch (overObject)
+        {
+            case "DisplayAbility":
+                abilityDisplaySummary.SetActive(false);
+                break;
+            default:
+                Debug.LogError("\"" + overObject + "\"" + " not found in switch statement");
+                break;
+        }
     }
 
     private string GetSummary(EffectsObject ability, int buttonRef)
@@ -131,12 +174,13 @@ public class UIManager : MonoBehaviour
         int effectRef = buttonsRef[buttonRef];
         GameManager.Instance.OverallEffectObjects[effectRef].Apply(player);
 
-        GameObject sprite = new GameObject();
-        sprite.AddComponent<Image>().sprite = abilitiesList[effectRef].sprite;
-        sprite.transform.parent = abilitiesImages.transform;
-        RectTransform transform = abilitiesImages.GetComponent<RectTransform>();
-        bottom -= sprite.GetComponent<Image>().sprite.rect.height;
-        transform.offsetMin = new Vector2(transform.offsetMin.x, bottom);
+        GameObject sprite = Instantiate(abilityDisplayImage, pauseMenuAbilitiesDisplay.transform);
+        sprite.GetComponent<Image>().sprite = abilitiesList[effectRef].sprite;
+        sprite.GetComponent<AbilityDisplayImage>().Summary = GameManager.Instance.OverallEffectObjects[effectRef].Summary;
+
+        RectTransform transform = pauseMenuAbilitiesDisplay.GetComponent<RectTransform>();
+        bottom -= (sprite.GetComponent<Image>().sprite.rect.height);
+        transform.offsetMin = new Vector2(transform.offsetMin.x, bottom / 2);
 
         Abilities appliedAbility = abilitiesList[effectRef];
         if (appliedAbility.name.Contains("_Unique"))
