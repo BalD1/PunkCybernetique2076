@@ -21,6 +21,8 @@ public class LivingEntities : MonoBehaviour
     public List<EffectsObject> TickDamagers { get => tickDamagers; }
     protected EffectsObject leach;
     public EffectsObject Leach { get => leach; set => leach = value; }
+    protected List<EffectsObject> appliedTickDamagers;
+    public List<EffectsObject> AppliedTickDamagers { get => appliedTickDamagers; }
 
     protected enum CharacterState { Idle, Moving }
     protected CharacterState characterState { get; set; }
@@ -42,6 +44,7 @@ public class LivingEntities : MonoBehaviour
         stats.Add(speed);
         stats.Add(level);
         stats.Add(experience);
+        appliedTickDamagers = new List<EffectsObject>();
     }
 
     protected void BaseStats()
@@ -50,7 +53,7 @@ public class LivingEntities : MonoBehaviour
         level.Data(StatsObject.stats.level, 100, 1);
 
         HP = new StatsObject();
-        HP.Data(StatsObject.stats.HP, 100, 100);
+        HP.Data(StatsObject.stats.HP, 1000, 1000);
 
         attack = new StatsObject();
         attack.Data(StatsObject.stats.attack, 20, 20);
@@ -135,9 +138,17 @@ public class LivingEntities : MonoBehaviour
             if (attacker.TickDamagers != null)
                 foreach (EffectsObject damager in attacker.TickDamagers)
                 {
+                    if (appliedTickDamagers.Count > 0)
+                        foreach (EffectsObject applied in appliedTickDamagers)
+                        {
+                            if (applied == damager)
+                                return;
+                        }
+
+                    appliedTickDamagers.Add(damager);
                     float finalDamages = this.HP.Max - (this.HP.Max * ((100 - (float)damager.Amount) / 100));
                     finalDamages *= 100;             // Calculate how many tick damages should be dealed, based on the entity's max HP
-                    InflickTickDamages(finalDamages, (int)damager.activeTime);
+                    InflickTickDamages(finalDamages, (int)damager.activeTime, damager);
                 }
         }
 
@@ -164,18 +175,21 @@ public class LivingEntities : MonoBehaviour
             Death();
     }
 
-    private void InflickTickDamages(float amount, int time)
+    private void InflickTickDamages(float amount, int time, EffectsObject damager)
     {
         InflictDamage(amount);
-        StartCoroutine(TickDamage(amount, time));
+        StartCoroutine(TickDamage(amount, time, damager));
     }
 
-    private IEnumerator TickDamage(float amount, int time)
+    private IEnumerator TickDamage(float amount, int time, EffectsObject damager)
     {
         if (time <= 0)
+        {
+            appliedTickDamagers.Remove(damager);
             yield break;
+        }
         yield return new WaitForSeconds(1);
-        InflickTickDamages(amount, --time);
+        InflickTickDamages(amount, --time, damager);
     }
 
     protected void Heal(float amount)

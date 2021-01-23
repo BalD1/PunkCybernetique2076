@@ -75,7 +75,9 @@ public class GameManager : MonoBehaviour
                     break;
 
                 case gameState.Win:
-                    // passer en win
+                    Cursor.lockState = CursorLockMode.Confined;
+                    Cursor.visible = true;
+                    Time.timeScale = 0;
                     break;
 
                 case gameState.GameOver:

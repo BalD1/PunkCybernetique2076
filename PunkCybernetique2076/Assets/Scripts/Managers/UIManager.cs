@@ -44,6 +44,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject abilityDisplaySummary;
 
     [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private GameObject winScreen;
 
     private GameObject pauseOverAbility;
     public GameObject PauseOverAbility { get => pauseOverAbility; set => pauseOverAbility = value; }
@@ -199,7 +200,10 @@ public class UIManager : MonoBehaviour
                 break;
 
             case GameManager.gameState.Win:
-
+                winScreen.SetActive(true);
+                HUDAndPopUpCanvas.SetActive(false);
+                powerUpCanvas.SetActive(false);
+                pauseMenu.SetActive(false);
                 break;
 
             case GameManager.gameState.GameOver:

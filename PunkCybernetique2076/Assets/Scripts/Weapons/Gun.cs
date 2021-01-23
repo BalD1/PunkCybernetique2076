@@ -12,6 +12,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private float smokeTimer = 3;
     [SerializeField] private ParticleSystem smoke;
     [SerializeField] private GameObject spawnPoint;
+    [SerializeField] private Animator recoil;
     private float smokeCooldown;
     private Ray ray;
     private RaycastHit hit;
@@ -37,26 +38,21 @@ public class Gun : MonoBehaviour
             PoolManager.Instance.SpawnFromPool(PoolManager.tags.Laser, spawnPoint.transform.position, spawnPoint.transform.rotation);
             SoundManager.Instance.Play("laser");
 
+            if (player.GetStatValue(StatsObject.stats.fireRate) < 2.5f)
+            {
+                recoil.speed = player.GetStatValue(StatsObject.stats.fireRate);
+                recoil.SetTrigger("Fire");
+            }
+
             if (!smoke.isPlaying)
             {
                 smoke.Play();
             }
             smokeCooldown = smokeTimer;
-
-            //Recoil();
         }
 
         smokeCooldown = Mathf.Clamp(smokeCooldown - Time.deltaTime, 0, smokeTimer);
         if (smokeCooldown == 0)
             smoke.Stop();
     }
-
-    private void Recoil()
-    {
-        // l'arme se lève à chaque tire
-        // se rebaisse seule progressivement
-        // le joueur peut tirer une fois qu'elle est revenue à l'étape initiale
-    }
-
-
 }
