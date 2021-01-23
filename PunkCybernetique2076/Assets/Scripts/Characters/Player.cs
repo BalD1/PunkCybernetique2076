@@ -65,6 +65,8 @@ public class Player : LivingEntities
     {
         if (GameManager.Instance.GameState == GameManager.gameState.InGame)
             CameraMovements();
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Pause();
 
         // TEST CODE
 
@@ -76,11 +78,19 @@ public class Player : LivingEntities
             this.InflictDamage(this.HP.Max / 2);
 
     }
-
+    
     private void FixedUpdate()
     {
         if (GameManager.Instance.GameState == GameManager.gameState.InGame)
             PlayerMovements();
+    }
+
+    private void Pause()
+    {
+        if (GameManager.Instance.GameState.Equals(GameManager.gameState.InGame))
+            GameManager.Instance.GameState = GameManager.gameState.Pause;
+        else if (GameManager.Instance.GameState.Equals(GameManager.gameState.Pause))
+            GameManager.Instance.GameState = GameManager.gameState.InGame;
     }
 
     #region camera + movements

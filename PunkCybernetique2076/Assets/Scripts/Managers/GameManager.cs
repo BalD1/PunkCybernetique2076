@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -48,17 +49,21 @@ public class GameManager : MonoBehaviour
             switch (currentState)
             {
                 case gameState.MainMenu:
-                    // passer au main menu
+                    SceneManager.LoadScene("MainMenu");
                     break;
 
                 case gameState.InGame:
+                    if (SceneManager.GetActiveScene().name.Equals("MainMenu"))
+                        SceneManager.LoadScene("Floflo Scene");
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                     Time.timeScale = 1;
                     break;
 
                 case gameState.Pause:
-                    // passer en pause
+                    Cursor.lockState = CursorLockMode.Confined;
+                    Cursor.visible = true;
+                    Time.timeScale = 0;
                     break;
 
                 case gameState.Levelup:
@@ -88,7 +93,9 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        GameState = gameState.InGame;
+        if (!SceneManager.GetActiveScene().name.Equals("MainMenu"))
+            GameState = gameState.InGame;
     }
+
 
 }

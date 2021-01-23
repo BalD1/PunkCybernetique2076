@@ -36,6 +36,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image xpBar;
     [SerializeField] private TMP_Text levelText;
 
+    [SerializeField] private GameObject HUDAndPopUpCanvas;
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject abilitiesImages;
+
+    private float bottom;
+
     private static UIManager instance;
     public static UIManager Instance
     {
@@ -69,6 +75,12 @@ public class UIManager : MonoBehaviour
 
             case "Third":
                 ApplyEffectToPlayer(player, 2);
+                break;
+            case "Play":
+                GameManager.Instance.GameState = GameManager.gameState.InGame;
+                break;
+            case "Quit":
+                Application.Quit();
                 break;
 
             default:
@@ -118,6 +130,14 @@ public class UIManager : MonoBehaviour
     {
         int effectRef = buttonsRef[buttonRef];
         GameManager.Instance.OverallEffectObjects[effectRef].Apply(player);
+
+        GameObject sprite = new GameObject();
+        sprite.AddComponent<Image>().sprite = abilitiesList[effectRef].sprite;
+        sprite.transform.parent = abilitiesImages.transform;
+        RectTransform transform = abilitiesImages.GetComponent<RectTransform>();
+        bottom -= sprite.GetComponent<Image>().sprite.rect.height;
+        transform.offsetMin = new Vector2(transform.offsetMin.x, bottom);
+
         Abilities appliedAbility = abilitiesList[effectRef];
         if (appliedAbility.name.Contains("_Unique"))
         {
@@ -146,10 +166,13 @@ public class UIManager : MonoBehaviour
 
             case GameManager.gameState.InGame:
                 powerUpCanvas.SetActive(false);
+                pauseMenu.SetActive(false);
+                HUDAndPopUpCanvas.SetActive(true);
                 break;
 
             case GameManager.gameState.Pause:
-
+                pauseMenu.SetActive(true);
+                HUDAndPopUpCanvas.SetActive(false);
                 break;
 
             case GameManager.gameState.Levelup:
