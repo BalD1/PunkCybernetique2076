@@ -141,8 +141,6 @@ public class LivingEntities : MonoBehaviour
                 }
         }
 
-
-
         if (HP.Value <= 0)
         {
             if (attacker.leach != null)
@@ -201,7 +199,10 @@ public class LivingEntities : MonoBehaviour
 
     protected void Death()
     {
-        Destroy(gameObject);
+        if (!this.name.Equals("Player"))
+            Destroy(gameObject);
+        else
+            GameManager.Instance.GameState = GameManager.gameState.GameOver;
     }
 
     #endregion

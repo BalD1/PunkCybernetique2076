@@ -36,11 +36,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image xpBar;
     [SerializeField] private TMP_Text levelText;
 
+    [SerializeField] private GameObject crosshair;
     [SerializeField] private GameObject HUDAndPopUpCanvas;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject pauseMenuAbilitiesDisplay;
     [SerializeField] private GameObject abilityDisplayImage;
     [SerializeField] private GameObject abilityDisplaySummary;
+
+    [SerializeField] private GameObject gameOverScreen;
+
     private GameObject pauseOverAbility;
     public GameObject PauseOverAbility { get => pauseOverAbility; set => pauseOverAbility = value; }
 
@@ -97,6 +101,9 @@ public class UIManager : MonoBehaviour
                 ApplyEffectToPlayer(player, 2);
                 break;
             case "Play":
+                if (GameManager.Instance.GameState.Equals(GameManager.gameState.GameOver))
+                    GameManager.Instance.ReloadScene();
+
                 GameManager.Instance.GameState = GameManager.gameState.InGame;
                 break;
             case "Continue":
@@ -213,6 +220,7 @@ public class UIManager : MonoBehaviour
                 powerUpCanvas.SetActive(false);
                 pauseMenu.SetActive(false);
                 HUDAndPopUpCanvas.SetActive(true);
+                crosshair.SetActive(true);
                 break;
 
             case GameManager.gameState.Pause:
@@ -221,6 +229,7 @@ public class UIManager : MonoBehaviour
                 break;
 
             case GameManager.gameState.Levelup:
+                crosshair.SetActive(false);
                 powerUpCanvas.SetActive(true);
                 foreach (Button button in choices)
                 {
@@ -237,7 +246,10 @@ public class UIManager : MonoBehaviour
                 break;
 
             case GameManager.gameState.GameOver:
-
+                powerUpCanvas.SetActive(false);
+                pauseMenu.SetActive(false);
+                HUDAndPopUpCanvas.SetActive(false);
+                gameOverScreen.SetActive(true);
                 break;
         }
     }

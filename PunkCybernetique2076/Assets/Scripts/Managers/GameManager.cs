@@ -79,7 +79,9 @@ public class GameManager : MonoBehaviour
                     break;
 
                 case gameState.GameOver:
-                    // passer en go
+                    Cursor.lockState = CursorLockMode.Confined;
+                    Cursor.visible = true;
+                    Time.timeScale = 0;
                     break;
 
                 default:
@@ -102,6 +104,11 @@ public class GameManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
         }
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 
