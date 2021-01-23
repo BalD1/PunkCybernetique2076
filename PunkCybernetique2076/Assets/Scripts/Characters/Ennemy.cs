@@ -75,7 +75,8 @@ public class Ennemy : LivingEntities
     {
         if (collision.collider.CompareTag("Laser"))
         {
-            InflictDamage(player.GetStatValue(StatsObject.stats.attack), player);
+            UIManager.Instance.ActivateHitMarker();
+            this.InflictDamage(player.GetStatValue(StatsObject.stats.attack), player);
             if (HP.Value <= 0)
             {
                 Death();

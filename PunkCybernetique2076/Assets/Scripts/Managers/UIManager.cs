@@ -35,9 +35,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image hpBar;
     [SerializeField] private Image xpBar;
     [SerializeField] private TMP_Text levelText;
-
     [SerializeField] private GameObject crosshair;
     [SerializeField] private GameObject HUDAndPopUpCanvas;
+
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject pauseMenuAbilitiesDisplay;
     [SerializeField] private GameObject abilityDisplayImage;
@@ -77,13 +77,8 @@ public class UIManager : MonoBehaviour
             }
     }
 
-    private void PutTextOnMousePos()
-    {
-        Vector3 newPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z - abilityDisplaySummary.transform.position.z));
-        newPos.z = abilityDisplaySummary.transform.position.z;
-        abilityDisplaySummary.transform.parent.position = Vector3.Lerp(abilityDisplaySummary.transform.position, newPos, 0.5f);
-    }
-
+    #region general
+    
     public void OnClickEnter(string button)
     {
         Player player = GameManager.Instance.PlayerRef;
@@ -154,7 +149,7 @@ public class UIManager : MonoBehaviour
     public void OnPointerExit(string overObject)
     {
         if (overObject.Equals("First") || overObject.Equals("Second") || overObject.Equals("Third"))
-        { 
+        {
             powerUpSummary.text = "";
             return;
         }
@@ -169,44 +164,6 @@ public class UIManager : MonoBehaviour
                 break;
         }
     }
-
-    private string GetSummary(EffectsObject ability, int buttonRef)
-    {
-        int effectRef = buttonsRef[buttonRef];
-        ability = GameManager.Instance.OverallEffectObjects[effectRef];
-        return ability.Summary;
-    }
-
-    private void ApplyEffectToPlayer(Player player, int buttonRef)
-    {
-        int effectRef = buttonsRef[buttonRef];
-        GameManager.Instance.OverallEffectObjects[effectRef].Apply(player);
-
-        GameObject sprite = Instantiate(abilityDisplayImage, pauseMenuAbilitiesDisplay.transform);
-        sprite.GetComponent<Image>().sprite = abilitiesList[effectRef].sprite;
-        sprite.GetComponent<AbilityDisplayImage>().Summary = GameManager.Instance.OverallEffectObjects[effectRef].Summary;
-
-        RectTransform transform = pauseMenuAbilitiesDisplay.GetComponent<RectTransform>();
-        bottom -= (sprite.GetComponent<Image>().sprite.rect.height);
-        transform.offsetMin = new Vector2(transform.offsetMin.x, bottom / 2);
-
-        Abilities appliedAbility = abilitiesList[effectRef];
-        if (appliedAbility.name.Contains("_Unique"))
-        {
-            List<Abilities> tempList = new List<Abilities>();
-            foreach (Abilities ability in abilitiesList)
-            {
-
-                if (ability.rarity == appliedAbility.rarity && !ability.name.Contains("_Unique"))
-                {
-                    tempList.Add(ability);
-                }
-            }
-            if (tempList.Count > 0)
-                abilitiesList[effectRef] = tempList[Random.Range(0, tempList.Count)];
-        }
-    }
-
 
     public void WindowManager(GameManager.gameState state)
     {
@@ -254,6 +211,91 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Player Related
+
+    private void ApplyEffectToPlayer(Player player, int buttonRef)
+    {
+        int effectRef = buttonsRef[buttonRef];
+        GameManager.Instance.OverallEffectObjects[effectRef].Apply(player);
+
+        GameObject sprite = Instantiate(abilityDisplayImage, pauseMenuAbilitiesDisplay.transform);
+        sprite.GetComponent<Image>().sprite = abilitiesList[effectRef].sprite;
+        sprite.GetComponent<AbilityDisplayImage>().Summary = GameManager.Instance.OverallEffectObjects[effectRef].Summary;
+
+        RectTransform transform = pauseMenuAbilitiesDisplay.GetComponent<RectTransform>();
+        bottom -= (sprite.GetComponent<Image>().sprite.rect.height);
+        transform.offsetMin = new Vector2(transform.offsetMin.x, bottom / 2);
+
+        Abilities appliedAbility = abilitiesList[effectRef];
+        if (appliedAbility.name.Contains("_Unique"))
+        {
+            List<Abilities> tempList = new List<Abilities>();
+            foreach (Abilities ability in abilitiesList)
+            {
+
+                if (ability.rarity == appliedAbility.rarity && !ability.name.Contains("_Unique"))
+                {
+                    tempList.Add(ability);
+                }
+            }
+            if (tempList.Count > 0)
+                abilitiesList[effectRef] = tempList[Random.Range(0, tempList.Count)];
+        }
+    }
+
+    public void FillBar(float amount, string bar)
+    {
+        switch (bar)
+        {
+            case "HP":
+                hpBar.fillAmount = amount;
+                break;
+            case "XP":
+                xpBar.fillAmount = amount;
+                break;
+            default:
+                Debug.LogError(bar + " bar not found in switch statement.");
+                break;
+        }
+    }
+
+    public void UpdateLevel(string level)
+    {
+        levelText.text = level;
+    }
+
+    public void ActivateHitMarker()
+    {
+        crosshair.transform.GetChild(0).gameObject.SetActive(true);
+        StartCoroutine(hitmarkerTimer());
+    }
+
+    private IEnumerator hitmarkerTimer()
+    {
+        yield return new WaitForSeconds(0.25f);
+        crosshair.transform.GetChild(0).gameObject.SetActive(false);
+    }
+
+    #endregion
+
+    #region Abilities Related
+
+    private void PutTextOnMousePos()
+    {
+        Vector3 newPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z - abilityDisplaySummary.transform.position.z));
+        newPos.z = abilityDisplaySummary.transform.position.z;
+        abilityDisplaySummary.transform.parent.position = Vector3.Lerp(abilityDisplaySummary.transform.position, newPos, 0.5f);
+    }
+
+    private string GetSummary(EffectsObject ability, int buttonRef)
+    {
+        int effectRef = buttonsRef[buttonRef];
+        ability = GameManager.Instance.OverallEffectObjects[effectRef];
+        return ability.Summary;
+    }
+
     private List<Abilities> GetAbilityByRarity()
     {
         int randResult = Random.Range(1, 101);
@@ -277,24 +319,9 @@ public class UIManager : MonoBehaviour
         return tempList;
     }
 
-    public void FillBar(float amount, string bar)
-    {
-        switch (bar)
-        {
-            case "HP":
-                hpBar.fillAmount = amount;
-                break;
-            case "XP":
-                xpBar.fillAmount = amount;
-                break;
-            default:
-                Debug.LogError(bar + " bar not found in switch statement.");
-                break;
-        }
-    }
+    #endregion
 
-    public void UpdateLevel(string level)
-    {
-        levelText.text = level;
-    }
+
+
+
 }
