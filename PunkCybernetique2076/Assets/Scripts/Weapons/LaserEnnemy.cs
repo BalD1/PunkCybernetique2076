@@ -10,9 +10,13 @@ public class LaserEnnemy : MonoBehaviour
     private GameObject linkedExplosion;
     public GameObject Glow;
     public GameObject Lightning;
+    private Ennemy ennemy;
+    private float damage;
 
     private void OnEnable()
     {
+        ennemy = (Ennemy)FindObjectOfType(typeof(Ennemy));
+        damage = ennemy.GetStatValue(StatsObject.stats.attack);
         this.gameObject.GetComponent<Renderer>().enabled = true;
         Lightning.SetActive(true);
         Glow.SetActive(true);
@@ -31,6 +35,16 @@ public class LaserEnnemy : MonoBehaviour
         if (collision.collider.CompareTag("Unmovable Object") || collision.collider.CompareTag("Player"))
         {
             Debug.Log(collision);
+            Player player = collision.collider.GetComponent<Player>();
+
+            Debug.Log("ya collision " + collision.collider.name);
+
+            if (player != null)
+            {
+                Debug.Log("c pa nul");
+                player.InflictDamage(damage);
+            }
+
             Death();
         }
     }
