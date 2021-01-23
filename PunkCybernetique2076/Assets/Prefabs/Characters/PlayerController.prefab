@@ -267,6 +267,8 @@ GameObject:
   - component: {fileID: 4122065569894328631}
   - component: {fileID: 4122065569894328630}
   - component: {fileID: 4122065569894328624}
+  - component: {fileID: 2112945406}
+  - component: {fileID: 2112945405}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -527,6 +529,36 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   mouseSensitivity: 200
+--- !u!54 &2112945406
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4122065569894328626}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!136 &2112945405
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4122065569894328626}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4122065570205521360
 GameObject:
   m_ObjectHideFlags: 0

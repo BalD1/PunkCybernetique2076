@@ -45,7 +45,8 @@ public class Ennemy : LivingEntities
 
                 if (Time.time > nextFire)
                 {
-                    shootpos = new Vector3(this.transform.position.x, this.transform.position.y + 0.8f, this.transform.position.z);
+                    shootpos = new Vector3(this.transform.position.x, this.transform.position.y + 0.4f, this.transform.position.z);
+
                     nextFire = Time.time + (fireTimer / 0.5f);
                     PoolManager.Instance.SpawnFromPool(PoolManager.tags.LaserEnnemy, shootpos, this.transform.rotation);
                     SoundManager.Instance.Play("laser");

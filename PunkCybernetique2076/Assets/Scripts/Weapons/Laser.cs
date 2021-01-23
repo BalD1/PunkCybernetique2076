@@ -28,7 +28,10 @@ public class Laser : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Death();
+        if (!collision.collider.CompareTag("Player"))
+        {
+            Death();
+        }
     }
 
     private void Death()
