@@ -72,15 +72,6 @@ public class Player : LivingEntities
         if (Input.GetKeyDown(KeyCode.Escape) && GameManager.Instance.GameState != GameManager.gameState.GameOver)
             Pause();
 
-        // TEST CODE
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            GainExperience(experience.Max);
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-            this.InflictDamage(this.HP.Max / 2);
-
         if (gameOver)
             Death();
 

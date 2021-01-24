@@ -43,6 +43,14 @@ public class Laser : MonoBehaviour
         {
             linkedExplosion = PoolManager.Instance.SpawnFromPool(PoolManager.tags.PlasmaExplosion, this.transform.position, Quaternion.identity);
             linkedExplosion.transform.position = this.transform.position;
+            /* j'arrive pas à régler ce bug. Les explosions vont rester au premier
+             * endroit où elles ont été activées, peut importe la position que
+             * j'essaie de leur donner.
+             * J'ai tout essayé, j'ai changé leur simulation space, essayé de les mettre
+             * dans un gameobject vide, j'ai fais de la magie vaudou...
+             * Je suis vraiment très curieux du soucis pour le coup, j'ai pas réussi à le
+             * comprendre
+             */
         }
         source.PlayOneShot(SoundManager.Instance.GetAudioCLip("impact"));
         linkedExplosion.SetActive(true);
@@ -56,7 +64,7 @@ public class Laser : MonoBehaviour
         this.gameObject.GetComponent<Renderer>().enabled = false;
 
         yield return new WaitForSeconds(1.8f);
-
+        
         linkedExplosion.SetActive(false);
         this.gameObject.SetActive(false);
     }
