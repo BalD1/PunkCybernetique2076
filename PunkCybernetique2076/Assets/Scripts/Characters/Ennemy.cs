@@ -15,6 +15,8 @@ public class Ennemy : LivingEntities
 
     private bool dead;
 
+    public Animator animator;
+
     private GameObject linkedExplosion;
 
     Transform target;
@@ -37,20 +39,25 @@ public class Ennemy : LivingEntities
         if (!dead && GameManager.Instance.GameState == GameManager.gameState.InGame)
         {
             float distance = Vector3.Distance(target.position, transform.position);
+            animator.SetBool("IsFiring", false);
+            animator.SetBool("IsIdle", true);
 
             if (distance <= lookRadius)
             {
+                animator.SetBool("IsIdle", false);
                 agent.SetDestination(target.position);
 
                 if (distance <= agent.stoppingDistance)
                 {
+                    animator.SetBool("IsWalking", false);
+                    animator.SetBool("IsFiring", true);
                     FaceTarget();
 
                     //Attack 
 
                     if (Time.time > nextFire)
                     {
-                        shootpos = new Vector3(this.transform.position.x, this.transform.position.y + 0.4f, this.transform.position.z);
+                        shootpos = new Vector3(this.transform.position.x, this.transform.position.y + 0.6f, this.transform.position.z);
 
                         nextFire = Time.time + (fireTimer / 0.5f);
                         PoolManager.Instance.SpawnFromPool(PoolManager.tags.LaserEnnemy, shootpos, this.transform.rotation);
@@ -58,6 +65,8 @@ public class Ennemy : LivingEntities
 
                     }
                 }
+                else
+                    animator.SetBool("IsWalking", true);
             }
         }
     }

@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 0.37
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 7d664292747c9cf458ce50282dc244c8, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.008922849, g: 0.009584132, b: 0.010731858, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -129,39 +129,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 382390990, guid: 1cf5cef00a964384eb4dbe94b3934034, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2201148463399266664, guid: 1cf5cef00a964384eb4dbe94b3934034,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2201148463548280508, guid: 1cf5cef00a964384eb4dbe94b3934034,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2201148464043539878, guid: 1cf5cef00a964384eb4dbe94b3934034,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2201148464126202056, guid: 1cf5cef00a964384eb4dbe94b3934034,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 2201148464471733284, guid: 1cf5cef00a964384eb4dbe94b3934034,
         type: 3}
       propertyPath: m_Name
       value: Prototype Level
-      objectReference: {fileID: 0}
-    - target: {fileID: 2201148464471733284, guid: 1cf5cef00a964384eb4dbe94b3934034,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 2201148464471733287, guid: 1cf5cef00a964384eb4dbe94b3934034,
         type: 3}
@@ -220,58 +191,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2201148464558423246, guid: 1cf5cef00a964384eb4dbe94b3934034,
         type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2201148464932994716, guid: 1cf5cef00a964384eb4dbe94b3934034,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2201148464982677498, guid: 1cf5cef00a964384eb4dbe94b3934034,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2201148464988296930, guid: 1cf5cef00a964384eb4dbe94b3934034,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2201148465077888244, guid: 1cf5cef00a964384eb4dbe94b3934034,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2201148465101929126, guid: 1cf5cef00a964384eb4dbe94b3934034,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2201148465142363083, guid: 1cf5cef00a964384eb4dbe94b3934034,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2201148465236515875, guid: 1cf5cef00a964384eb4dbe94b3934034,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2201148465267768599, guid: 1cf5cef00a964384eb4dbe94b3934034,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2201148465275654856, guid: 1cf5cef00a964384eb4dbe94b3934034,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2201148465389470386, guid: 1cf5cef00a964384eb4dbe94b3934034,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cf5cef00a964384eb4dbe94b3934034, type: 3}
@@ -4000,6 +3921,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4122065570638655233, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122065570638655233, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122065570638655233, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122065570638655233, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6193077238628029035, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4094,6 +4035,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 0}
+  isGlobal: 0
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!95 &1399676258
 Animator:
   serializedVersion: 3
