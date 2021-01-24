@@ -46,6 +46,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject winScreen;
 
+    [SerializeField] private Text ennemiesLeft;
+    [SerializeField] private Text wave;
+    [SerializeField] private Text pressSpace;
+
     private GameObject pauseOverAbility;
     public GameObject PauseOverAbility { get => pauseOverAbility; set => pauseOverAbility = value; }
 
@@ -98,8 +102,11 @@ public class UIManager : MonoBehaviour
                 ApplyEffectToPlayer(player, 2);
                 break;
             case "Play":
-                if (GameManager.Instance.GameState.Equals(GameManager.gameState.GameOver))
+                if (GameManager.Instance.GameState.Equals(GameManager.gameState.GameOver) || 
+                    GameManager.Instance.GameState.Equals(GameManager.gameState.Win))
+                {
                     GameManager.Instance.ReloadScene();
+                }
 
                 GameManager.Instance.GameState = GameManager.gameState.InGame;
                 break;
@@ -192,6 +199,9 @@ public class UIManager : MonoBehaviour
                 break;
 
             case GameManager.gameState.Levelup:
+                powerUpSummary.text = "";
+                if (pressSpace.enabled == true)
+                    pressSpace.enabled = false;
                 crosshair.SetActive(false);
                 powerUpCanvas.SetActive(true);
                 foreach (Button button in choices)
@@ -202,6 +212,8 @@ public class UIManager : MonoBehaviour
                     buttonsRef.Add(abilityRef);
                     button.image.sprite = abilitiesList[abilityRef].sprite;
                 }
+                if (GameManager.Instance.EnnemiesLeft == 0)
+                    pressSpace.enabled = true;
                 break;
 
             case GameManager.gameState.Win:
@@ -217,6 +229,20 @@ public class UIManager : MonoBehaviour
                 HUDAndPopUpCanvas.SetActive(false);
                 break;
         }
+    }
+
+    public void UpdateEnnemiesText()
+    {
+        ennemiesLeft.text = "Ennemies Left : " + GameManager.Instance.EnnemiesLeft.ToString();
+        if (GameManager.Instance.EnnemiesLeft == 0)
+            pressSpace.enabled = true;
+        else
+            pressSpace.enabled = false;
+    }
+
+    public void UpdateWavesText()
+    {
+        wave.text = "Wave " + GameManager.Instance.WaveNumber.ToString() + " / " + GameManager.Instance.MaxWave.ToString();
     }
 
     public void GameOverScreen(bool active)

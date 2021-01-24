@@ -210,10 +210,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   rb: {fileID: -7910217817036356488}
+  plasmaExplosion: {fileID: 198000010585806678, guid: 96730f8640590934eacb6f860058e7f9,
+    type: 3}
   move: 0
   Glow: {fileID: 910985361}
   Lightning: {fileID: 7140095897139623251}
-  hitbox: {fileID: 6996027320887054975}
 --- !u!54 &-7910217817036356488
 Rigidbody:
   m_ObjectHideFlags: 0

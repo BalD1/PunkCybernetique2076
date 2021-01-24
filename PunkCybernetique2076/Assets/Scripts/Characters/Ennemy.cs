@@ -9,15 +9,15 @@ public class Ennemy : LivingEntities
     [SerializeField] private Player player;
     [SerializeField] private float fireTimer = 1f;
     [SerializeField] private GameObject apparence;
+    [SerializeField] private GameObject minimapCircle;
     private float nextFire;
     public int EnnemyDamage = 10;
     public float lookRadius = 30f;
 
     private bool dead;
+    public bool Dead { get; }
 
     public Animator animator;
-
-    private GameObject linkedExplosion;
 
     Transform target;
     NavMeshAgent agent;
@@ -27,7 +27,17 @@ public class Ennemy : LivingEntities
     {
         
         agent = GetComponent<NavMeshAgent>();
+        player = GameManager.Instance.PlayerRef;
         CallAwake();
+        GameManager.Instance.EnnemyRef = this;
+    }
+
+    private void OnEnable()
+    {
+        GameManager.Instance.EnnemyRef = this;
+        this.apparence.SetActive(true);
+        dead = false;
+        minimapCircle.SetActive(true);
     }
 
     private void Start()
@@ -87,11 +97,11 @@ public class Ennemy : LivingEntities
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Laser"))
+        if (collision.collider.CompareTag("Laser") && !dead)
         {
             UIManager.Instance.ActivateHitMarker();
             this.InflictDamage(player.GetStatValue(StatsObject.stats.attack), player);
-            if (HP.Value <= 0)
+            if (HP.Value <= 0 && !dead)
             {
                 Death();
             }
@@ -102,19 +112,12 @@ public class Ennemy : LivingEntities
     {
         dead = true;
         SoundManager.Instance.Play("boom");
-
-        if (linkedExplosion == null)
-            linkedExplosion = PoolManager.Instance.SpawnFromPool(PoolManager.tags.NormalExplosion, this.transform.position, Quaternion.identity);
-        linkedExplosion.SetActive(true);
-        StartCoroutine(SetInactive());
-    }
-
-    private IEnumerator SetInactive()
-    {
-        this.apparence.SetActive(false);
-
-        yield return new WaitForSeconds(1.8f);
-        linkedExplosion.SetActive(false);
-        Destroy(this.gameObject);
+        GameManager.Instance.EnnemiesLeft--;
+        Debug.Log(this.name);
+        if (GameManager.Instance.WaveNumber == 1)
+            player.GainExperience(100);
+        else
+            player.GainExperience(10 * GameManager.Instance.WaveNumber);
+        this.gameObject.SetActive(false);
     }
 }

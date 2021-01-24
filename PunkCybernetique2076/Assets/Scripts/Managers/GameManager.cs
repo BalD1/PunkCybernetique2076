@@ -8,8 +8,35 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player player;
     public Player PlayerRef { get => player; }
 
+    [SerializeField] private Ennemy ennemy;
+    public Ennemy EnnemyRef { get => ennemy; set => ennemy = value; }
+
     private List<EffectsObject> overallEffectObjects;
     public List<EffectsObject> OverallEffectObjects { get; set; }
+
+    private int ennemiesLeft;
+    public int EnnemiesLeft
+    {
+        get { return ennemiesLeft; }
+        set
+        {
+            ennemiesLeft = value;
+            UIManager.Instance.UpdateEnnemiesText();
+        }
+    }
+
+    private int waveNumber;
+    public int WaveNumber
+    {
+        get { return waveNumber; }
+        set
+        {
+            waveNumber = value;
+            UIManager.Instance.UpdateWavesText();
+        }
+    }
+
+    public int MaxWave { get; set; }
 
     public enum gameState
     {

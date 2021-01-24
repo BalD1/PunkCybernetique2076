@@ -166,6 +166,7 @@ MonoBehaviour:
   player: {fileID: 0}
   fireTimer: 0.4
   apparence: {fileID: 7744621173741816857}
+  minimapCircle: {fileID: 8947552020125201775}
   EnnemyDamage: 10
   lookRadius: 30
   animator: {fileID: 2035734400350531938}

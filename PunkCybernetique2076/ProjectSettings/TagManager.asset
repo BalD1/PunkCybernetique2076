@@ -9,6 +9,7 @@ TagManager:
   - Unmovable Object
   - LaserEnnemy
   - Particles
+  - Spawner
   layers:
   - Default
   - TransparentFX
@@ -24,8 +25,8 @@ TagManager:
   - Laser
   - Minimap
   - PostProcessing
-  - 
-  - 
+  - Spawner
+  - LaserEnnemie
   - 
   - 
   - 

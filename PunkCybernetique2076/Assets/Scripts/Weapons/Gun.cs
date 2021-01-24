@@ -13,6 +13,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private ParticleSystem smoke;
     [SerializeField] private GameObject spawnPoint;
     [SerializeField] private Animator recoil;
+    [SerializeField] private LayerMask mask;
     private float smokeCooldown;
     private Ray ray;
     private RaycastHit hit;

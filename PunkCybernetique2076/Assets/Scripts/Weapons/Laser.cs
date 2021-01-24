@@ -30,7 +30,9 @@ public class Laser : MonoBehaviour
     {
         if (!collision.collider.CompareTag("Player"))
         {
-            Death();
+            if (collision.gameObject.GetComponent<Ennemy>() != null)
+                if (!collision.gameObject.GetComponent<Ennemy>().Dead)
+                    Death();
         }
     }
 
@@ -38,7 +40,10 @@ public class Laser : MonoBehaviour
     {
         move = false;
         if (linkedExplosion == null)
+        {
             linkedExplosion = PoolManager.Instance.SpawnFromPool(PoolManager.tags.PlasmaExplosion, this.transform.position, Quaternion.identity);
+            linkedExplosion.transform.position = this.transform.position;
+        }
         SoundManager.Instance.transform.position = this.transform.position;
         SoundManager.Instance.Play("impact");
         linkedExplosion.SetActive(true);

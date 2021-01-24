@@ -126,7 +126,7 @@ public class Player : LivingEntities
 
     #endregion
 
-    private void GainExperience(float amount)
+    public void GainExperience(float amount)
     {
         this.experience.ChangeData(null, experience.Value + amount);
         UIManager.Instance.FillBar(experience.Value / experience.Max, "XP");
@@ -165,6 +165,5 @@ public class Player : LivingEntities
         yield return new WaitForSeconds(1);
         PostProcessManager.Instance.ScreenFadeOut();
     }
-
 
 }

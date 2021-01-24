@@ -15,7 +15,7 @@ public class LaserEnnemy : MonoBehaviour
 
     private void OnEnable()
     {
-        ennemy = (Ennemy)FindObjectOfType(typeof(Ennemy));
+        ennemy = GameManager.Instance.EnnemyRef;
         damage = ennemy.GetStatValue(StatsObject.stats.attack);
         this.gameObject.GetComponent<Renderer>().enabled = true;
         Lightning.SetActive(true);
