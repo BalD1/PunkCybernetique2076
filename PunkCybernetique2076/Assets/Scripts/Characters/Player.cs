@@ -139,6 +139,9 @@ public class Player : LivingEntities
                       (int)speedPerLevelCurve.Evaluate(level.Value + 1),
                       (int)fireRateLevelCurve.Evaluate(level.Value + 1)
                     );
+            SoundManager.Instance.GetComponent<AudioSource>().spatialBlend = 0;
+            SoundManager.Instance.Play("lvlup");
+            SoundManager.Instance.GetComponent<AudioSource>().spatialBlend = 1;
             GameManager.Instance.GameState = GameManager.gameState.Levelup;
             UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
             UIManager.Instance.FillBar(experience.Value / experience.Max, "XP");

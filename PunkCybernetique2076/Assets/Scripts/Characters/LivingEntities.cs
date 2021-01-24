@@ -175,6 +175,7 @@ public class LivingEntities : MonoBehaviour
         {
             UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
             PostProcessManager.Instance.Hurt();
+            SoundManager.Instance.Play2D("hurt");
         }
 
         if (HP.Value <= 0)

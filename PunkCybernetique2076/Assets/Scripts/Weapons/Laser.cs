@@ -39,6 +39,8 @@ public class Laser : MonoBehaviour
         move = false;
         if (linkedExplosion == null)
             linkedExplosion = PoolManager.Instance.SpawnFromPool(PoolManager.tags.PlasmaExplosion, this.transform.position, Quaternion.identity);
+        SoundManager.Instance.transform.position = this.transform.position;
+        SoundManager.Instance.Play("impact");
         linkedExplosion.SetActive(true);
         StartCoroutine(SetInactive());
     }

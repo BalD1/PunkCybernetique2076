@@ -75,12 +75,14 @@ public class GameManager : MonoBehaviour
                     break;
 
                 case gameState.Win:
+                    SoundManager.Instance.AutomaticMusicChange();
                     Cursor.lockState = CursorLockMode.Confined;
                     Cursor.visible = true;
                     Time.timeScale = 0;
                     break;
 
                 case gameState.GameOver:
+                    SoundManager.Instance.AutomaticMusicChange();
                     Cursor.lockState = CursorLockMode.Confined;
                     Cursor.visible = true;
                     PostProcessManager.Instance.GameOver();
