@@ -20,8 +20,6 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.WaveNumber - 1 > 1)
-        Debug.Log(ennemiesToSpawnByWave[GameManager.Instance.WaveNumber - 1].value);
         if (ennemiesLeft == 0 && GameManager.Instance.WaveNumber == GameManager.Instance.MaxWave)
             GameManager.Instance.GameState = GameManager.gameState.Win;
         ennemiesLeft = GameManager.Instance.EnnemiesLeft;

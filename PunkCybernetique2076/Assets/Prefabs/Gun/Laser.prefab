@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 910985362}
   - component: {fileID: 910985363}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 6932877303893518639}
   - component: {fileID: -7910217817036356488}
   - component: {fileID: 6996027320887054975}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Laser
   m_TagString: Laser
   m_Icon: {fileID: 0}
@@ -210,8 +210,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   rb: {fileID: -7910217817036356488}
-  plasmaExplosion: {fileID: 198000010585806678, guid: 96730f8640590934eacb6f860058e7f9,
-    type: 3}
   move: 0
   Glow: {fileID: 910985361}
   Lightning: {fileID: 7140095897139623251}
@@ -255,7 +253,7 @@ GameObject:
   - component: {fileID: 4968387404112317895}
   - component: {fileID: 7951325181021780266}
   - component: {fileID: 1321359849279017904}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

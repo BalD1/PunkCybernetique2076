@@ -34,7 +34,6 @@ public class LaserEnnemy : MonoBehaviour
     {
         if (collision.collider.CompareTag("Unmovable Object") || collision.collider.CompareTag("Player"))
         {
-            Debug.Log(collision);
             Player player = collision.collider.GetComponent<Player>();
 
             if (player != null)

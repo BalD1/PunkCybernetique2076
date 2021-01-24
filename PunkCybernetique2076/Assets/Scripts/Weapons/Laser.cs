@@ -30,9 +30,7 @@ public class Laser : MonoBehaviour
     {
         if (!collision.collider.CompareTag("Player"))
         {
-            if (collision.gameObject.GetComponent<Ennemy>() != null)
-                if (!collision.gameObject.GetComponent<Ennemy>().Dead)
-                    Death();
+            Death();
         }
     }
 
