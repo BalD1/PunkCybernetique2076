@@ -44,7 +44,7 @@ public class Laser : MonoBehaviour
             linkedExplosion = PoolManager.Instance.SpawnFromPool(PoolManager.tags.PlasmaExplosion, this.transform.position, Quaternion.identity);
             linkedExplosion.transform.position = this.transform.position;
             /* j'arrive pas à régler ce bug. Les explosions vont rester au premier
-             * endroit où elles ont été activées, peut importe la position que
+             * endroit où elles ont été activées, peu importe la position que
              * j'essaie de leur donner.
              * J'ai tout essayé, j'ai changé leur simulation space, essayé de les mettre
              * dans un gameobject vide, j'ai fais de la magie vaudou...
