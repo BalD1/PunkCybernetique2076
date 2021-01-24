@@ -108,7 +108,8 @@ public class LivingEntities : MonoBehaviour
         if (level.Value == 100)
             return;
         level.ChangeData(null, level.Value + 1);
-        experience.ChangeData(newNeededExp, 0);
+        if (this.name.Equals("Player"))
+            experience.ChangeData(newNeededExp, 0);
         if (newMaxHealth.HasValue)
             HP.ChangeData(newMaxHealth.Value, newMaxHealth.Value);
         if (newMaxAttack.HasValue)
@@ -118,8 +119,6 @@ public class LivingEntities : MonoBehaviour
         if (newFireRate.HasValue)
             fireRate.ChangeData(newFireRate.Value, newFireRate.Value);
     }
-
-
 
     public void ApplyEffect(EffectsObject effect)
     {

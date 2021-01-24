@@ -10,6 +10,9 @@ public class Ennemy : LivingEntities
     [SerializeField] private float fireTimer = 1f;
     [SerializeField] private GameObject apparence;
     [SerializeField] private GameObject minimapCircle;
+
+    [SerializeField] private AnimationCurve HPperLevel;
+    [SerializeField] private AnimationCurve attackPerLevel;
     private float nextFire;
     public int EnnemyDamage = 10;
     public float lookRadius = 30f;
@@ -38,6 +41,17 @@ public class Ennemy : LivingEntities
         this.apparence.SetActive(true);
         dead = false;
         minimapCircle.SetActive(true);
+        LevelToWave();
+    }
+
+    private void LevelToWave()
+    {
+        if (this.level.Value < GameManager.Instance.WaveNumber)
+        {
+            LevelUp(0, HPperLevel.Evaluate(level.Value), attackPerLevel.Evaluate(level.Value), null, null);
+            Debug.Log(HPperLevel.Evaluate(level.Value));
+            LevelToWave();
+        }
     }
 
     private void Start()
@@ -113,11 +127,10 @@ public class Ennemy : LivingEntities
         dead = true;
         SoundManager.Instance.Play("boom");
         GameManager.Instance.EnnemiesLeft--;
-        Debug.Log(this.name);
         if (GameManager.Instance.WaveNumber == 1)
             player.GainExperience(100);
         else
-            player.GainExperience(10 * GameManager.Instance.WaveNumber);
+            player.GainExperience(10 * (GameManager.Instance.WaveNumber / 2));
         this.gameObject.SetActive(false);
     }
 }

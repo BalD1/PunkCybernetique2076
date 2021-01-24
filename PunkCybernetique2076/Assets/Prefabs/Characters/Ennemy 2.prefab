@@ -167,6 +167,54 @@ MonoBehaviour:
   fireTimer: 0.4
   apparence: {fileID: 7744621173741816857}
   minimapCircle: {fileID: 8947552020125201775}
+  HPperLevel:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1
+      value: 100
+      inSlope: 11.616161
+      outSlope: 11.616161
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 100
+      value: 1250
+      inSlope: 11.616161
+      outSlope: 11.616161
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  attackPerLevel:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1
+      value: 20
+      inSlope: 0.5050505
+      outSlope: 0.5050505
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 100
+      value: 70
+      inSlope: 0.5050505
+      outSlope: 0.5050505
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   EnnemyDamage: 10
   lookRadius: 30
   animator: {fileID: 2035734400350531938}
