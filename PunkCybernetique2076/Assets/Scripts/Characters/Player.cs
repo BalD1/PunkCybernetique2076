@@ -8,6 +8,8 @@ public class Player : LivingEntities
     [SerializeField] private Transform characterTransform;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private CharacterController controller;
+    [SerializeField] private GameObject gun;
+    [SerializeField] private Animator deathAnimation;
 
     #region animation curves
 
@@ -77,6 +79,9 @@ public class Player : LivingEntities
         if (Input.GetKeyDown(KeyCode.P))
             this.InflictDamage(this.HP.Max / 2);
 
+        if (gameOver)
+            Death();
+
     }
     
     private void FixedUpdate()
@@ -142,7 +147,21 @@ public class Player : LivingEntities
         return;
     }
 
+    private new void Death()
+    {
+        if (GameManager.Instance.GameState == GameManager.gameState.GameOver)  // if Gamestate = GameOver, it means that this has already been called
+            return;
 
+        GameManager.Instance.GameState = GameManager.gameState.GameOver;
+        deathAnimation.SetBool("GameOver", true);
+        StartCoroutine(WaitForAnimation());
+    }
+
+    private IEnumerator WaitForAnimation()
+    {
+        yield return new WaitForSeconds(1);
+        PostProcessManager.Instance.ScreenFadeOut();
+    }
 
 
 }

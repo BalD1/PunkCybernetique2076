@@ -27,8 +27,11 @@ public class LivingEntities : MonoBehaviour
     protected enum CharacterState { Idle, Moving }
     protected CharacterState characterState { get; set; }
 
+    protected bool gameOver;
+
     protected void CallAwake()
     {
+        gameOver = false;
         characterState = CharacterState.Idle;
         BaseStats();
         InitalizeStats();
@@ -216,8 +219,7 @@ public class LivingEntities : MonoBehaviour
 
     protected void Death()
     {
-        if (this.name.Equals("Player"))
-            GameManager.Instance.GameState = GameManager.gameState.GameOver;
+        gameOver = true;
     }
 
     #endregion

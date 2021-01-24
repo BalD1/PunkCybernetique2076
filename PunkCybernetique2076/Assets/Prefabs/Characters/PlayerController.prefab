@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 9178453304477529157}
   - component: {fileID: 8701971810577136419}
   - component: {fileID: 1060115178209124208}
+  - component: {fileID: 912909474}
   m_Layer: 8
   m_Name: Gun
   m_TagString: Player
@@ -181,6 +182,26 @@ MonoBehaviour:
   smokeTimer: 3
   smoke: {fileID: 7500259166641823641}
   spawnPoint: {fileID: 6720376158090700029}
+  recoil: {fileID: 912909474}
+--- !u!95 &912909474
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3050012727549383209}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7354d122e6b0bdf4dab489218a7f6df9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4122065569463808692
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,6 +290,7 @@ GameObject:
   - component: {fileID: 4122065569894328624}
   - component: {fileID: 2112945406}
   - component: {fileID: 2112945405}
+  - component: {fileID: 3166709822370615075}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -354,6 +376,8 @@ MonoBehaviour:
   characterTransform: {fileID: 4122065570205521361}
   playerCamera: {fileID: 4122065570638655233}
   controller: {fileID: 4122065570205521366}
+  gun: {fileID: 3050012727549383209}
+  deathAnimation: {fileID: 3166709822370615075}
   healthPerLevelCurve:
     serializedVersion: 2
     m_Curve:
@@ -559,6 +583,25 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &3166709822370615075
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4122065569894328626}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4122065570205521360
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,6 +664,7 @@ GameObject:
   - component: {fileID: 4122065570638655235}
   - component: {fileID: 4122065570638655233}
   - component: {fileID: 4122065570638655232}
+  - component: {fileID: 1805640884}
   m_Layer: 8
   m_Name: Player Camera
   m_TagString: MainCamera
@@ -675,7 +719,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 3895
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -694,6 +738,66 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4122065570638655234}
   m_Enabled: 1
+--- !u!114 &1805640884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4122065570638655234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 4122065570638655235}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 8192
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!1 &6720376158090700029
 GameObject:
   m_ObjectHideFlags: 0
