@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &382390991
 Transform:
@@ -42,9 +42,9 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6839622, g: 0.77598226, b: 1, a: 1}
   m_Intensity: 5
-  m_Range: 49.2
+  m_Range: 84.12
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -106,11 +106,11 @@ GameObject:
   - component: {fileID: 2201148463399266666}
   - component: {fileID: 2201148463399266667}
   m_Layer: 10
-  m_Name: Cube (3)
+  m_Name: Outside Wall 2
   m_TagString: Unmovable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2201148463399266671
 Transform:
@@ -152,7 +152,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b339a8dd04bff204992fc1353cd8b756, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -216,11 +216,11 @@ GameObject:
   - component: {fileID: 2201148463548280510}
   - component: {fileID: 2201148463548280511}
   m_Layer: 10
-  m_Name: Cube (10)
+  m_Name: Interior Wall 6
   m_TagString: Unmovable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2201148463548280499
 Transform:
@@ -262,7 +262,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 20f9fd6d61eed6e4aa73e66ccd59d447, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -326,11 +326,11 @@ GameObject:
   - component: {fileID: 2201148464043540056}
   - component: {fileID: 2201148464043540057}
   m_Layer: 10
-  m_Name: Cube (9)
+  m_Name: Interior Wall 5
   m_TagString: Unmovable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2201148464043540061
 Transform:
@@ -372,7 +372,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 20f9fd6d61eed6e4aa73e66ccd59d447, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -436,11 +436,11 @@ GameObject:
   - component: {fileID: 2201148464126202058}
   - component: {fileID: 2201148464126202059}
   m_Layer: 10
-  m_Name: Cube (2)
+  m_Name: Outside wall 3
   m_TagString: Unmovable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2201148464126202063
 Transform:
@@ -449,13 +449,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2201148464126202056}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0.70710677, w: 0}
   m_LocalPosition: {x: 68.672966, y: 31.650213, z: -39.85781}
   m_LocalScale: {x: 116.38, y: 41.37, z: 1}
   m_Children: []
   m_Father: {fileID: 2201148464471733287}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: -180}
 --- !u!33 &2201148464126202060
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -482,7 +482,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b339a8dd04bff204992fc1353cd8b756, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -546,7 +546,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2201148464471733287
 Transform:
@@ -593,11 +593,11 @@ GameObject:
   - component: {fileID: 2201148464558423232}
   - component: {fileID: 2201148464558423233}
   m_Layer: 10
-  m_Name: Cube (4)
+  m_Name: Roof
   m_TagString: Unmovable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2201148464558423237
 Transform:
@@ -639,7 +639,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: dcc62f8ef9539a649bf5013f9a53e35f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -703,11 +703,11 @@ GameObject:
   - component: {fileID: 2201148464932994718}
   - component: {fileID: 2201148464932994719}
   m_Layer: 10
-  m_Name: Cube (7)
+  m_Name: Interior Wall 3
   m_TagString: Unmovable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2201148464932994707
 Transform:
@@ -749,7 +749,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 20f9fd6d61eed6e4aa73e66ccd59d447, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -813,11 +813,11 @@ GameObject:
   - component: {fileID: 2201148464982677500}
   - component: {fileID: 2201148464982677501}
   m_Layer: 10
-  m_Name: Cube (8)
+  m_Name: Interior Wall 4
   m_TagString: Unmovable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2201148464982677489
 Transform:
@@ -859,7 +859,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 20f9fd6d61eed6e4aa73e66ccd59d447, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -923,11 +923,11 @@ GameObject:
   - component: {fileID: 2201148464988296932}
   - component: {fileID: 2201148464988296933}
   m_Layer: 10
-  m_Name: Cube (1)
+  m_Name: Oustide wall 4
   m_TagString: Unmovable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2201148464988296857
 Transform:
@@ -969,7 +969,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b339a8dd04bff204992fc1353cd8b756, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1033,11 +1033,11 @@ GameObject:
   - component: {fileID: 2201148465077888246}
   - component: {fileID: 2201148465077888247}
   m_Layer: 10
-  m_Name: Cube (11)
+  m_Name: Interior Wall 7
   m_TagString: Unmovable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2201148465077888235
 Transform:
@@ -1079,7 +1079,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 20f9fd6d61eed6e4aa73e66ccd59d447, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1143,11 +1143,11 @@ GameObject:
   - component: {fileID: 2201148465101929307}
   - component: {fileID: 2201148465101929304}
   m_Layer: 10
-  m_Name: Cube (13)
+  m_Name: Interior Wall 9
   m_TagString: Unmovable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2201148465101929305
 Transform:
@@ -1189,7 +1189,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 20f9fd6d61eed6e4aa73e66ccd59d447, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1253,11 +1253,11 @@ GameObject:
   - component: {fileID: 2201148465142363084}
   - component: {fileID: 2201148465142363085}
   m_Layer: 10
-  m_Name: Cube (12)
+  m_Name: Interior Wall 8
   m_TagString: Unmovable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2201148465142363082
 Transform:
@@ -1299,7 +1299,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 20f9fd6d61eed6e4aa73e66ccd59d447, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1363,11 +1363,11 @@ GameObject:
   - component: {fileID: 2201148465236515877}
   - component: {fileID: 2201148465236515874}
   m_Layer: 10
-  m_Name: Cube
+  m_Name: Outside wall 1
   m_TagString: Unmovable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2201148465236515878
 Transform:
@@ -1376,13 +1376,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2201148465236515875}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
   m_LocalPosition: {x: 11.772967, y: 31.650213, z: 18.54219}
   m_LocalScale: {x: 116.38, y: 41.37, z: 1}
   m_Children: []
   m_Father: {fileID: 2201148464471733287}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
 --- !u!33 &2201148465236515879
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1409,7 +1409,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b339a8dd04bff204992fc1353cd8b756, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1473,11 +1473,11 @@ GameObject:
   - component: {fileID: 2201148465267768585}
   - component: {fileID: 2201148465267768598}
   m_Layer: 10
-  m_Name: Cube (6)
+  m_Name: Interior Wall 2
   m_TagString: Unmovable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2201148465267768586
 Transform:
@@ -1519,7 +1519,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 20f9fd6d61eed6e4aa73e66ccd59d447, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1583,11 +1583,11 @@ GameObject:
   - component: {fileID: 2201148465275654861}
   - component: {fileID: 2201148465275654858}
   m_Layer: 10
-  m_Name: Cube (14)
+  m_Name: Interior Wall 10
   m_TagString: Unmovable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2201148465275654859
 Transform:
@@ -1629,7 +1629,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 20f9fd6d61eed6e4aa73e66ccd59d447, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1693,11 +1693,11 @@ GameObject:
   - component: {fileID: 2201148465389470388}
   - component: {fileID: 2201148465389470389}
   m_Layer: 10
-  m_Name: Cube (5)
+  m_Name: Interior Wall 1
   m_TagString: Unmovable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2201148465389470377
 Transform:
@@ -1739,7 +1739,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 20f9fd6d61eed6e4aa73e66ccd59d447, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1849,7 +1849,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5e0c9b9f3071af349aedd08a4b865fb5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
