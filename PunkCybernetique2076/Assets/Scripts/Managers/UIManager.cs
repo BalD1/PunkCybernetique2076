@@ -214,7 +214,7 @@ public class UIManager : MonoBehaviour
                 powerUpCanvas.SetActive(false);
                 pauseMenu.SetActive(false);
                 HUDAndPopUpCanvas.SetActive(false);
-                gameOverScreen.SetActive(true);
+              //  gameOverScreen.SetActive(true);
                 break;
         }
     }

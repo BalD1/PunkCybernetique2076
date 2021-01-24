@@ -8,14 +8,17 @@ public class PostProcessManager : MonoBehaviour
     private enum Parameters
     {
         Vignette,
+        Chromatic,
     }
     [SerializeField] private PostProcessVolume volume;
 
     [SerializeField] private float hurtVignetteValue = 0.25f;
 
+    private ChromaticAberration chromatic;
+    public ChromaticAberration Chromatic { get => chromatic; set => chromatic = value; }
+
     private Vignette vignette;
     public Vignette Vignette { get => vignette; set => vignette = value; }
-    private float vignetteFadeTimer;
 
     private static PostProcessManager instance;
     public static PostProcessManager Instance
@@ -37,47 +40,37 @@ public class PostProcessManager : MonoBehaviour
 
     private void Update()
     {
-        if (vignetteFadeTimer > 0)
-        {
-            vignetteFadeTimer -= Time.deltaTime;
-            FadeTimer(vignetteFadeTimer, Parameters.Vignette);
-        }
     }
 
     private void Initialization()
     {
         volume.profile.TryGetSettings<Vignette>(out vignette);
+        volume.profile.TryGetSettings<ChromaticAberration>(out chromatic);
     }
 
     public void Hurt()
     {
         vignette.intensity.value = hurtVignetteValue;
-        //StartCoroutine(Timer(0.2f, Parameters.Vignette));
-        vignetteFadeTimer = 5;
+        InvokeRepeating("DecreaseVignette", 0.1f, 0.1f);
     }
 
-    private IEnumerator Timer(float time, Parameters parameterName)
+    private void DecreaseVignette()
     {
-
-        yield return new WaitForSeconds(time);
-        switch (parameterName)
-        {
-            case Parameters.Vignette:
-                Vignette.intensity.value = 0;
-                break;
-        }
+        vignette.intensity.value -= Time.deltaTime;
+        if (vignette.intensity.value <= 0)
+            CancelInvoke("DecreaseVignette");
     }
 
-    private void FadeTimer(float time, Parameters parameterName)
+    public void GameOver()
     {
-        switch (parameterName)
-        {
-            case Parameters.Vignette:
-                Vignette.intensity.value -= Time.deltaTime;
-                break;
-        }
+        InvokeRepeating("IncreaseChromatic", 0.1f, 0.1f);
     }
 
-
+    private void IncreaseChromatic()
+    {
+        chromatic.intensity.value += Time.deltaTime * 5;
+        if (chromatic.intensity.value >= 3)
+            CancelInvoke("IncreaseChromatic");
+    }
 
 }

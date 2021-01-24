@@ -3276,6 +3276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volume: {fileID: 1001274739}
+  hurtVignetteValue: 0.25
 --- !u!1 &1293099010
 GameObject:
   m_ObjectHideFlags: 0

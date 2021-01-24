@@ -34,7 +34,7 @@ public class Ennemy : LivingEntities
 
     private void Update()
     {
-        if (!dead)
+        if (!dead && GameManager.Instance.GameState == GameManager.gameState.InGame)
         {
             float distance = Vector3.Distance(target.position, transform.position);
 

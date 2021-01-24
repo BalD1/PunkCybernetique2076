@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
                 case gameState.GameOver:
                     Cursor.lockState = CursorLockMode.Confined;
                     Cursor.visible = true;
-                    Time.timeScale = 0;
+                    PostProcessManager.Instance.GameOver();
                     break;
 
                 default:

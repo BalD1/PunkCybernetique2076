@@ -65,7 +65,7 @@ public class Player : LivingEntities
     {
         if (GameManager.Instance.GameState == GameManager.gameState.InGame)
             CameraMovements();
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && GameManager.Instance.GameState != GameManager.gameState.GameOver)
             Pause();
 
         // TEST CODE
