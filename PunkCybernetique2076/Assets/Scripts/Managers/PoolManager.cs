@@ -33,7 +33,8 @@ public class PoolManager : MonoBehaviour
     {
         Laser,
         PlasmaExplosion,
-        LaserEnnemy
+        LaserEnnemy,
+        NormalExplosion,
     }
 
     public List<Pool> pools;

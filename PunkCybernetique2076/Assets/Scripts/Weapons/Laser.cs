@@ -40,7 +40,6 @@ public class Laser : MonoBehaviour
         if (linkedExplosion == null)
             linkedExplosion = PoolManager.Instance.SpawnFromPool(PoolManager.tags.PlasmaExplosion, this.transform.position, Quaternion.identity);
         linkedExplosion.SetActive(true);
-        linkedExplosion.transform.position = this.transform.position;
         StartCoroutine(SetInactive());
     }
 

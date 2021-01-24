@@ -164,6 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   fireTimer: 0.4
+  apparence: {fileID: 1348533916122911971}
   EnnemyDamage: 10
   lookRadius: 30
 --- !u!54 &1348533917396557460

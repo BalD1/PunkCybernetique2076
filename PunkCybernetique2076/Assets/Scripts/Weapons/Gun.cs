@@ -38,7 +38,7 @@ public class Gun : MonoBehaviour
             PoolManager.Instance.SpawnFromPool(PoolManager.tags.Laser, spawnPoint.transform.position, spawnPoint.transform.rotation);
             SoundManager.Instance.Play("laser");
 
-            if (player.GetStatValue(StatsObject.stats.fireRate) < 2.5f)
+            if (player.GetStatValue(StatsObject.stats.fireRate) < 2.5f && recoil != null)
             {
                 recoil.speed = player.GetStatValue(StatsObject.stats.fireRate);
                 recoil.SetTrigger("Fire");

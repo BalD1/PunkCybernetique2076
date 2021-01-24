@@ -8,9 +8,14 @@ public class Ennemy : LivingEntities
 {
     [SerializeField] private Player player;
     [SerializeField] private float fireTimer = 1f;
+    [SerializeField] private GameObject apparence;
     private float nextFire;
     public int EnnemyDamage = 10;
     public float lookRadius = 30f;
+
+    private bool dead;
+
+    private GameObject linkedExplosion;
 
     Transform target;
     NavMeshAgent agent;
@@ -25,35 +30,34 @@ public class Ennemy : LivingEntities
     private void Start()
     {
         target = player.transform;
-        
     }
 
     private void Update()
     {
-        HP.DebugLog();
-        float distance = Vector3.Distance(target.position, transform.position);
-
-        if (distance <= lookRadius)
+        if (!dead)
         {
-            agent.SetDestination(target.position);
+            float distance = Vector3.Distance(target.position, transform.position);
 
-            if (distance <= agent.stoppingDistance)
+            if (distance <= lookRadius)
             {
-                FaceTarget();
+                agent.SetDestination(target.position);
 
-                //Attack 
-
-                if (Time.time > nextFire)
+                if (distance <= agent.stoppingDistance)
                 {
-                    shootpos = new Vector3(this.transform.position.x, this.transform.position.y + 0.4f, this.transform.position.z);
+                    FaceTarget();
 
-                    nextFire = Time.time + (fireTimer / 0.5f);
-                    PoolManager.Instance.SpawnFromPool(PoolManager.tags.LaserEnnemy, shootpos, this.transform.rotation);
-                    SoundManager.Instance.Play("laser");
+                    //Attack 
 
+                    if (Time.time > nextFire)
+                    {
+                        shootpos = new Vector3(this.transform.position.x, this.transform.position.y + 0.4f, this.transform.position.z);
+
+                        nextFire = Time.time + (fireTimer / 0.5f);
+                        PoolManager.Instance.SpawnFromPool(PoolManager.tags.LaserEnnemy, shootpos, this.transform.rotation);
+                        SoundManager.Instance.Play("laser");
+
+                    }
                 }
-
-
             }
         }
     }
@@ -86,7 +90,21 @@ public class Ennemy : LivingEntities
 
     new void Death()
     {
+        dead = true;
         SoundManager.Instance.Play("boom");
-        Destroy(gameObject);
+
+        if (linkedExplosion == null)
+            linkedExplosion = PoolManager.Instance.SpawnFromPool(PoolManager.tags.NormalExplosion, this.transform.position, Quaternion.identity);
+        linkedExplosion.SetActive(true);
+        StartCoroutine(SetInactive());
+    }
+
+    private IEnumerator SetInactive()
+    {
+        this.apparence.SetActive(false);
+
+        yield return new WaitForSeconds(1.8f);
+        linkedExplosion.SetActive(false);
+        Destroy(this.gameObject);
     }
 }

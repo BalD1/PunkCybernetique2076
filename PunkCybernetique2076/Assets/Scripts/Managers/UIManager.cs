@@ -79,7 +79,7 @@ public class UIManager : MonoBehaviour
     }
 
     #region general
-    
+
     public void OnClickEnter(string button)
     {
         Player player = GameManager.Instance.PlayerRef;
@@ -175,10 +175,14 @@ public class UIManager : MonoBehaviour
                 break;
 
             case GameManager.gameState.InGame:
-                powerUpCanvas.SetActive(false);
-                pauseMenu.SetActive(false);
-                HUDAndPopUpCanvas.SetActive(true);
-                crosshair.SetActive(true);
+                if (powerUpCanvas != null)
+                    powerUpCanvas.SetActive(false);
+                if (pauseMenu != null)
+                    pauseMenu.SetActive(false);
+                if (HUDAndPopUpCanvas != null)
+                    HUDAndPopUpCanvas.SetActive(true);
+                if (crosshair != null)
+                    crosshair.SetActive(true);
                 break;
 
             case GameManager.gameState.Pause:

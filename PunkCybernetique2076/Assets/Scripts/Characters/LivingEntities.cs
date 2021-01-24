@@ -53,7 +53,7 @@ public class LivingEntities : MonoBehaviour
         level.Data(StatsObject.stats.level, 100, 1);
 
         HP = new StatsObject();
-        HP.Data(StatsObject.stats.HP, 1000, 1000);
+        HP.Data(StatsObject.stats.HP, 100, 100);
 
         attack = new StatsObject();
         attack.Data(StatsObject.stats.attack, 20, 20);
@@ -213,9 +213,7 @@ public class LivingEntities : MonoBehaviour
 
     protected void Death()
     {
-        if (!this.name.Equals("Player"))
-            Destroy(gameObject);
-        else
+        if (this.name.Equals("Player"))
             GameManager.Instance.GameState = GameManager.gameState.GameOver;
     }
 
