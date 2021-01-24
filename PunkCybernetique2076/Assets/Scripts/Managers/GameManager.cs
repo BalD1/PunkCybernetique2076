@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
                     Cursor.visible = false;
                     Time.timeScale = 1;
                     if (SceneManager.GetActiveScene().name.Equals("MainMenu"))
-                        SceneManager.LoadScene("Floflo Scene");
+                        SceneManager.LoadScene("MainScene");
                     break;
 
                 case gameState.Pause:
