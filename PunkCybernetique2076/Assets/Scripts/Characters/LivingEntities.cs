@@ -169,7 +169,10 @@ public class LivingEntities : MonoBehaviour
         HP.ChangeData(null, HP.Value - amount);
 
         if (this.name.Equals("Player"))
+        {
             UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
+            PostProcessManager.Instance.Hurt();
+        }
 
         if (HP.Value <= 0)
             Death();
