@@ -6,6 +6,7 @@ public class LaserEnnemy : MonoBehaviour
 {
     [SerializeField] private float speed = 30;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private AudioSource source;
     public bool move;
     private GameObject linkedExplosion;
     public GameObject Glow;
@@ -40,6 +41,7 @@ public class LaserEnnemy : MonoBehaviour
             {
                 player.InflictDamage(damage);
             }
+            source.PlayOneShot(SoundManager.Instance.GetAudioCLip("impact"));
 
             Death();
         }

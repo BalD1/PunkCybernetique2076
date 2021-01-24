@@ -85,6 +85,18 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public AudioClip GetAudioCLip(string name)
+    {
+        for (int i = 0; i < Sounds.Length; i++)
+        {
+            if (Sounds[i] == name)
+            {
+                return audioArray[i];
+            }
+        }
+        return null;
+    }
+
     public void PlayBGMusic()
     {
         string musicToPlay = "";

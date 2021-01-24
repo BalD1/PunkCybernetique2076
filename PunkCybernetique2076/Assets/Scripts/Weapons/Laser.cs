@@ -6,6 +6,8 @@ public class Laser : MonoBehaviour
 {
     [SerializeField] private float speed = 30;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private AudioSource source;
+
     public bool move;
     private GameObject linkedExplosion;
     public GameObject Glow;
@@ -42,8 +44,7 @@ public class Laser : MonoBehaviour
             linkedExplosion = PoolManager.Instance.SpawnFromPool(PoolManager.tags.PlasmaExplosion, this.transform.position, Quaternion.identity);
             linkedExplosion.transform.position = this.transform.position;
         }
-        SoundManager.Instance.transform.position = this.transform.position;
-        SoundManager.Instance.Play("impact");
+        source.PlayOneShot(SoundManager.Instance.GetAudioCLip("impact"));
         linkedExplosion.SetActive(true);
         StartCoroutine(SetInactive());
     }

@@ -13,6 +13,9 @@ public class Ennemy : LivingEntities
 
     [SerializeField] private AnimationCurve HPperLevel;
     [SerializeField] private AnimationCurve attackPerLevel;
+
+    [SerializeField] private AudioSource source;
+
     private float nextFire;
     public int EnnemyDamage = 10;
     public float lookRadius = 30f;
@@ -86,7 +89,7 @@ public class Ennemy : LivingEntities
 
                         nextFire = Time.time + (fireTimer / 0.5f);
                         PoolManager.Instance.SpawnFromPool(PoolManager.tags.LaserEnnemy, shootpos, this.transform.rotation);
-                        SoundManager.Instance.Play("laser");
+                        source.PlayOneShot(SoundManager.Instance.GetAudioCLip("laser"));
 
                     }
                 }

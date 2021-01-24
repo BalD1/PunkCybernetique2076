@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class LivingEntities : MonoBehaviour
 {
+    protected AudioSource playerSource;
+
     protected StatsObject HP;
     protected StatsObject attack;
     protected StatsObject fireRate;
@@ -134,7 +136,10 @@ public class LivingEntities : MonoBehaviour
     {
         HP.ChangeData(null, HP.Value - amount);
         if (this.name.Equals("Player"))
+        {
             UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
+            playerSource.PlayOneShot(SoundManager.Instance.GetAudioCLip("hurt"));
+        }
         if (attacker != null)
         {
             if (attacker.TickDamagers != null)
@@ -173,8 +178,8 @@ public class LivingEntities : MonoBehaviour
         if (this.name.Equals("Player"))
         {
             UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
+            playerSource.PlayOneShot(SoundManager.Instance.GetAudioCLip("hurt"));
             PostProcessManager.Instance.Hurt();
-            SoundManager.Instance.Play2D("hurt");
         }
 
         if (HP.Value <= 0)
