@@ -3207,9 +3207,9 @@ MonoBehaviour:
     name: ultimateFirerateBoost
     rarity: 2
     elementNumber: 8
-  commonPercentage: 0
-  rarePercentage: 100
-  legendaryPercentage: 0
+  commonPercentage: 70
+  rarePercentage: 25
+  legendaryPercentage: 5
   choices:
   - {fileID: 1254479947}
   - {fileID: 1371078281}
@@ -3231,6 +3231,7 @@ MonoBehaviour:
   ennemiesLeft: {fileID: 101579047}
   wave: {fileID: 78903717}
   pressSpace: {fileID: 1353326692}
+  ennemiesHUDimageScale: 0.1275
 --- !u!82 &1207900205
 AudioSource:
   m_ObjectHideFlags: 0
