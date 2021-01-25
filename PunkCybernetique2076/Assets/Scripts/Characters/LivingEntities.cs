@@ -26,6 +26,10 @@ public class LivingEntities : MonoBehaviour
     protected List<EffectsObject> appliedTickDamagers;
     public List<EffectsObject> AppliedTickDamagers { get => appliedTickDamagers; }
 
+    [SerializeField] protected GameObject statusHolder;
+    [SerializeField] protected GameObject HPBar;
+    [SerializeField] protected Sprite fireImage;
+    [SerializeField] protected Sprite poisonImage;
     protected enum CharacterState { Idle, Moving }
     protected CharacterState characterState { get; set; }
 
@@ -132,6 +136,26 @@ public class LivingEntities : MonoBehaviour
         this.tickDamagers.Add(damager);
     }
 
+    public void InflictDamage(float amount)
+    {
+        HP.ChangeData(null, HP.Value - amount);
+
+        if (this.name.Equals("Player"))
+        {
+            UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
+            playerSource.PlayOneShot(SoundManager.Instance.GetAudioCLip("hurt"));
+            PostProcessManager.Instance.Hurt();
+        }
+
+        if (this.name.Contains("Ennemy"))
+        {
+            UIManager.Instance.FillBar(HP.Value / HP.Max, "HP", HPBar);
+        }
+
+        if (HP.Value <= 0)
+            Death();
+    }
+
     public void InflictDamage(float amount, LivingEntities attacker)
     {
         HP.ChangeData(null, HP.Value - amount);
@@ -139,6 +163,10 @@ public class LivingEntities : MonoBehaviour
         {
             UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
             playerSource.PlayOneShot(SoundManager.Instance.GetAudioCLip("hurt"));
+        }
+        if (this.name.Contains("Ennemy"))
+        {
+            UIManager.Instance.FillBar(HP.Value / HP.Max, "HP", HPBar);
         }
         if (attacker != null)
         {
@@ -151,6 +179,21 @@ public class LivingEntities : MonoBehaviour
                             if (applied == damager)
                                 return;
                         }
+                    Sprite neededSprite = null;
+                    switch (damager.EffectName)
+                    {
+                        case "fireStatut":
+                            neededSprite = fireImage;
+                            break;
+                        case "poisonStatut":
+                            neededSprite = poisonImage;
+                            break;
+                        default:
+                            Debug.LogError(damager.EffectName + " not found in switch statement.");
+                            break;
+                    }
+                    if (neededSprite != null)
+                        UIManager.Instance.AddImageToEnnemyHUD(statusHolder, neededSprite);
 
                     appliedTickDamagers.Add(damager);
                     float finalDamages = this.HP.Max - (this.HP.Max * ((100 - (float)damager.Amount) / 100));
@@ -171,24 +214,10 @@ public class LivingEntities : MonoBehaviour
         }
     }
 
-    public void InflictDamage(float amount)
-    {
-        HP.ChangeData(null, HP.Value - amount);
-
-        if (this.name.Equals("Player"))
-        {
-            UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
-            playerSource.PlayOneShot(SoundManager.Instance.GetAudioCLip("hurt"));
-            PostProcessManager.Instance.Hurt();
-        }
-
-        if (HP.Value <= 0)
-            Death();
-    }
-
     private void InflickTickDamages(float amount, int time, EffectsObject damager)
     {
         InflictDamage(amount);
+        UIManager.Instance.FillBar(HP.Value / HP.Max, "HP", HPBar);
         StartCoroutine(TickDamage(amount, time, damager));
     }
 
@@ -197,6 +226,21 @@ public class LivingEntities : MonoBehaviour
         if (time <= 0)
         {
             appliedTickDamagers.Remove(damager);
+            Sprite imageToRemove = null;
+            switch (damager.EffectName)
+            {
+                case "fireStatut":
+                    imageToRemove = fireImage;
+                    break;
+                case "poisonStatut":
+                    imageToRemove = poisonImage;
+                    break;
+                default:
+                    Debug.LogError(damager.EffectName + " not found in switch statement.");
+                    break;
+            }
+            if (imageToRemove != null)
+                UIManager.Instance.RemoveImageInEnnemyHUD(statusHolder, imageToRemove);
             yield break;
         }
         yield return new WaitForSeconds(1);
@@ -208,6 +252,9 @@ public class LivingEntities : MonoBehaviour
         this.HP.ChangeData(null, this.HP.Value + amount);
         if (this.name.Equals("Player"))
             UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
+        else if (this.name.Contains("Ennemy"))
+            UIManager.Instance.FillBar(HP.Value / HP.Max, "HP", HPBar);
+
     }
 
     public void LogStats(LivingEntities entity)

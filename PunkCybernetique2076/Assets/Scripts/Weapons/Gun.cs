@@ -42,7 +42,7 @@ public class Gun : MonoBehaviour
             if (player.GetStatValue(StatsObject.stats.fireRate) < 2.5f && recoil != null)
             {
                 recoil.speed = player.GetStatValue(StatsObject.stats.fireRate);
-                recoil.SetTrigger("laser");
+                recoil.SetTrigger("Fire");
             }
 
             if (!smoke.isPlaying)
@@ -51,7 +51,7 @@ public class Gun : MonoBehaviour
             }
             smokeCooldown = smokeTimer;
 
-            audio.PlayOneShot(SoundManager.Instance.GetAudioCLip("laser"));
+            audio.PlayOneShot(SoundManager.Instance.GetAudioCLip("Fire"));
         }
 
         smokeCooldown = Mathf.Clamp(smokeCooldown - Time.deltaTime, 0, smokeTimer);

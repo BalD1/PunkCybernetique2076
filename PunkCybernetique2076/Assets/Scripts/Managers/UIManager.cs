@@ -50,6 +50,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text wave;
     [SerializeField] private Text pressSpace;
 
+    [SerializeField] protected float ennemiesHUDimageScale = 0.1275f;
+
     private GameObject pauseOverAbility;
     public GameObject PauseOverAbility { get => pauseOverAbility; set => pauseOverAbility = value; }
 
@@ -298,6 +300,44 @@ public class UIManager : MonoBehaviour
                 Debug.LogError(bar + " bar not found in switch statement.");
                 break;
         }
+    }
+
+    public void FillBar(float amount, string bar, GameObject barObject)
+    {
+        switch (bar)
+        {
+            case "HP":
+                barObject.GetComponent<Image>().fillAmount = amount;
+                break;
+            default:
+                Debug.LogError(bar + " bar not found in switch statement.");
+                break;
+        }
+    }
+
+    public void AddImageToEnnemyHUD(GameObject ennemyHUD, Sprite image)
+    {
+        GameObject child = new GameObject();
+        child.transform.parent = ennemyHUD.transform;
+        child.transform.localEulerAngles = Vector3.zero;
+        child.transform.localPosition = Vector3.zero;
+        Image addedImage = child.AddComponent<Image>();
+        addedImage.sprite = image;
+        addedImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, ennemiesHUDimageScale);
+        addedImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, ennemiesHUDimageScale);
+    }
+
+    public void RemoveImageInEnnemyHUD(GameObject ennemyHUD, Sprite image)
+    {
+        foreach(Transform child in ennemyHUD.transform)
+        {
+            if (child.GetComponent<Image>().sprite == image)
+            {
+                Destroy(child.gameObject);
+                return;
+            }
+        }
+        Debug.LogError("Image " + "\"" + image + "\"" + " can't be removed from ennemyHUD : not found.");
     }
 
     public void UpdateLevel(string level)

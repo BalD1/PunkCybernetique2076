@@ -15,7 +15,7 @@ public class Ennemy : LivingEntities
     [SerializeField] private AnimationCurve attackPerLevel;
 
     [SerializeField] private AudioSource source;
-
+    
     private float nextFire;
     public int EnnemyDamage = 10;
     public float lookRadius = 30f;
@@ -52,7 +52,6 @@ public class Ennemy : LivingEntities
         if (this.level.Value < GameManager.Instance.WaveNumber)
         {
             LevelUp(0, HPperLevel.Evaluate(level.Value), attackPerLevel.Evaluate(level.Value), null, null);
-            Debug.Log(HPperLevel.Evaluate(level.Value));
             LevelToWave();
         }
     }
@@ -64,6 +63,12 @@ public class Ennemy : LivingEntities
 
     private void Update()
     {
+        if (AppliedTickDamagers.Count > 0)
+            if (HP.Value <= 0 && !dead)
+            {
+                Death();
+            }
+
         if (!dead && GameManager.Instance.GameState == GameManager.gameState.InGame)
         {
             float distance = Vector3.Distance(target.position, transform.position);

@@ -122,7 +122,8 @@ public class SoundManager : MonoBehaviour
             {
                 if (Musics[i] == musicToPlay)
                 {
-                    musicSource.PlayOneShot(musicArray[i]);
+                    musicSource.clip = musicArray[i];
+                    musicSource.Play();
                 }
             }
         }
