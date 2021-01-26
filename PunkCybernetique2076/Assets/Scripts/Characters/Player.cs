@@ -10,7 +10,7 @@ public class Player : LivingEntities
     [SerializeField] private CharacterController controller;
     [SerializeField] private GameObject gun;
     [SerializeField] private Animator deathAnimation;
-    [SerializeField] private AudioSource audio;
+    [SerializeField] private AudioSource playerAudio;
 
     #region animation curves
 
@@ -42,7 +42,7 @@ public class Player : LivingEntities
         CallAwake();
         experience = new StatsObject();
         experience.Data(StatsObject.stats.experience, 0, 0);
-        playerSource = audio;
+        playerSource = playerAudio;
     }
 
     private void Start()

@@ -14,7 +14,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private GameObject spawnPoint;
     [SerializeField] private Animator recoil;
     [SerializeField] private LayerMask mask;
-    [SerializeField] private AudioSource audio;
+    [SerializeField] private AudioSource gunAudio;
     private float smokeCooldown;
     private Ray ray;
     private RaycastHit hit;
@@ -51,7 +51,7 @@ public class Gun : MonoBehaviour
             }
             smokeCooldown = smokeTimer;
 
-            audio.PlayOneShot(SoundManager.Instance.GetAudioCLip("Fire"));
+            gunAudio.PlayOneShot(SoundManager.Instance.GetAudioCLip("laser"));
         }
 
         smokeCooldown = Mathf.Clamp(smokeCooldown - Time.deltaTime, 0, smokeTimer);

@@ -45,7 +45,8 @@ public class GameManager : MonoBehaviour
         Pause,
         Levelup,
         Win,
-        GameOver
+        GameOver,
+        Loading,
     }
 
 
@@ -114,12 +115,33 @@ public class GameManager : MonoBehaviour
                     Cursor.visible = true;
                     PostProcessManager.Instance.GameOver();
                     break;
+                case gameState.Loading:
+                    UIManager.Instance.WindowManager(gameState.Loading);
+                    StartCoroutine(LoadAsyncOperation());
+                    break;
 
                 default:
                     Debug.LogError("\"" + value + "\"" + " not found in switch statement.");
                     break;
             }
             UIManager.Instance.WindowManager(currentState);
+        }
+    }
+
+    private IEnumerator LoadAsyncOperation()
+    {
+        yield return null;
+        AsyncOperation gameLoad = SceneManager.LoadSceneAsync("MainScene");
+        gameLoad.allowSceneActivation = false;
+        while (!gameLoad.isDone)
+        {
+            UIManager.Instance.LoadLevel(gameLoad.progress);
+            if (gameLoad.progress >= 0.9f)
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                    gameLoad.allowSceneActivation = true;
+            }
+            yield return null;
         }
     }
 

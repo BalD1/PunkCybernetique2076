@@ -187,7 +187,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 32768
-  audio: {fileID: 2086332284}
+  gunAudio: {fileID: 2086332284}
 --- !u!95 &912909474
 Animator:
   serializedVersion: 3
@@ -475,12 +475,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92b4370e465e234194d2c49e942001d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statusHolder: {fileID: 0}
+  HPBar: {fileID: 0}
+  fireImage: {fileID: 0}
+  poisonImage: {fileID: 0}
   characterTransform: {fileID: 4122065570205521361}
   playerCamera: {fileID: 4122065570638655233}
   controller: {fileID: 4122065570205521366}
   gun: {fileID: 3050012727549383209}
   deathAnimation: {fileID: 3166709822370615075}
-  audio: {fileID: 2651567295509138291}
+  playerAudio: {fileID: 2651567295509138291}
   healthPerLevelCurve:
     serializedVersion: 2
     m_Curve:

@@ -28,6 +28,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private int legendaryPercentage;
     private List<int> buttonsRef;
 
+    [SerializeField] private Image loadingBar;
+    [SerializeField] private GameObject menuButtons;
+    [SerializeField] private Text loadFinished;
 
     [SerializeField] private List<Button> choices;
     [SerializeField] private GameObject powerUpCanvas;
@@ -94,14 +97,17 @@ public class UIManager : MonoBehaviour
         {
             case "First":
                 ApplyEffectToPlayer(player, 0);
+                GameManager.Instance.GameState = GameManager.gameState.InGame;
                 break;
 
             case "Second":
                 ApplyEffectToPlayer(player, 1);
+                GameManager.Instance.GameState = GameManager.gameState.InGame;
                 break;
 
             case "Third":
                 ApplyEffectToPlayer(player, 2);
+                GameManager.Instance.GameState = GameManager.gameState.InGame;
                 break;
             case "Play":
                 if (GameManager.Instance.GameState.Equals(GameManager.gameState.GameOver) || 
@@ -109,8 +115,8 @@ public class UIManager : MonoBehaviour
                 {
                     GameManager.Instance.ReloadScene();
                 }
-
-                GameManager.Instance.GameState = GameManager.gameState.InGame;
+                
+                GameManager.Instance.GameState = GameManager.gameState.Loading;
                 break;
             case "Continue":
                 GameManager.Instance.GameState = GameManager.gameState.InGame;
@@ -127,7 +133,6 @@ public class UIManager : MonoBehaviour
                 break;
         }
         buttonsRef.Clear();
-        GameManager.Instance.GameState = GameManager.gameState.InGame;
     }
 
     public void OnPointerOver(string overObject)
@@ -230,7 +235,22 @@ public class UIManager : MonoBehaviour
                 pauseMenu.SetActive(false);
                 HUDAndPopUpCanvas.SetActive(false);
                 break;
+            case GameManager.gameState.Loading:
+                loadingBar.enabled = true;
+                menuButtons.SetActive(false);
+                break;
         }
+    }
+
+    public void LoadLevel(float amount)
+    {
+        loadingBar.fillAmount = amount;
+        if (amount >= 0.9f)
+        {
+            loadFinished.gameObject.SetActive(true);
+            loadingBar.fillAmount = 1;
+        }
+
     }
 
     public void UpdateEnnemiesText()
