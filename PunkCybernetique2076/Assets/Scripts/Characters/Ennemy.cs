@@ -77,8 +77,7 @@ public class Ennemy : LivingEntities
 
             if (distance <= lookRadius)
             {
-                animator.SetBool("IsIdle", false);
-                agent.SetDestination(target.position);
+                MoveToTarget(target.position);
 
                 if (distance <= agent.stoppingDistance)
                 {
@@ -98,10 +97,15 @@ public class Ennemy : LivingEntities
 
                     }
                 }
-                else
-                    animator.SetBool("IsWalking", true);
             }
         }
+    }
+
+    private void MoveToTarget(Vector3 target)
+    {
+        animator.SetBool("IsIdle", false);
+        animator.SetBool("IsWalking", true);
+        agent.SetDestination(target);
     }
 
     void FaceTarget()
@@ -121,6 +125,7 @@ public class Ennemy : LivingEntities
     {
         if (collision.collider.CompareTag("Laser") && !dead)
         {
+            MoveToTarget(GameManager.Instance.PlayerRef.transform.position);
             UIManager.Instance.ActivateHitMarker();
             this.InflictDamage(player.GetStatValue(StatsObject.stats.attack), player);
             if (HP.Value <= 0 && !dead)
