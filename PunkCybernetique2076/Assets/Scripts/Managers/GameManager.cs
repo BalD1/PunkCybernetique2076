@@ -130,7 +130,6 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator LoadAsyncOperation()
     {
-        //test
         yield return null;
         AsyncOperation gameLoad = SceneManager.LoadSceneAsync("MainScene");
         gameLoad.allowSceneActivation = false;
