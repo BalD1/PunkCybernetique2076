@@ -15,6 +15,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private Animator recoil;
     [SerializeField] private LayerMask mask;
     [SerializeField] private AudioSource gunAudio;
+    [SerializeField] private ParticleSystem fireBurst;
     private float smokeCooldown;
     private Ray ray;
     private RaycastHit hit;
@@ -49,6 +50,7 @@ public class Gun : MonoBehaviour
             {
                 smoke.Play();
             }
+            fireBurst.Play();
             smokeCooldown = smokeTimer;
 
             gunAudio.PlayOneShot(SoundManager.Instance.GetAudioCLip("laser"));

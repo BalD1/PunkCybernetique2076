@@ -11,6 +11,7 @@ public class Player : LivingEntities
     [SerializeField] private GameObject gun;
     [SerializeField] private Animator deathAnimation;
     [SerializeField] private AudioSource playerAudio;
+    [SerializeField] private ParticleSystemForceField fireBurstForceField;
 
     #region animation curves
 
@@ -109,6 +110,9 @@ public class Player : LivingEntities
     {
         xMovement = Input.GetAxis("Horizontal");
         zMovement = Input.GetAxis("Vertical");
+
+        fireBurstForceField.directionX = xMovement * -2;
+        fireBurstForceField.directionZ = zMovement * -2;
 
         move = transform.right * xMovement + transform.forward * zMovement;
         if (move != Vector3.zero)
