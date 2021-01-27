@@ -15,6 +15,8 @@ public class Ennemy : LivingEntities
     [SerializeField] private AnimationCurve attackPerLevel;
 
     [SerializeField] private AudioSource source;
+
+    [SerializeField] private ParticleSystem spawnEffect;
     
     private float nextFire;
     public int EnnemyDamage = 10;
@@ -44,6 +46,7 @@ public class Ennemy : LivingEntities
         this.apparence.SetActive(true);
         dead = false;
         minimapCircle.SetActive(true);
+        spawnEffect.Play();
         LevelToWave();
     }
 
