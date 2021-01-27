@@ -20,7 +20,7 @@ public class Gun : MonoBehaviour
     private Ray ray;
     private RaycastHit hit;
     private Vector3 center = new Vector3(0.5f, 0.5f, 0);
-      
+
 
     private void Start()
     {
@@ -29,33 +29,35 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && Time.time > nextFire && GameManager.Instance.GameState == GameManager.gameState.InGame)
+        if (Input.GetMouseButton(0))
         {
-            nextFire = Time.time + (fireTimer / player.GetStatValue(StatsObject.stats.fireRate));
-
-            ray = Camera.main.ViewportPointToRay(center);
-
-            if (Physics.Raycast(ray, out hit, 10000))
-                spawnPoint.transform.LookAt(hit.point);
-
-            PoolManager.Instance.SpawnFromPool(PoolManager.tags.Laser, spawnPoint.transform.position, spawnPoint.transform.rotation);
-
-            if (player.GetStatValue(StatsObject.stats.fireRate) < 2.5f && recoil != null)
+            if (Time.time > nextFire && GameManager.Instance.GameState == GameManager.gameState.InGame)
             {
-                recoil.speed = player.GetStatValue(StatsObject.stats.fireRate);
-                recoil.SetTrigger("Fire");
-            }
+                nextFire = Time.time + (fireTimer / player.GetStatValue(StatsObject.stats.fireRate));
 
-            if (!smoke.isPlaying)
-            {
-                smoke.Play();
-            }
-            fireBurst.Play();
-            smokeCooldown = smokeTimer;
+                ray = Camera.main.ViewportPointToRay(center);
 
-            gunAudio.PlayOneShot(SoundManager.Instance.GetAudioCLip("laser"));
+                if (Physics.Raycast(ray, out hit, 10000))
+                    spawnPoint.transform.LookAt(hit.point);
+
+                PoolManager.Instance.SpawnFromPool(PoolManager.tags.Laser, spawnPoint.transform.position, spawnPoint.transform.rotation);
+
+                if (player.GetStatValue(StatsObject.stats.fireRate) < 2.5f && recoil != null)
+                {
+                    recoil.speed = player.GetStatValue(StatsObject.stats.fireRate);
+                    recoil.SetTrigger("Fire");
+                }
+
+                if (!smoke.isPlaying)
+                {
+                    smoke.Play();
+                }
+                fireBurst.Play();
+                smokeCooldown = smokeTimer;
+
+                gunAudio.PlayOneShot(SoundManager.Instance.GetAudioCLip("laser"));
+            }
         }
-
         smokeCooldown = Mathf.Clamp(smokeCooldown - Time.deltaTime, 0, smokeTimer);
         if (smokeCooldown == 0)
             smoke.Stop();

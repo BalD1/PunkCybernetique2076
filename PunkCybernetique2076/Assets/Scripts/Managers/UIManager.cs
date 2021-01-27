@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private int legendaryPercentage;
     private List<int> buttonsRef;
 
+    [SerializeField] private Image loadingBarBackground;
     [SerializeField] private Image loadingBar;
     [SerializeField] private GameObject menuButtons;
     [SerializeField] private Text loadFinished;
@@ -115,8 +116,8 @@ public class UIManager : MonoBehaviour
                 {
                     GameManager.Instance.ReloadScene();
                 }
-                
-                GameManager.Instance.GameState = GameManager.gameState.Loading;
+                if (GameManager.Instance.GameState.Equals(GameManager.gameState.MainMenu))
+                    GameManager.Instance.GameState = GameManager.gameState.Loading;
                 break;
             case "Continue":
                 GameManager.Instance.GameState = GameManager.gameState.InGame;
@@ -236,6 +237,7 @@ public class UIManager : MonoBehaviour
                 HUDAndPopUpCanvas.SetActive(false);
                 break;
             case GameManager.gameState.Loading:
+                loadingBarBackground.gameObject.SetActive(true);
                 loadingBar.enabled = true;
                 menuButtons.SetActive(false);
                 break;

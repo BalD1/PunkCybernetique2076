@@ -27,10 +27,9 @@ public class Laser : MonoBehaviour
             rb.MovePosition(this.transform.position + (transform.forward * (speed * Time.deltaTime)));
     }
 
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (!collision.collider.CompareTag("Player"))
+        if (!other.CompareTag("Player"))
         {
             Death();
         }

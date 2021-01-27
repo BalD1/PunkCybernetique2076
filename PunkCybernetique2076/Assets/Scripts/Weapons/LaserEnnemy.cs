@@ -30,12 +30,11 @@ public class LaserEnnemy : MonoBehaviour
             rb.MovePosition(this.transform.position + (transform.forward * (speed * Time.deltaTime)));
     }
 
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.collider.CompareTag("Unmovable Object") || collision.collider.CompareTag("Player"))
+        if (other.CompareTag("Unmovable Object") || other.CompareTag("Player") || other.CompareTag("Laser"))
         {
-            Player player = collision.collider.GetComponent<Player>();
+            Player player = other.GetComponentInChildren<Player>();
 
             if (player != null)
             {

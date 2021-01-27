@@ -26,6 +26,9 @@ public class Ennemy : LivingEntities
     public bool Dead { get; }
 
     public Animator animator;
+    
+    private Ray ray;
+    private RaycastHit hit;
 
     Transform target;
     NavMeshAgent agent;
@@ -84,20 +87,24 @@ public class Ennemy : LivingEntities
 
                 if (distance <= agent.stoppingDistance)
                 {
-                    animator.SetBool("IsWalking", false);
-                    animator.SetBool("IsFiring", true);
-                    FaceTarget();
-
-                    //Attack 
-
-                    if (Time.time > nextFire)
+                    Physics.Linecast(this.transform.position, player.transform.position, out hit);
+                    if (hit.collider.tag.Equals("Player"))
                     {
-                        shootpos = new Vector3(this.transform.position.x, this.transform.position.y + 0.8f, this.transform.position.z);
+                        animator.SetBool("IsWalking", false);
+                        animator.SetBool("IsFiring", true);
+                        FaceTarget();
 
-                        nextFire = Time.time + (fireTimer / 0.5f);
-                        PoolManager.Instance.SpawnFromPool(PoolManager.tags.LaserEnnemy, shootpos, this.transform.rotation);
-                        source.PlayOneShot(SoundManager.Instance.GetAudioCLip("laser"));
+                        //Attack 
 
+                        if (Time.time > nextFire)
+                        {
+                            shootpos = new Vector3(this.transform.position.x, this.transform.position.y + 0.8f, this.transform.position.z);
+
+                            nextFire = Time.time + (fireTimer / 0.5f);
+                            PoolManager.Instance.SpawnFromPool(PoolManager.tags.LaserEnnemy, shootpos, this.transform.rotation);
+                            source.PlayOneShot(SoundManager.Instance.GetAudioCLip("laser"));
+
+                        }
                     }
                 }
             }
@@ -124,9 +131,9 @@ public class Ennemy : LivingEntities
         Gizmos.DrawWireSphere(transform.position, lookRadius);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.collider.CompareTag("Laser") && !dead)
+        if (other.CompareTag("Laser") && !dead)
         {
             MoveToTarget(GameManager.Instance.PlayerRef.transform.position);
             UIManager.Instance.ActivateHitMarker();
