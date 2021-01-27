@@ -51,6 +51,10 @@ public class Ennemy : LivingEntities
         minimapCircle.SetActive(true);
         spawnEffect.Play();
         LevelToWave();
+        RemoveImage("fireStatut");
+        RemoveImage("poisonStatut");
+        appliedTickDamagers.Clear();
+        UIManager.Instance.FillBar(HP.Value / HP.Max, "HP", HPBar);
     }
 
     private void LevelToWave()
@@ -155,5 +159,8 @@ public class Ennemy : LivingEntities
         else
             player.GainExperience(10 * (GameManager.Instance.WaveNumber / 2));
         this.gameObject.SetActive(false);
+        RemoveImage("fireStatut");
+        RemoveImage("poisonStatut");
+        appliedTickDamagers.Clear();
     }
 }

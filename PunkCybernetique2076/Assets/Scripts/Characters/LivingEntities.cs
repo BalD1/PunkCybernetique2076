@@ -225,26 +225,31 @@ public class LivingEntities : MonoBehaviour
     {
         if (time <= 0)
         {
+            RemoveImage(damager.EffectName);
             appliedTickDamagers.Remove(damager);
-            Sprite imageToRemove = null;
-            switch (damager.EffectName)
-            {
-                case "fireStatut":
-                    imageToRemove = fireImage;
-                    break;
-                case "poisonStatut":
-                    imageToRemove = poisonImage;
-                    break;
-                default:
-                    Debug.LogError(damager.EffectName + " not found in switch statement.");
-                    break;
-            }
-            if (imageToRemove != null)
-                UIManager.Instance.RemoveImageInEnnemyHUD(statusHolder, imageToRemove);
             yield break;
         }
         yield return new WaitForSeconds(1);
         InflickTickDamages(amount, --time, damager);
+    }
+
+    protected void RemoveImage(string name)
+    {
+        Sprite imageToRemove = null;
+        switch (name)
+        {
+            case "fireStatut":
+                imageToRemove = fireImage;
+                break;
+            case "poisonStatut":
+                imageToRemove = poisonImage;
+                break;
+            default:
+                Debug.LogError(name + " not found in switch statement.");
+                break;
+        }
+        if (imageToRemove != null)
+            UIManager.Instance.RemoveImageInEnnemyHUD(statusHolder, imageToRemove);
     }
 
     protected void Heal(float amount)

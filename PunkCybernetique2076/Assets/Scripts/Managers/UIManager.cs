@@ -359,7 +359,6 @@ public class UIManager : MonoBehaviour
                 return;
             }
         }
-        Debug.LogError("Image " + "\"" + image + "\"" + " can't be removed from ennemyHUD : not found.");
     }
 
     public void UpdateLevel(string level)

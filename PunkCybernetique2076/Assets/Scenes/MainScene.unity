@@ -3375,6 +3375,7 @@ MonoBehaviour:
   commonPercentage: 70
   rarePercentage: 25
   legendaryPercentage: 5
+  loadingBarBackground: {fileID: 0}
   loadingBar: {fileID: 0}
   menuButtons: {fileID: 0}
   loadFinished: {fileID: 0}
@@ -6656,6 +6657,76 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4122065569894328624, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: fireRateLevelCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122065569894328624, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: fireRateLevelCurve.m_Curve.Array.data[1].time
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122065569894328624, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: fireRateLevelCurve.m_Curve.Array.data[2].time
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122065569894328624, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: fireRateLevelCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122065569894328624, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: fireRateLevelCurve.m_Curve.Array.data[2].value
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122065569894328624, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: fireRateLevelCurve.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122065569894328624, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: fireRateLevelCurve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122065569894328624, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: fireRateLevelCurve.m_Curve.Array.data[2].inSlope
+      value: 0.090909086
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122065569894328624, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: fireRateLevelCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122065569894328624, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: fireRateLevelCurve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122065569894328624, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: fireRateLevelCurve.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122065569894328624, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: fireRateLevelCurve.m_Curve.Array.data[2].outSlope
+      value: 0.090909086
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122065569894328624, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: fireRateLevelCurve.m_Curve.Array.data[1].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122065569894328624, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
+        type: 3}
+      propertyPath: fireRateLevelCurve.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
     - target: {fileID: 4122065570205521360, guid: 1bf8c96bbd46f584188c5d5f7cc8cc35,
         type: 3}
       propertyPath: m_Name
