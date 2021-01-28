@@ -169,8 +169,12 @@ public class Player : LivingEntities
     {
         if (other.gameObject.tag.Equals("PickableObject"))
         {
-            Heal(this.HP.Max - (this.HP.Max * ((100 - healCollectiblesAmount) / 100)));
-            Destroy(other.gameObject);
+            if (other.gameObject.name.Contains("Heal") && this.HP.Value < this.HP.Max)
+            {
+                Heal(this.HP.Max - (this.HP.Max * ((100 - healCollectiblesAmount) / 100)));
+                PostProcessManager.Instance.Heal();
+                Destroy(other.gameObject);
+            }
         }
     }
 

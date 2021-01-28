@@ -13,6 +13,7 @@ public class PostProcessManager : MonoBehaviour
     [SerializeField] private PostProcessVolume volume;
 
     [SerializeField] private float hurtVignetteValue = 0.25f;
+    [SerializeField] private float healVignetteValue = 0.25f;
 
     private ChromaticAberration chromatic;
     public ChromaticAberration Chromatic { get => chromatic; set => chromatic = value; }
@@ -20,6 +21,7 @@ public class PostProcessManager : MonoBehaviour
     private Vignette vignette;
     public Vignette Vignette { get => vignette; set => vignette = value; }
     [SerializeField] private Color damagesColor = new Color(0.16f, 0, 0);
+    [SerializeField] private Color healColor = new Color(0, 0.3f, 0);
 
     private ColorGrading grading;
     public ColorGrading Grading { get => grading; set => grading = value; }
@@ -60,12 +62,15 @@ public class PostProcessManager : MonoBehaviour
     public void Hurt()
     {
         vignette.intensity.value = hurtVignetteValue;
+        vignette.color.value = damagesColor;
         InvokeRepeating("DecreaseVignette", 0.1f, 0.1f);
     }
 
     public void Heal()
     {
-
+        vignette.intensity.value = healVignetteValue;
+        vignette.color.value = healColor;
+        InvokeRepeating("DecreaseVignette", 0.1f, 0.1f);
     }
 
     private void DecreaseVignette()
@@ -77,7 +82,7 @@ public class PostProcessManager : MonoBehaviour
 
     public void GameOver()
     {
-        InvokeRepeating("IncreaseChromatic", 0.1f, 0.1f);
+        InvokeRepeating("IncreaseChromatic", 0.1f, 0.001f);
     }
 
     private void IncreaseChromatic()

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class Ennemy : LivingEntities
 {
     [System.Serializable]
-    private class DropableObjects
+    private struct DropableObjects
     {
         public string name;
         public int dropChances;
