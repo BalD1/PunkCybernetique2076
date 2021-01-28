@@ -55,7 +55,7 @@ public class Gun : MonoBehaviour
                 fireBurst.Play();
                 smokeCooldown = smokeTimer;
 
-                gunAudio.PlayOneShot(SoundManager.Instance.GetAudioCLip("laser"));
+                gunAudio.PlayOneShot(SoundManager.Instance.GetAudioClip(SoundManager.ClipsTags.laser));
             }
         }
         smokeCooldown = Mathf.Clamp(smokeCooldown - Time.deltaTime, 0, smokeTimer);

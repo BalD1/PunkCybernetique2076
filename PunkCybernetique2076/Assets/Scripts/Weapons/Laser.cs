@@ -40,7 +40,7 @@ public class Laser : MonoBehaviour
         move = false;
         plasmaExplosion.SetActive(true);
         plasmaExplosion.GetComponent<ParticleSystem>().Play();
-        source.PlayOneShot(SoundManager.Instance.GetAudioCLip("impact"));
+        source.PlayOneShot(SoundManager.Instance.GetAudioClip(SoundManager.ClipsTags.plasmaExplosion));
 
         StartCoroutine(SetInactive());
     }

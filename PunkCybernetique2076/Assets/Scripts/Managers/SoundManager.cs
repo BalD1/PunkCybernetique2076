@@ -7,37 +7,47 @@ using UnityEngine.SceneManagement;
 public class SoundManager : MonoBehaviour
 {
     [SerializeField]
-    private AudioSource source;
-    [SerializeField]
     private AudioSource musicSource;
     [SerializeField]
     private AudioSource source2D;
 
     private bool musicFlag = false;
 
-    public string[] Sounds = new string[]
+    public enum ClipsTags
     {
-        "laser",
-        "boom",
-        "impact",
-        "hurt",
-        "click",
-        "lvlup",
-    };
+        // Sounds
+        laser,
+        explosion,
+        plasmaExplosion,
+        hurt,
+        click,
+        lvlUp,
+        heal,
 
-    [SerializeField]
-    private List<AudioClip> audioArray;
+        // Musics
 
-    public string[] Musics = new string[]
+        MainMenu,
+        MainGame,
+        Win,
+
+    }
+
+    [System.Serializable]
+    private struct SoundClips
     {
-        "MainMenu",
-        "InGame",
-        "GameOver",
-        "Win",
-    };
+        public string clipName;
+        public AudioClip clip;
+    }
 
-    [SerializeField]
-    private List<AudioClip> musicArray;
+    [System.Serializable]
+    private struct MusicClips
+    {
+        public string clipName;
+        public AudioClip clip;
+    }
+
+    [SerializeField] private List<SoundClips> soundClips;
+    [SerializeField] private List<MusicClips> musicClips;
 
     private static SoundManager instance;
     public static SoundManager Instance
@@ -59,42 +69,30 @@ public class SoundManager : MonoBehaviour
         musicFlag = musicSource.isPlaying;
     }
 
-    private void Update()
+    public AudioClip GetAudioClip(ClipsTags searchedClip)
     {
-    }
-
-    public void Play(string name)
-    {
-        for (int i = 0; i < Sounds.Length; i++)
+        foreach(SoundClips sound in soundClips)
         {
-            if (Sounds[i] == name)
-            {
-                source.PlayOneShot(audioArray[i]);
-            }
+            if (sound.clipName.Equals(searchedClip.ToString()))
+                return sound.clip;
         }
-    }
 
-    public void Play2D(string name)
-    {
-        for (int i = 0; i < Sounds.Length; i++)
-        {
-            if (Sounds[i] == name)
-            {
-                source2D.PlayOneShot(audioArray[i]);
-            }
-        }
-    }
-
-    public AudioClip GetAudioCLip(string name)
-    {
-        for (int i = 0; i < Sounds.Length; i++)
-        {
-            if (Sounds[i] == name)
-            {
-                return audioArray[i];
-            }
-        }
+        Debug.LogError(searchedClip + " not found in Audio Clips.");
         return null;
+    }
+
+    public void Play2D(ClipsTags searchedClip)
+    {
+        foreach(SoundClips sound in soundClips)
+        {
+            if (sound.clipName.Equals(searchedClip.ToString()))
+            {
+                source2D.PlayOneShot(sound.clip);
+                return;
+            }
+        }
+
+        Debug.LogError(searchedClip + " not found in Audio Clips.");
     }
 
     public void PlayBGMusic()
@@ -118,14 +116,15 @@ public class SoundManager : MonoBehaviour
         if (musicFlag == false)
         {
             musicFlag = true;
-            for (int i = 0; i < Musics.Length; i++)
+            foreach (MusicClips music in musicClips)
             {
-                if (Musics[i] == musicToPlay)
-                {
-                    musicSource.clip = musicArray[i];
-                    musicSource.Play();
-                }
+                if (music.clipName.Equals(musicToPlay))
+                    musicSource.clip = music.clip;
             }
+            if (musicSource.clip != null)
+                musicSource.Play();
+            else
+                Debug.LogError("Music not found for " + "\"" + GameManager.Instance.GameState + "\"" + " state of game.");
         }
     }
 

@@ -143,7 +143,7 @@ public class LivingEntities : MonoBehaviour
         if (this.name.Equals("Player"))
         {
             UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
-            playerSource.PlayOneShot(SoundManager.Instance.GetAudioCLip("hurt"));
+            playerSource.PlayOneShot(SoundManager.Instance.GetAudioClip(SoundManager.ClipsTags.hurt));
             PostProcessManager.Instance.Hurt();
         }
 
@@ -162,7 +162,7 @@ public class LivingEntities : MonoBehaviour
         if (this.name.Equals("Player"))
         {
             UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
-            playerSource.PlayOneShot(SoundManager.Instance.GetAudioCLip("hurt"));
+            playerSource.PlayOneShot(SoundManager.Instance.GetAudioClip(SoundManager.ClipsTags.hurt));
         }
         if (this.name.Contains("Ennemy"))
         {

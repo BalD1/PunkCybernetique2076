@@ -40,7 +40,7 @@ public class LaserEnnemy : MonoBehaviour
             {
                 player.InflictDamage(damage);
             }
-            source.PlayOneShot(SoundManager.Instance.GetAudioCLip("impact"));
+            source.PlayOneShot(SoundManager.Instance.GetAudioClip(SoundManager.ClipsTags.plasmaExplosion));
 
             Death();
         }

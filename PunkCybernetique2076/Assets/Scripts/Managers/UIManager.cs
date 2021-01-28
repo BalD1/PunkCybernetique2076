@@ -92,7 +92,7 @@ public class UIManager : MonoBehaviour
 
     public void OnClickEnter(string button)
     {
-        SoundManager.Instance.Play2D("click");
+        SoundManager.Instance.Play2D(SoundManager.ClipsTags.click);
         Player player = GameManager.Instance.PlayerRef;
         switch (button)
         {

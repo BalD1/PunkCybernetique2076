@@ -5085,7 +5085,7 @@ MonoBehaviour:
   EnnemyDamage: 10
   lookRadius: 30
   animator: {fileID: 2035734400350531938}
-  dropChances: 100
+  dropChances: 20
   dropableObjects:
   - name: Healing Object
     dropChances: 100

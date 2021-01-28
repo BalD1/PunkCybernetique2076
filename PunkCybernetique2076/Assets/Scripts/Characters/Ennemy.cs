@@ -115,7 +115,7 @@ public class Ennemy : LivingEntities
 
                             nextFire = Time.time + (fireTimer / 0.5f);
                             PoolManager.Instance.SpawnFromPool(PoolManager.tags.LaserEnnemy, shootpos, this.transform.rotation);
-                            source.PlayOneShot(SoundManager.Instance.GetAudioCLip("laser"));
+                            source.PlayOneShot(SoundManager.Instance.GetAudioClip(SoundManager.ClipsTags.laser));
 
                         }
                     }
@@ -183,7 +183,7 @@ public class Ennemy : LivingEntities
     new void Death()
     {
         dead = true;
-        SoundManager.Instance.Play("boom");
+        source.PlayOneShot(SoundManager.Instance.GetAudioClip(SoundManager.ClipsTags.explosion));
         GameManager.Instance.EnnemiesLeft--;
         if (GameManager.Instance.WaveNumber == 1)
             player.GainExperience(100);
