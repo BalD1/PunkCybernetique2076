@@ -10,6 +10,7 @@ TagManager:
   - LaserEnnemy
   - Particles
   - Spawner
+  - PickableObject
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - Spawner
   - LaserEnnemie
   - Ennemie Physic
-  - 
+  - PickableObject
   - 
   - 
   - 

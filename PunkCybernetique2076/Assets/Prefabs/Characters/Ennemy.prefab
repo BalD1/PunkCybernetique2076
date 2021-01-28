@@ -5085,6 +5085,12 @@ MonoBehaviour:
   EnnemyDamage: 10
   lookRadius: 30
   animator: {fileID: 2035734400350531938}
+  dropChances: 100
+  dropableObjects:
+  - name: Healing Object
+    dropChances: 100
+    prefab: {fileID: 4093550923264527977, guid: d89dca7624d77834495c654e2732b6d6,
+      type: 3}
 --- !u!54 &1348533917396557460
 Rigidbody:
   m_ObjectHideFlags: 0

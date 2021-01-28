@@ -1,11 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Ennemy : LivingEntities
 {
+    [System.Serializable]
+    private class DropableObjects
+    {
+        public string name;
+        public int dropChances;
+        public GameObject prefab;
+    }
+
     [SerializeField] private Player player;
     [SerializeField] private float fireTimer = 1f;
     [SerializeField] private GameObject apparence;
@@ -17,7 +23,7 @@ public class Ennemy : LivingEntities
     [SerializeField] private AudioSource source;
 
     [SerializeField] private ParticleSystem spawnEffect;
-    
+
     private float nextFire;
     public int EnnemyDamage = 10;
     public float lookRadius = 30f;
@@ -33,6 +39,9 @@ public class Ennemy : LivingEntities
     Transform target;
     NavMeshAgent agent;
     Vector3 shootpos;
+
+    [SerializeField] private int dropChances;
+    [SerializeField] private List<DropableObjects> dropableObjects;
 
     private void Awake()
     {
@@ -149,6 +158,28 @@ public class Ennemy : LivingEntities
         }
     }
 
+    private void DropObject()
+    {
+        int weight = 0;
+        foreach(DropableObjects drop in dropableObjects)
+        {
+            weight += drop.dropChances;
+        }
+
+        int rand = Random.Range(0, weight + 1);
+        foreach(DropableObjects drop in dropableObjects)
+        {
+            if (rand < weight)
+            {
+                Instantiate(drop.prefab, this.transform.position, Quaternion.identity);
+                return;
+            }
+            else
+                rand -= drop.dropChances;
+        }
+
+    }
+
     new void Death()
     {
         dead = true;
@@ -158,9 +189,11 @@ public class Ennemy : LivingEntities
             player.GainExperience(100);
         else
             player.GainExperience(10 * (GameManager.Instance.WaveNumber / 2));
-        this.gameObject.SetActive(false);
+        DropObject();
         RemoveImage("fireStatut");
         RemoveImage("poisonStatut");
         appliedTickDamagers.Clear();
+
+        this.gameObject.SetActive(false);
     }
 }

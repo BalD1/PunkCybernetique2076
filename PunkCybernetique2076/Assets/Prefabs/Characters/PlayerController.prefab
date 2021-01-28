@@ -920,7 +920,7 @@ GameObject:
   - component: {fileID: 2112945406}
   - component: {fileID: 3166709822370615075}
   - component: {fileID: 2651567295509138291}
-  - component: {fileID: 328469491}
+  - component: {fileID: 1964528178}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1134,17 +1134,17 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0.09090909
-      outSlope: 0.09090909
+      inSlope: 0
+      outSlope: 0
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 100
-      value: 10
-      inSlope: 0.09090909
-      outSlope: 0.09090909
+      value: 1
+      inSlope: 0
+      outSlope: 0
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -1284,19 +1284,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!65 &328469491
-BoxCollider:
+--- !u!136 &1964528178
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4122065569894328626}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2.0300193, z: 1}
-  m_Center: {x: 0, y: -0.015009642, z: 0}
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4122065570205521360
 GameObject:
   m_ObjectHideFlags: 0
@@ -1413,7 +1414,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3895
+    m_Bits: 175927
   m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

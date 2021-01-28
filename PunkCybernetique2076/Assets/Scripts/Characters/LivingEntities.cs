@@ -259,6 +259,7 @@ public class LivingEntities : MonoBehaviour
             UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
         else if (this.name.Contains("Ennemy"))
             UIManager.Instance.FillBar(HP.Value / HP.Max, "HP", HPBar);
+        
 
     }
 

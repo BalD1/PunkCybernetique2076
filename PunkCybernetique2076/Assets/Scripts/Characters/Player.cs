@@ -13,6 +13,8 @@ public class Player : LivingEntities
     [SerializeField] private AudioSource playerAudio;
     [SerializeField] private ParticleSystemForceField fireBurstForceField;
 
+    [SerializeField] private float healCollectiblesAmount = 20f;
+
     #region animation curves
 
     [SerializeField] private AnimationCurve healthPerLevelCurve;
@@ -161,6 +163,15 @@ public class Player : LivingEntities
     {
         yield return new WaitForSeconds(1);
         PostProcessManager.Instance.ScreenFadeOut();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag.Equals("PickableObject"))
+        {
+            Heal(this.HP.Max - (this.HP.Max * ((100 - healCollectiblesAmount) / 100)));
+            Destroy(other.gameObject);
+        }
     }
 
 }

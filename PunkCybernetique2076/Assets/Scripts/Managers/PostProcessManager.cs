@@ -63,6 +63,11 @@ public class PostProcessManager : MonoBehaviour
         InvokeRepeating("DecreaseVignette", 0.1f, 0.1f);
     }
 
+    public void Heal()
+    {
+
+    }
+
     private void DecreaseVignette()
     {
         vignette.intensity.value -= Time.deltaTime;
