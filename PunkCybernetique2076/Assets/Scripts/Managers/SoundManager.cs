@@ -23,6 +23,7 @@ public class SoundManager : MonoBehaviour
         click,
         lvlUp,
         heal,
+        gunReload,
 
         // Musics
 

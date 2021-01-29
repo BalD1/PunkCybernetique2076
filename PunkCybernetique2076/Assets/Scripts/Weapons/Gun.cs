@@ -88,6 +88,7 @@ public class Gun : MonoBehaviour
 
     private void Reload()
     {
+        gunAudio.PlayOneShot(SoundManager.Instance.GetAudioClip(SoundManager.ClipsTags.gunReload));
         reloadSmoke.Play();
         reloading = true;
         animator.Rebind();

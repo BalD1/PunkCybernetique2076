@@ -170,6 +170,7 @@ public class Player : LivingEntities
             if (other.gameObject.name.Contains("Heal") && this.HP.Value < this.HP.Max)
             {
                 Heal(this.HP.Max - (this.HP.Max * ((100 - healCollectiblesAmount) / 100)));
+                playerAudio.PlayOneShot(SoundManager.Instance.GetAudioClip(SoundManager.ClipsTags.heal));
                 PostProcessManager.Instance.Heal();
                 Destroy(other.gameObject);
             }
