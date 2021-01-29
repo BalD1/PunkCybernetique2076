@@ -5029,9 +5029,14 @@ MonoBehaviour:
   fireImage: {fileID: 21300000, guid: d0e01ed4c910d934395596e53eea4bbc, type: 3}
   poisonImage: {fileID: 21300000, guid: a56ebad5a6a1cd8458cfa29680a9c0ea, type: 3}
   player: {fileID: 0}
+  mask:
+    serializedVersion: 2
+    m_Bits: 182272
   fireTimer: 0.4
   apparence: {fileID: 7744621173741816857}
   minimapCircle: {fileID: 8947552020125201775}
+  spawnEffect: {fileID: 6650162382711220091}
+  animator: {fileID: 2035734400350531938}
   HPperLevel:
     serializedVersion: 2
     m_Curve:
@@ -5080,11 +5085,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  source: {fileID: -8695005850993051987}
-  spawnEffect: {fileID: 6650162382711220091}
-  EnnemyDamage: 10
   lookRadius: 30
-  animator: {fileID: 2035734400350531938}
+  source: {fileID: -8695005850993051987}
   dropChances: 20
   dropableObjects:
   - name: Healing Object

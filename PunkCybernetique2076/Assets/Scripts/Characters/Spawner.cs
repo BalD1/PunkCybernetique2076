@@ -32,7 +32,10 @@ public class Spawner : MonoBehaviour
         if (ennemiesLeft < ennemiesToSpawnByWave[GameManager.Instance.WaveNumber].value)
         {
             int index = Random.Range(0, spawners.Count);
-            PoolManager.Instance.SpawnFromPool(PoolManager.tags.Ennemy, spawners[index].transform.position, Quaternion.identity);
+            Vector3 pos = spawners[index].transform.position;
+            pos.x += Random.Range(-0.5f, 0.5f);
+            pos.z += Random.Range(-0.5f, 0.5f);
+            PoolManager.Instance.SpawnFromPool(PoolManager.tags.Ennemy, pos, Quaternion.identity);
             GameManager.Instance.EnnemiesLeft++;
             ennemiesLeft++;
         }

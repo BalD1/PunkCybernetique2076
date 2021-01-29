@@ -3,7 +3,42 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Ennemy : LivingEntities
-{
+    {
+    #region Variables Declaration
+
+    [SerializeField] private Player player;
+
+    [SerializeField] private LayerMask mask;
+    private Ray ray;
+    private RaycastHit hit;
+    
+    #region Data
+
+    [SerializeField] private float fireTimer = 1f;
+
+    [SerializeField] private GameObject apparence;
+    [SerializeField] private GameObject minimapCircle;
+    [SerializeField] private ParticleSystem spawnEffect;
+    public Animator animator;
+    Transform target;
+    NavMeshAgent agent;
+    Vector3 shootpos;
+
+    [SerializeField] private AnimationCurve HPperLevel;
+    [SerializeField] private AnimationCurve attackPerLevel;
+
+    private float nextFire;
+    public float lookRadius = 30f;
+
+    private bool dead;
+    public bool Dead { get; }
+
+    [SerializeField] private AudioSource source;
+
+    #endregion
+
+    #region Items drop
+
     [System.Serializable]
     private struct DropableObjects
     {
@@ -12,44 +47,29 @@ public class Ennemy : LivingEntities
         public GameObject prefab;
     }
 
-    [SerializeField] private Player player;
-    [SerializeField] private float fireTimer = 1f;
-    [SerializeField] private GameObject apparence;
-    [SerializeField] private GameObject minimapCircle;
-
-    [SerializeField] private AnimationCurve HPperLevel;
-    [SerializeField] private AnimationCurve attackPerLevel;
-
-    [SerializeField] private AudioSource source;
-
-    [SerializeField] private ParticleSystem spawnEffect;
-
-    private float nextFire;
-    public int EnnemyDamage = 10;
-    public float lookRadius = 30f;
-
-    private bool dead;
-    public bool Dead { get; }
-
-    public Animator animator;
-    
-    private Ray ray;
-    private RaycastHit hit;
-
-    Transform target;
-    NavMeshAgent agent;
-    Vector3 shootpos;
-
     [SerializeField] private int dropChances;
     [SerializeField] private List<DropableObjects> dropableObjects;
 
+    #endregion
+
+    #endregion
+
+    #region Functions
+
+    #region Awake, Start, Update
+
     private void Awake()
     {
-        
+
         agent = GetComponent<NavMeshAgent>();
         player = GameManager.Instance.PlayerRef;
         CallAwake();
         GameManager.Instance.EnnemyRef = this;
+    }
+
+    private void Start()
+    {
+        target = player.transform;
     }
 
     private void OnEnable()
@@ -64,20 +84,6 @@ public class Ennemy : LivingEntities
         RemoveImage("poisonStatut");
         appliedTickDamagers.Clear();
         UIManager.Instance.FillBar(HP.Value / HP.Max, "HP", HPBar);
-    }
-
-    private void LevelToWave()
-    {
-        if (this.level.Value < GameManager.Instance.WaveNumber)
-        {
-            LevelUp(0, HPperLevel.Evaluate(level.Value), attackPerLevel.Evaluate(level.Value), null, null);
-            LevelToWave();
-        }
-    }
-
-    private void Start()
-    {
-        target = player.transform;
     }
 
     private void Update()
@@ -100,7 +106,7 @@ public class Ennemy : LivingEntities
 
                 if (distance <= agent.stoppingDistance)
                 {
-                    Physics.Linecast(this.transform.position, player.transform.position, out hit);
+                    Physics.Linecast(this.transform.position, player.transform.position, out hit, ~mask);
                     if (hit.collider.tag.Equals("Player"))
                     {
                         animator.SetBool("IsWalking", false);
@@ -124,6 +130,19 @@ public class Ennemy : LivingEntities
         }
     }
 
+    #endregion
+
+    #region Mechanics
+
+    private void LevelToWave()
+    {
+        if (this.level.Value < GameManager.Instance.WaveNumber)
+        {
+            LevelUp(0, HPperLevel.Evaluate(level.Value), attackPerLevel.Evaluate(level.Value), null, null);
+            LevelToWave();
+        }
+    }
+
     private void MoveToTarget(Vector3 target)
     {
         animator.SetBool("IsIdle", false);
@@ -136,12 +155,6 @@ public class Ennemy : LivingEntities
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, lookRadius);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -161,13 +174,13 @@ public class Ennemy : LivingEntities
     private void DropObject()
     {
         int weight = 0;
-        foreach(DropableObjects drop in dropableObjects)
+        foreach (DropableObjects drop in dropableObjects)
         {
             weight += drop.dropChances;
         }
 
         int rand = Random.Range(0, weight + 1);
-        foreach(DropableObjects drop in dropableObjects)
+        foreach (DropableObjects drop in dropableObjects)
         {
             if (rand < weight)
             {
@@ -196,4 +209,18 @@ public class Ennemy : LivingEntities
 
         this.gameObject.SetActive(false);
     }
+
+    #endregion
+
+    #region Misc
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, lookRadius);
+    }
+
+    #endregion
+    
+    #endregion
 }

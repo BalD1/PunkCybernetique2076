@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EffectsObject : ScriptableObject
 {
+    #region variables
+
     public enum Effect
     {
         PositiveStatModifier,
@@ -29,6 +31,8 @@ public class EffectsObject : ScriptableObject
     private StatsObject.stats statToAffect;
 
     private Sprite image;
+
+    #endregion
 
     public void Data(Effect effectType, string name, float amountInPercentage, StatsObject.stats statToAffect, bool temporary, int? time, Sprite image, string summary)
     {

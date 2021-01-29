@@ -37,7 +37,7 @@ public class Gun : MonoBehaviour
 
                 ray = Camera.main.ViewportPointToRay(center);
 
-                if (Physics.Raycast(ray, out hit, 10000))
+                if (Physics.Raycast(ray, out hit, 10000, ~mask))
                     spawnPoint.transform.LookAt(hit.point);
 
                 PoolManager.Instance.SpawnFromPool(PoolManager.tags.Laser, spawnPoint.transform.position, spawnPoint.transform.rotation);
@@ -45,6 +45,7 @@ public class Gun : MonoBehaviour
                 if (player.GetStatValue(StatsObject.stats.fireRate) < 2.5f && recoil != null)
                 {
                     recoil.speed = player.GetStatValue(StatsObject.stats.fireRate);
+                    recoil.Rebind();
                     recoil.SetTrigger("Fire");
                 }
 
