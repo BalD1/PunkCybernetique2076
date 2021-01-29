@@ -378,6 +378,12 @@ public class UIManager : MonoBehaviour
         crosshair.transform.GetChild(0).gameObject.SetActive(false);
     }
 
+    public void ChangeText(GameObject gO, string text)
+    {
+        gO.GetComponent<TextMeshProUGUI>().text = text;
+        
+    }
+
     #endregion
 
     #region Abilities Related

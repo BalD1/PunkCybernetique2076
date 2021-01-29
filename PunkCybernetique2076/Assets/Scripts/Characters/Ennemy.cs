@@ -202,7 +202,9 @@ public class Ennemy : LivingEntities
             player.GainExperience(100);
         else
             player.GainExperience(10 * (GameManager.Instance.WaveNumber / 2));
-        DropObject();
+
+        if (Random.Range(0, 101) < dropChances)
+            DropObject();
         RemoveImage("fireStatut");
         RemoveImage("poisonStatut");
         appliedTickDamagers.Clear();

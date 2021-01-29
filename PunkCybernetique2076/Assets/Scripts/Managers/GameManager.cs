@@ -164,5 +164,17 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public float GetAnimationLength(Animator animator, string searchedAnimation)
+    {
+        AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+        foreach(AnimationClip clip in clips)
+        {
+            if (clip.name == searchedAnimation)
+                return clip.length;
+        }
+        Debug.LogError(" \"" + searchedAnimation + " \"" + " not found in " + animator);
+        return 0;
+    }
+
 
 }
