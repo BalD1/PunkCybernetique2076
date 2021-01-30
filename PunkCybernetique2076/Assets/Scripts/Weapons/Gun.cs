@@ -42,7 +42,7 @@ public class Gun : MonoBehaviour
 
         if (Input.GetMouseButton(0) && !reloading)
         {
-            if (Time.time > nextFire && GameManager.Instance.GameState == GameManager.gameState.InGame)
+            if (Time.time > nextFire && (GameManager.Instance.GameState == GameManager.gameState.InGame || GameManager.Instance.GameState == GameManager.gameState.InHub))
             {
                 Fire();
             }

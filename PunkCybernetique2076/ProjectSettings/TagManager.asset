@@ -30,8 +30,8 @@ TagManager:
   - LaserEnnemie
   - Ennemie Physic
   - PickableObject
-  - 
-  - 
+  - Ground
+  - Interactable Object
   - 
   - 
   - 

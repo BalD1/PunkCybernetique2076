@@ -23,7 +23,7 @@ public class Spawner : MonoBehaviour
         if (ennemiesLeft == 0 && GameManager.Instance.WaveNumber == GameManager.Instance.MaxWave)
             GameManager.Instance.GameState = GameManager.gameState.Win;
         ennemiesLeft = GameManager.Instance.EnnemiesLeft;
-        if (ennemiesLeft == 0 && Input.GetKeyDown(KeyCode.Space) && GameManager.Instance.GameState == GameManager.gameState.InGame)
+        if (ennemiesLeft == 0 && Input.GetKeyDown(KeyCode.Return) && GameManager.Instance.GameState == GameManager.gameState.InGame)
             SpawnEnnemies();
     }
 

@@ -34,9 +34,17 @@ public class Player : LivingEntities
 
     #region character movements variables
 
+    [SerializeField] private float jumpHeight = 3f;
+    [SerializeField] private float gravity = -10f;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundDistance = 0.4f;
+    [SerializeField] private LayerMask groundMask;
+    private bool isGrounded;
     private float xMovement;
     private float zMovement;
     private Vector3 move;
+    private Vector3 velocity;
+    private GameManager.gameState gameState;
 
     #endregion
 
@@ -46,6 +54,7 @@ public class Player : LivingEntities
         experience = new StatsObject();
         experience.Data(StatsObject.stats.experience, 0, 0);
         playerSource = playerAudio;
+        GameManager.Instance.GameState = GameManager.gameState.InHub;
     }
 
     private void Start()
@@ -70,7 +79,7 @@ public class Player : LivingEntities
 
     private void Update()
     {
-        if (GameManager.Instance.GameState == GameManager.gameState.InGame)
+        if (GameManager.Instance.GameState == GameManager.gameState.InGame || GameManager.Instance.GameState == GameManager.gameState.InHub)
             CameraMovements();
         if (Input.GetKeyDown(KeyCode.Escape) && GameManager.Instance.GameState != GameManager.gameState.GameOver)
             Pause();
@@ -82,16 +91,21 @@ public class Player : LivingEntities
     
     private void FixedUpdate()
     {
-        if (GameManager.Instance.GameState == GameManager.gameState.InGame)
+        if (GameManager.Instance.GameState == GameManager.gameState.InGame || GameManager.Instance.GameState == GameManager.gameState.InHub)
             PlayerMovements();
     }
 
     private void Pause()
     {
-        if (GameManager.Instance.GameState.Equals(GameManager.gameState.InGame))
+        gameState = GameManager.Instance.GameState;
+        if (GameManager.Instance.GameState.Equals(GameManager.gameState.InGame) || GameManager.Instance.GameState == GameManager.gameState.InHub)
+        {
             GameManager.Instance.GameState = GameManager.gameState.Pause;
-        else if (GameManager.Instance.GameState.Equals(GameManager.gameState.Pause))
-            GameManager.Instance.GameState = GameManager.gameState.InGame;
+        }
+        else if (GameManager.Instance.GameState.Equals(GameManager.gameState.Pause) || GameManager.Instance.GameState == GameManager.gameState.InHub)
+        {
+            GameManager.Instance.GameState = gameState;
+        }
     }
 
     #region camera + movements
@@ -110,6 +124,13 @@ public class Player : LivingEntities
 
     private void PlayerMovements()
     {
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+
         xMovement = Input.GetAxis("Horizontal");
         zMovement = Input.GetAxis("Vertical");
 
@@ -121,6 +142,15 @@ public class Player : LivingEntities
             characterState = CharacterState.Idle;
 
         controller.Move(move * speed.Value * Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+
+        velocity.y += gravity * Time.deltaTime;
+
+        controller.Move(velocity * Time.deltaTime);
     }
 
     #endregion

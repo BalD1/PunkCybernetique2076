@@ -14,6 +14,26 @@ public class GameManager : MonoBehaviour
     private List<EffectsObject> overallEffectObjects;
     public List<EffectsObject> OverallEffectObjects { get; set; }
 
+    public enum Rooms
+    {
+        HUB,
+        Room1,
+    }
+    [SerializeField] private Transform hubSpawnPoint;
+    [SerializeField] private Transform room1SpawnPoint;
+    public Transform GetSpawnPoint(Rooms room)
+    {
+        switch (room)
+        {
+            case Rooms.HUB:
+                return hubSpawnPoint;
+            case Rooms.Room1:
+                return room1SpawnPoint;
+        }
+        Debug.LogError("\"" + room + "\"" + " not found in switch statement.");
+        return null;
+    }
+
     private int ennemiesLeft;
     public int EnnemiesLeft
     {
@@ -42,12 +62,16 @@ public class GameManager : MonoBehaviour
     {
         MainMenu,
         InGame,
+        InHub,
         Pause,
         Levelup,
         Win,
         GameOver,
         Loading,
     }
+
+    private bool isInHub;
+    public bool IsInHub { get => isInHub; set => isInHub = value; }
 
 
     private static GameManager instance;
@@ -86,8 +110,27 @@ public class GameManager : MonoBehaviour
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                     Time.timeScale = 1;
+                    if (isInHub)
+                    {
+                        player.transform.position = room1SpawnPoint.position;
+                    }
+
+                    isInHub = false;
+                    break;
+
+                case gameState.InHub:
+                    isInHub = true;
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    Time.timeScale = 1;
                     if (SceneManager.GetActiveScene().name.Equals("MainMenu"))
+                    {
                         SceneManager.LoadScene("MainScene");
+                    }
+                    if (!isInHub)
+                    {
+                        player.transform.position = hubSpawnPoint.position;
+                    }
                     break;
 
                 case gameState.Pause:

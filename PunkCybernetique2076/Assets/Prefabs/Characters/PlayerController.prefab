@@ -4891,6 +4891,36 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1797978974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1797978975}
+  m_Layer: 8
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1797978975
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797978974}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.996, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4122065570205521361}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2326541038956565899
 GameObject:
   m_ObjectHideFlags: 0
@@ -5295,6 +5325,13 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   mouseSensitivity: 200
+  jumpHeight: 2
+  gravity: -6
+  groundCheck: {fileID: 1797978975}
+  groundDistance: 0.4
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 263168
 --- !u!54 &2112945406
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5470,6 +5507,7 @@ Transform:
   m_Children:
   - {fileID: 8818173910197893377}
   - {fileID: 4122065569894328627}
+  - {fileID: 1797978975}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5487,7 +5525,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -5556,7 +5594,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 175927
+    m_Bits: 438071
   m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -7156,12 +7194,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39ec8fa220cfc564a9c28624fb16689b, type: 3}
---- !u!330 &1410706988 stripped
-ParticleSystemForceField:
-  m_CorrespondingSourceObject: {fileID: 8207117388569481817, guid: 39ec8fa220cfc564a9c28624fb16689b,
-    type: 3}
-  m_PrefabInstance: {fileID: 8207117389306281077}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3877165162796548982 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4912297875356663555, guid: 39ec8fa220cfc564a9c28624fb16689b,
@@ -7183,6 +7215,12 @@ Animator:
 --- !u!1 &3786976419300440143 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5002236076906431546, guid: 39ec8fa220cfc564a9c28624fb16689b,
+    type: 3}
+  m_PrefabInstance: {fileID: 8207117389306281077}
+  m_PrefabAsset: {fileID: 0}
+--- !u!330 &1410706988 stripped
+ParticleSystemForceField:
+  m_CorrespondingSourceObject: {fileID: 8207117388569481817, guid: 39ec8fa220cfc564a9c28624fb16689b,
     type: 3}
   m_PrefabInstance: {fileID: 8207117389306281077}
   m_PrefabAsset: {fileID: 0}

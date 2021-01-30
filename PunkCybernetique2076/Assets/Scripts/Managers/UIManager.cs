@@ -120,7 +120,10 @@ public class UIManager : MonoBehaviour
                     GameManager.Instance.GameState = GameManager.gameState.Loading;
                 break;
             case "Continue":
-                GameManager.Instance.GameState = GameManager.gameState.InGame;
+                if (GameManager.Instance.IsInHub)
+                    GameManager.Instance.GameState = GameManager.gameState.InHub;
+                else
+                    GameManager.Instance.GameState = GameManager.gameState.InGame;
                 break;
             case "MainMenu":
                 GameManager.Instance.GameState = GameManager.gameState.MainMenu;
@@ -197,6 +200,15 @@ public class UIManager : MonoBehaviour
                     pauseMenu.SetActive(false);
                 if (HUDAndPopUpCanvas != null)
                     HUDAndPopUpCanvas.SetActive(true);
+                if (crosshair != null)
+                    crosshair.SetActive(true);
+                break;
+
+            case GameManager.gameState.InHub:
+                if (pauseMenu != null)
+                    pauseMenu.SetActive(false);
+                if (HUDAndPopUpCanvas != null)
+                    HUDAndPopUpCanvas.SetActive(false);
                 if (crosshair != null)
                     crosshair.SetActive(true);
                 break;
