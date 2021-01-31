@@ -26,6 +26,7 @@ public class Ennemy : LivingEntities
 
     [SerializeField] private AnimationCurve HPperLevel;
     [SerializeField] private AnimationCurve attackPerLevel;
+    [SerializeField] private AnimationCurve givenExperiencePerlevel;
 
     private float nextFire;
     public float lookRadius = 30f;
@@ -79,11 +80,15 @@ public class Ennemy : LivingEntities
         dead = false;
         minimapCircle.SetActive(true);
         spawnEffect.Play();
-        LevelToWave();
         RemoveImage("fireStatut");
         RemoveImage("poisonStatut");
         appliedTickDamagers.Clear();
         UIManager.Instance.FillBar(HP.Value / HP.Max, "HP", HPBar);
+    }
+
+    public void LevelToWave(int lvl)
+    {
+        Setlevel(lvl, 0, HPperLevel.Evaluate(level.Value), attackPerLevel.Evaluate(level.Value), null, null);
     }
 
     private void Update()
@@ -133,15 +138,6 @@ public class Ennemy : LivingEntities
     #endregion
 
     #region Mechanics
-
-    private void LevelToWave()
-    {
-        if (this.level.Value < GameManager.Instance.WaveNumber)
-        {
-            LevelUp(0, HPperLevel.Evaluate(level.Value), attackPerLevel.Evaluate(level.Value), null, null);
-            LevelToWave();
-        }
-    }
 
     private void MoveToTarget(Vector3 target)
     {
@@ -201,7 +197,7 @@ public class Ennemy : LivingEntities
         if (GameManager.Instance.WaveNumber == 1)
             player.GainExperience(100);
         else
-            player.GainExperience(10 * (GameManager.Instance.WaveNumber / 2));
+            player.GainExperience(givenExperiencePerlevel[(int)this.level.Value].value);
 
         if (Random.Range(0, 101) < dropChances)
             DropObject();

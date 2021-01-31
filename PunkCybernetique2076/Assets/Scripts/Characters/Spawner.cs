@@ -5,8 +5,10 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private AnimationCurve ennemiesToSpawnByWave;
+    [SerializeField] private AnimationCurve ennemiesLevelByWave;
     private int ennemiesLeft;
     private List<GameObject> spawners;
+    private GameObject spawnedEnnemy;
 
     private void Awake()
     {
@@ -21,7 +23,7 @@ public class Spawner : MonoBehaviour
     private void Update()
     {
         if (ennemiesLeft == 0 && GameManager.Instance.WaveNumber == GameManager.Instance.MaxWave)
-            GameManager.Instance.GameState = GameManager.gameState.Win;
+            GameManager.Instance.GameState = GameManager.gameState.InHub;
         ennemiesLeft = GameManager.Instance.EnnemiesLeft;
         if (ennemiesLeft == 0 && Input.GetKeyDown(KeyCode.Return) && GameManager.Instance.GameState == GameManager.gameState.InGame)
             SpawnEnnemies();
@@ -35,7 +37,8 @@ public class Spawner : MonoBehaviour
             Vector3 pos = spawners[index].transform.position;
             pos.x += Random.Range(-0.5f, 0.5f);
             pos.z += Random.Range(-0.5f, 0.5f);
-            PoolManager.Instance.SpawnFromPool(PoolManager.tags.Ennemy, pos, Quaternion.identity);
+            spawnedEnnemy = PoolManager.Instance.SpawnFromPool(PoolManager.tags.Ennemy, pos, Quaternion.identity);
+            spawnedEnnemy.GetComponent<Ennemy>().LevelToWave((int)ennemiesLevelByWave[GameManager.Instance.WaveNumber].value);
             GameManager.Instance.EnnemiesLeft++;
             ennemiesLeft++;
         }
@@ -45,6 +48,7 @@ public class Spawner : MonoBehaviour
             return;
         }
 
+        spawnedEnnemy = null;
         SpawnEnnemies();
     }
 

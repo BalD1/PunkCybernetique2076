@@ -126,6 +126,23 @@ public class LivingEntities : MonoBehaviour
             fireRate.ChangeData(newFireRate.Value, newFireRate.Value);
     }
 
+    protected void Setlevel(int lvl, float newNeededExp, float? newMaxHealth, float? newMaxAttack, float? newMaxSpeed, float? newFireRate)
+    {
+        if (lvl > 100)
+            return;
+        level.ChangeData(null, lvl);
+        if (this.name.Equals("Player"))
+            experience.ChangeData(newNeededExp, 0);
+        if (newMaxHealth.HasValue)
+            HP.ChangeData(newMaxHealth.Value, newMaxHealth.Value);
+        if (newMaxAttack.HasValue)
+            attack.ChangeData(newMaxAttack.Value, newMaxAttack.Value);
+        if (newMaxSpeed.HasValue)
+            speed.ChangeData(newMaxSpeed.Value, newMaxSpeed.Value);
+        if (newFireRate.HasValue)
+            fireRate.ChangeData(newFireRate.Value, newFireRate.Value);
+    }
+
     public void ApplyEffect(EffectsObject effect)
     {
         effect.Apply(this);

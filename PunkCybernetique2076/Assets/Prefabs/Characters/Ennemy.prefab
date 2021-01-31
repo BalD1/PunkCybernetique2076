@@ -5085,6 +5085,30 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  givenExperiencePerlevel:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1
+      value: 10
+      inSlope: 0.2673761
+      outSlope: 0.2673761
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.12117566
+    - serializedVersion: 3
+      time: 100
+      value: 125
+      inSlope: 3.1538703
+      outSlope: 3.1538703
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.052875325
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   lookRadius: 30
   source: {fileID: -8695005850993051987}
   dropChances: 20
