@@ -17,18 +17,28 @@ public class GameManager : MonoBehaviour
     public enum Rooms
     {
         HUB,
-        Room1,
+        Room,
     }
+
+    [System.Serializable]
+    public struct BattleRooms
+    {
+        public int number;
+        public GameObject map; 
+    }
+    [SerializeField] private List<BattleRooms> battleRoomsList;
+    public List<BattleRooms> BattleRoomsList { get => battleRoomsList; }
+
     [SerializeField] private Transform hubSpawnPoint;
-    [SerializeField] private Transform room1SpawnPoint;
+    [SerializeField] private Transform roomSpawnPoint;
     public Transform GetSpawnPoint(Rooms room)
     {
         switch (room)
         {
             case Rooms.HUB:
                 return hubSpawnPoint;
-            case Rooms.Room1:
-                return room1SpawnPoint;
+            case Rooms.Room:
+                return roomSpawnPoint;
         }
         Debug.LogError("\"" + room + "\"" + " not found in switch statement.");
         return null;
@@ -73,6 +83,26 @@ public class GameManager : MonoBehaviour
     private bool isInHub;
     public bool IsInHub { get => isInHub; set => isInHub = value; }
 
+    private bool isInteracting;
+    public bool IsInteracting
+    {
+        get => isInteracting;
+        set
+        {
+            isInteracting = value;
+            if (isInteracting)
+            {
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
+    }
+
 
     private static GameManager instance;
     public static GameManager Instance
@@ -112,7 +142,10 @@ public class GameManager : MonoBehaviour
                     Time.timeScale = 1;
                     if (isInHub)
                     {
-                        player.transform.position = room1SpawnPoint.position;
+                        CharacterController controller = player.GetComponentInParent<CharacterController>();
+                        controller.enabled = false;
+                        controller.transform.position = roomSpawnPoint.position;
+                        controller.enabled = true;
                     }
 
                     isInHub = false;
@@ -129,7 +162,10 @@ public class GameManager : MonoBehaviour
                     }
                     if (!isInHub)
                     {
-                        player.transform.position = hubSpawnPoint.position;
+                        CharacterController controller = player.GetComponentInParent<CharacterController>();
+                        controller.enabled = false;
+                        controller.transform.position = hubSpawnPoint.position;
+                        controller.enabled = true;
                     }
                     break;
 

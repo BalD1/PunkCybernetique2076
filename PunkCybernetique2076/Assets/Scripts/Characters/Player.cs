@@ -86,7 +86,6 @@ public class Player : LivingEntities
 
         if (gameOver)
             Death();
-
     }
     
     private void FixedUpdate()

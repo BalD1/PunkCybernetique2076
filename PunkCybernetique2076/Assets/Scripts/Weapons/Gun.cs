@@ -40,7 +40,7 @@ public class Gun : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && actualAmmo < maxAmmo && !reloading)
             Reload();
 
-        if (Input.GetMouseButton(0) && !reloading)
+        if (Input.GetMouseButton(0) && !reloading && !GameManager.Instance.IsInteracting)
         {
             if (Time.time > nextFire && (GameManager.Instance.GameState == GameManager.gameState.InGame || GameManager.Instance.GameState == GameManager.gameState.InHub))
             {
