@@ -8,6 +8,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player player;
     public Player PlayerRef { get => player; }
 
+    [SerializeField] private GameObject gun;
+    public GameObject GunRef { get => gun; }
+    
+
     [SerializeField] private Ennemy ennemy;
     public Ennemy EnnemyRef { get => ennemy; set => ennemy = value; }
 
@@ -92,11 +96,13 @@ public class GameManager : MonoBehaviour
             isInteracting = value;
             if (isInteracting)
             {
+                gun.SetActive(false);
                 Cursor.lockState = CursorLockMode.Confined;
                 Cursor.visible = true;
             }
             else
             {
+                gun.SetActive(true);
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
@@ -152,7 +158,6 @@ public class GameManager : MonoBehaviour
                     break;
 
                 case gameState.InHub:
-                    isInHub = true;
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                     Time.timeScale = 1;
@@ -167,6 +172,7 @@ public class GameManager : MonoBehaviour
                         controller.transform.position = hubSpawnPoint.position;
                         controller.enabled = true;
                     }
+                    isInHub = true;
                     break;
 
                 case gameState.Pause:

@@ -13,6 +13,8 @@ public class Player : LivingEntities
     [SerializeField] private AudioSource playerAudio;
     [SerializeField] private ParticleSystemForceField fireBurstForceField;
 
+    [SerializeField] private bool invincible;
+
     [SerializeField] private float healCollectiblesAmount = 20f;
 
     #region animation curves
@@ -79,7 +81,7 @@ public class Player : LivingEntities
 
     private void Update()
     {
-        if (GameManager.Instance.GameState == GameManager.gameState.InGame || GameManager.Instance.GameState == GameManager.gameState.InHub)
+        if ((GameManager.Instance.GameState == GameManager.gameState.InGame || GameManager.Instance.GameState == GameManager.gameState.InHub) && !GameManager.Instance.IsInteracting)
             CameraMovements();
         if (Input.GetKeyDown(KeyCode.Escape) && GameManager.Instance.GameState != GameManager.gameState.GameOver)
             Pause();
@@ -178,6 +180,8 @@ public class Player : LivingEntities
 
     private new void Death()
     {
+        if (invincible)
+            return;
         if (GameManager.Instance.GameState == GameManager.gameState.GameOver)  // if Gamestate = GameOver, it means that this has already been called
             return;
 

@@ -83,6 +83,7 @@ public class Ennemy : LivingEntities
         RemoveImage("fireStatut");
         RemoveImage("poisonStatut");
         appliedTickDamagers.Clear();
+        this.HP.ChangeData(null,this.HP.Max);
         UIManager.Instance.FillBar(HP.Value / HP.Max, "HP", HPBar);
     }
 
@@ -197,7 +198,7 @@ public class Ennemy : LivingEntities
         if (GameManager.Instance.WaveNumber == 1)
             player.GainExperience(100);
         else
-            player.GainExperience(givenExperiencePerlevel[(int)this.level.Value].value);
+            player.GainExperience(givenExperiencePerlevel.Evaluate(this.level.Value));
 
         if (Random.Range(0, 101) < dropChances)
             DropObject();

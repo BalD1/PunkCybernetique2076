@@ -47,16 +47,18 @@ public class Interactables : MonoBehaviour
     public void RoomChoice(int number)
     {
         List<GameManager.BattleRooms> roomsList = GameManager.Instance.BattleRoomsList;
-        foreach(GameManager.BattleRooms room in roomsList)
-        {
-            if (room.number == number)
+        if (GameManager.Instance.GameState.Equals(GameManager.gameState.InHub))
+            foreach (GameManager.BattleRooms room in roomsList)
             {
-                Instantiate(room.map);
+                if (room.number == number)
+                {
+                    Instantiate(room.map);
+                }
             }
-        }
+
         GameManager.Instance.GameState = GameManager.gameState.InGame;
     }
 
-    
+
 
 }
