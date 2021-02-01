@@ -115,7 +115,10 @@ public class LivingEntities : MonoBehaviour
             return;
         level.ChangeData(null, level.Value + 1);
         if (this.name.Equals("Player"))
+        {
             experience.ChangeData(newNeededExp, 0);
+            GameManager.Instance.AbilitiesPoints++;
+        }
         if (newMaxHealth.HasValue)
             HP.ChangeData(newMaxHealth.Value, newMaxHealth.Value);
         if (newMaxAttack.HasValue)

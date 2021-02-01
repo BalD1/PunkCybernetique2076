@@ -8,9 +8,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player player;
     public Player PlayerRef { get => player; }
 
+    [SerializeField] private int abilitiesPoints;
+    public int AbilitiesPoints
+    {
+        get => abilitiesPoints;
+        set
+        {
+            abilitiesPoints = value;
+            UIManager.Instance.UpdateLeftPoints();
+        }
+    }
+
     [SerializeField] private GameObject gun;
     public GameObject GunRef { get => gun; }
-    
+
 
     [SerializeField] private Ennemy ennemy;
     public Ennemy EnnemyRef { get => ennemy; set => ennemy = value; }
@@ -30,7 +41,7 @@ public class GameManager : MonoBehaviour
     public struct BattleRooms
     {
         public int number;
-        public GameObject map; 
+        public GameObject map;
     }
     [SerializeField] private List<BattleRooms> battleRoomsList;
     public List<BattleRooms> BattleRoomsList { get => battleRoomsList; }
@@ -82,7 +93,6 @@ public class GameManager : MonoBehaviour
         InGame,
         InHub,
         Pause,
-        Levelup,
         Win,
         GameOver,
         Loading,
@@ -147,8 +157,11 @@ public class GameManager : MonoBehaviour
                     break;
 
                 case gameState.InGame:
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
+                    if (!IsInteracting)
+                    {
+                        Cursor.lockState = CursorLockMode.Locked;
+                        Cursor.visible = false;
+                    }
                     Time.timeScale = 1;
                     if (isInHub)
                     {
@@ -162,8 +175,11 @@ public class GameManager : MonoBehaviour
                     break;
 
                 case gameState.InHub:
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
+                    if (!IsInteracting)
+                    {
+                        Cursor.lockState = CursorLockMode.Locked;
+                        Cursor.visible = false;
+                    }
                     Time.timeScale = 1;
                     if (SceneManager.GetActiveScene().name.Equals("MainMenu"))
                     {
@@ -182,12 +198,6 @@ public class GameManager : MonoBehaviour
                     break;
 
                 case gameState.Pause:
-                    Cursor.lockState = CursorLockMode.Confined;
-                    Cursor.visible = true;
-                    Time.timeScale = 0;
-                    break;
-
-                case gameState.Levelup:
                     Cursor.lockState = CursorLockMode.Confined;
                     Cursor.visible = true;
                     Time.timeScale = 0;
@@ -253,6 +263,7 @@ public class GameManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
         }
+        UIManager.Instance.UpdateLeftPoints();
     }
 
     public void ReloadScene()
@@ -263,7 +274,7 @@ public class GameManager : MonoBehaviour
     public float GetAnimationLength(Animator animator, string searchedAnimation)
     {
         AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
-        foreach(AnimationClip clip in clips)
+        foreach (AnimationClip clip in clips)
         {
             if (clip.name == searchedAnimation)
                 return clip.length;
@@ -271,7 +282,7 @@ public class GameManager : MonoBehaviour
         Debug.LogError(" \"" + searchedAnimation + " \"" + " not found in " + animator);
         return 0;
     }
-    
+
     public void UnlockNextMap()
     {
         if (UnlockedRooms < (instantiatedMapRef + 1))

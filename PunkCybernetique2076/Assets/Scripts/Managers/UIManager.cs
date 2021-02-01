@@ -34,8 +34,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text loadFinished;
 
     [SerializeField] private List<Button> choices;
-    [SerializeField] private GameObject powerUpCanvas;
     [SerializeField] private TMP_Text powerUpSummary;
+    [SerializeField] private TMP_Text pointsLeft;
     [SerializeField] private Image hpBar;
     [SerializeField] private Image xpBar;
     [SerializeField] private TMP_Text levelText;
@@ -61,6 +61,8 @@ public class UIManager : MonoBehaviour
 
     private float bottom;
 
+    private bool canRoll;
+
     private static UIManager instance;
     public static UIManager Instance
     {
@@ -77,6 +79,8 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
         buttonsRef = new List<int>();
+        powerUpSummary.text = "";
+        canRoll = true;
     }
 
     private void Update()
@@ -96,19 +100,30 @@ public class UIManager : MonoBehaviour
         Player player = GameManager.Instance.PlayerRef;
         switch (button)
         {
+            case "Roll":
+                if (GameManager.Instance.AbilitiesPoints > 0 && canRoll)
+                {
+                    ReferenceButtonsToAbility();
+                    foreach (Button choice in choices)
+                        choice.gameObject.SetActive(true);
+                    GameManager.Instance.AbilitiesPoints--;
+                    canRoll = false;
+                }
+                else
+                {
+
+                }
+                break;
             case "First":
                 ApplyEffectToPlayer(player, 0);
-                GameManager.Instance.GameState = GameManager.gameState.InGame;
                 break;
 
             case "Second":
                 ApplyEffectToPlayer(player, 1);
-                GameManager.Instance.GameState = GameManager.gameState.InGame;
                 break;
 
             case "Third":
                 ApplyEffectToPlayer(player, 2);
-                GameManager.Instance.GameState = GameManager.gameState.InGame;
                 break;
             case "Play":
                 if (GameManager.Instance.GameState.Equals(GameManager.gameState.GameOver) || 
@@ -139,7 +154,19 @@ public class UIManager : MonoBehaviour
                 Debug.LogError("\"" + button + "\"" + " not found in switch statement");
                 break;
         }
-        buttonsRef.Clear();
+    }
+
+    private void ReferenceButtonsToAbility()
+    {
+        powerUpSummary.text = "";
+        foreach (Button button in choices)
+        {
+            List<Abilities> tempList = GetAbilityByRarity();
+            int abilityRef = tempList[Random.Range(0, tempList.Count)].elementNumber;
+
+            buttonsRef.Add(abilityRef);
+            button.image.sprite = abilitiesList[abilityRef].sprite;
+        }
     }
 
     public void OnPointerOver(string overObject)
@@ -197,8 +224,6 @@ public class UIManager : MonoBehaviour
                 break;
 
             case GameManager.gameState.InGame:
-                if (powerUpCanvas != null)
-                    powerUpCanvas.SetActive(false);
                 if (pauseMenu != null)
                     pauseMenu.SetActive(false);
                 if (HUDAndPopUpCanvas != null)
@@ -221,33 +246,13 @@ public class UIManager : MonoBehaviour
                 HUDAndPopUpCanvas.SetActive(false);
                 break;
 
-            case GameManager.gameState.Levelup:
-                powerUpSummary.text = "";
-                if (pressSpace.enabled == true)
-                    pressSpace.enabled = false;
-                crosshair.SetActive(false);
-                powerUpCanvas.SetActive(true);
-                foreach (Button button in choices)
-                {
-                    List<Abilities> tempList = GetAbilityByRarity();
-                    int abilityRef = tempList[Random.Range(0, tempList.Count)].elementNumber;
-
-                    buttonsRef.Add(abilityRef);
-                    button.image.sprite = abilitiesList[abilityRef].sprite;
-                }
-                if (GameManager.Instance.EnnemiesLeft == 0)
-                    pressSpace.enabled = true;
-                break;
-
             case GameManager.gameState.Win:
                 winScreen.SetActive(true);
                 HUDAndPopUpCanvas.SetActive(false);
-                powerUpCanvas.SetActive(false);
                 pauseMenu.SetActive(false);
                 break;
 
             case GameManager.gameState.GameOver:
-                powerUpCanvas.SetActive(false);
                 pauseMenu.SetActive(false);
                 HUDAndPopUpCanvas.SetActive(false);
                 break;
@@ -325,6 +330,17 @@ public class UIManager : MonoBehaviour
             if (tempList.Count > 0)
                 abilitiesList[effectRef] = tempList[Random.Range(0, tempList.Count)];
         }
+
+        foreach (Button choice in choices)
+            choice.gameObject.SetActive(false);
+        buttonsRef.Clear();
+        powerUpSummary.text = "";
+        canRoll = true;
+    }
+
+    public void UpdateLeftPoints()
+    {
+        pointsLeft.text = "Points Left : " + GameManager.Instance.AbilitiesPoints.ToString();
     }
 
     public void FillBar(float amount, string bar)

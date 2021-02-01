@@ -5185,6 +5185,7 @@ MonoBehaviour:
   deathAnimation: {fileID: 3166709822370615075}
   playerAudio: {fileID: 2651567295509138291}
   fireBurstForceField: {fileID: 1410706988}
+  invincible: 1
   healCollectiblesAmount: 20
   healthPerLevelCurve:
     serializedVersion: 2
@@ -5325,6 +5326,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   mouseSensitivity: 200
+  intercatingMouseSensitivity: 50
   jumpHeight: 2
   gravity: -6
   groundCheck: {fileID: 1797978975}

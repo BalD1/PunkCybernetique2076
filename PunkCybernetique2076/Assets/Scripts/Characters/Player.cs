@@ -29,6 +29,7 @@ public class Player : LivingEntities
 
     #region camera variables
     [SerializeField] private float mouseSensitivity;
+    [SerializeField] private float intercatingMouseSensitivity;
     private float mouseX;
     private float mouseY;
     private float xRotation = 0f;
@@ -85,7 +86,7 @@ public class Player : LivingEntities
 
     private void Update()
     {
-        if ((GameManager.Instance.GameState == GameManager.gameState.InGame || GameManager.Instance.GameState == GameManager.gameState.InHub) && !GameManager.Instance.IsInteracting)
+        if ((GameManager.Instance.GameState == GameManager.gameState.InGame || GameManager.Instance.GameState == GameManager.gameState.InHub))
             CameraMovements();
         if (Input.GetKeyDown(KeyCode.Escape) && GameManager.Instance.GameState != GameManager.gameState.GameOver)
             Pause();
@@ -93,7 +94,7 @@ public class Player : LivingEntities
         if (gameOver)
             Death();
     }
-    
+
     private void FixedUpdate()
     {
         if (GameManager.Instance.GameState == GameManager.gameState.InGame || GameManager.Instance.GameState == GameManager.gameState.InHub)
@@ -102,13 +103,15 @@ public class Player : LivingEntities
 
     private void Pause()
     {
-        gameState = GameManager.Instance.GameState;
+        if (GameManager.Instance.GameState != GameManager.gameState.Pause)
+            gameState = GameManager.Instance.GameState;
         if (GameManager.Instance.GameState.Equals(GameManager.gameState.InGame) || GameManager.Instance.GameState == GameManager.gameState.InHub)
         {
             GameManager.Instance.GameState = GameManager.gameState.Pause;
         }
-        else if (GameManager.Instance.GameState.Equals(GameManager.gameState.Pause) || GameManager.Instance.GameState == GameManager.gameState.InHub)
+        else if (GameManager.Instance.GameState.Equals(GameManager.gameState.Pause))
         {
+            Debug.Log(gameState);
             GameManager.Instance.GameState = gameState;
         }
     }
@@ -117,14 +120,23 @@ public class Player : LivingEntities
 
     private void CameraMovements()
     {
-        mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-
+        if (!GameManager.Instance.IsInteracting)
+        {
+            mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+            mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        }
+        else
+        {
+            mouseX = Input.GetAxis("Mouse X") * intercatingMouseSensitivity * Time.deltaTime;
+            mouseY = Input.GetAxis("Mouse Y") * intercatingMouseSensitivity * Time.deltaTime;
+        }
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
+
         playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         characterTransform.Rotate(Vector3.up * mouseX);
+
     }
 
     private void PlayerMovements()
@@ -174,7 +186,6 @@ public class Player : LivingEntities
                       (int)fireRateLevelCurve.Evaluate(level.Value + 1)
                     );
             SoundManager.Instance.Play2D(SoundManager.ClipsTags.lvlUp);
-            GameManager.Instance.GameState = GameManager.gameState.Levelup;
             UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
             UIManager.Instance.FillBar(experience.Value / experience.Max, "XP");
             UIManager.Instance.UpdateLevel(level.Value.ToString());

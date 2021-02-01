@@ -25,6 +25,9 @@ public class Interactables : MonoBehaviour
 
     private void OnMouseOver()
     {
+        if (GameManager.Instance.GameState.Equals(GameManager.gameState.Pause))
+            return;
+
         if (isInRange)
             if (!GameManager.Instance.IsInteracting)
                 GameManager.Instance.IsInteracting = true;
@@ -36,6 +39,9 @@ public class Interactables : MonoBehaviour
 
     private void OnMouseExit()
     {
+        if (GameManager.Instance.GameState.Equals(GameManager.gameState.Pause))
+            return;
+
         GameManager.Instance.IsInteracting = false;
     }
 
@@ -80,6 +86,9 @@ public class Interactables : MonoBehaviour
         GameManager.Instance.GameState = GameManager.gameState.InGame;
     }
 
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(checkSphere.position, checkRadius);
+    }
 
 }
