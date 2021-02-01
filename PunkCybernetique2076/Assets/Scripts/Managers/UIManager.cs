@@ -125,6 +125,9 @@ public class UIManager : MonoBehaviour
                 else
                     GameManager.Instance.GameState = GameManager.gameState.InGame;
                 break;
+            case "Save":
+                GameManager.Instance.SaveProgression();
+                break;
             case "MainMenu":
                 GameManager.Instance.GameState = GameManager.gameState.MainMenu;
                 break;
@@ -270,10 +273,14 @@ public class UIManager : MonoBehaviour
     public void UpdateEnnemiesText()
     {
         ennemiesLeft.text = "Ennemies Left : " + GameManager.Instance.EnnemiesLeft.ToString();
+        pressSpace.text = "Press \" Enter \" for next wave";
         if (GameManager.Instance.EnnemiesLeft == 0)
             pressSpace.enabled = true;
         else
             pressSpace.enabled = false;
+
+        if (GameManager.Instance.EnnemiesLeft == 0 && GameManager.Instance.WaveNumber.Equals(GameManager.Instance.MaxWave))
+            pressSpace.text = "Press \" Enter \" to return to hub";
     }
 
     public void UpdateWavesText()

@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     private List<EffectsObject> overallEffectObjects;
     public List<EffectsObject> OverallEffectObjects { get; set; }
 
+    public int UnlockedRooms { get; set; }
+
     public enum Rooms
     {
         HUB,
@@ -35,6 +37,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Transform hubSpawnPoint;
     [SerializeField] private Transform roomSpawnPoint;
+    public GameObject instantiatedMap;
+    public int instantiatedMapRef;
     public Transform GetSpawnPoint(Rooms room)
     {
         switch (room)
@@ -172,6 +176,8 @@ public class GameManager : MonoBehaviour
                         controller.transform.position = hubSpawnPoint.position;
                         controller.enabled = true;
                     }
+                    if (instantiatedMap != null)
+                        Destroy(instantiatedMap);
                     isInHub = true;
                     break;
 
@@ -235,6 +241,11 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        if (PlayerPrefs.GetInt("UnlockedRooms") > 0)
+            UnlockedRooms = PlayerPrefs.GetInt("UnlockedRooms");
+        else
+            UnlockedRooms = 1;
+
         if (!SceneManager.GetActiveScene().name.Equals("MainMenu"))
             GameState = gameState.InGame;
         if (SceneManager.GetActiveScene().name.Equals("MainMenu"))
@@ -260,6 +271,17 @@ public class GameManager : MonoBehaviour
         Debug.LogError(" \"" + searchedAnimation + " \"" + " not found in " + animator);
         return 0;
     }
+    
+    public void UnlockNextMap()
+    {
+        if (UnlockedRooms < (instantiatedMapRef + 1))
+            UnlockedRooms = (instantiatedMapRef + 1);
+    }
 
+    public void SaveProgression()
+    {
+        PlayerPrefs.SetFloat("Level", player.GetStatValue(StatsObject.stats.level));
+        PlayerPrefs.SetInt("UnlockedRooms", UnlockedRooms);
+    }
 
 }

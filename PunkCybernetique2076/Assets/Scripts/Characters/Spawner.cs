@@ -23,9 +23,18 @@ public class Spawner : MonoBehaviour
     private void Update()
     {
         ennemiesLeft = GameManager.Instance.EnnemiesLeft;
-        if (ennemiesLeft == 0 && GameManager.Instance.WaveNumber == GameManager.Instance.MaxWave)
+        NextState();
+    }
+
+    private void NextState()
+    {
+        if (GameManager.Instance.WaveNumber == GameManager.Instance.MaxWave && ennemiesLeft == 0 && Input.GetKeyDown(KeyCode.Return))
+        {
+            GameManager.Instance.UnlockNextMap();
             GameManager.Instance.GameState = GameManager.gameState.InHub;
-        if (ennemiesLeft == 0 && Input.GetKeyDown(KeyCode.Return) && GameManager.Instance.GameState == GameManager.gameState.InGame)
+        }
+
+        else if (ennemiesLeft == 0 && Input.GetKeyDown(KeyCode.Return) && GameManager.Instance.GameState.Equals(GameManager.gameState.InGame))
             SpawnEnnemies();
     }
 

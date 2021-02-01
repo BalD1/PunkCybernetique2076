@@ -57,6 +57,10 @@ public class Player : LivingEntities
         experience.Data(StatsObject.stats.experience, 0, 0);
         playerSource = playerAudio;
         GameManager.Instance.GameState = GameManager.gameState.InHub;
+        if (PlayerPrefs.GetFloat("Level") != 0)
+        {
+            SetLevel(PlayerPrefs.GetFloat("Level"));
+        }
     }
 
     private void Start()
@@ -176,6 +180,18 @@ public class Player : LivingEntities
             UIManager.Instance.UpdateLevel(level.Value.ToString());
         }
         return;
+    }
+
+    private void SetLevel(float level)
+    {
+        LevelUp((int)neededExpPerLevelCurve.Evaluate(level),
+                      (int)healthPerLevelCurve.Evaluate(level),
+                      (int)attackPerLevelCurve.Evaluate(level),
+                      (int)speedPerLevelCurve.Evaluate(level),
+                      (int)fireRateLevelCurve.Evaluate(level));
+        UIManager.Instance.FillBar(HP.Value / HP.Max, "HP");
+        UIManager.Instance.FillBar(experience.Value / experience.Max, "XP");
+        UIManager.Instance.UpdateLevel(level.ToString());
     }
 
     private new void Death()
