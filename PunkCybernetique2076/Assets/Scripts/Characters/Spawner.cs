@@ -44,8 +44,6 @@ public class Spawner : MonoBehaviour
         {
             int index = Random.Range(0, spawners.Count);
             Vector3 pos = spawners[index].transform.position;
-            pos.x += Random.Range(-0.5f, 0.5f);
-            pos.z += Random.Range(-0.5f, 0.5f);
             spawnedEnnemy = PoolManager.Instance.SpawnFromPool(PoolManager.tags.Ennemy, pos, Quaternion.identity);
             spawnedEnnemy.GetComponent<Ennemy>().LevelToWave((int)ennemiesLevelByWave[GameManager.Instance.WaveNumber].value);
             GameManager.Instance.EnnemiesLeft++;
