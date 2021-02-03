@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.AI;
 
 public class GameManager : MonoBehaviour
 {
@@ -48,8 +49,17 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Transform hubSpawnPoint;
     [SerializeField] private Transform roomSpawnPoint;
-    public GameObject instantiatedMap;
-    public int instantiatedMapRef;
+    [HideInInspector] public GameObject instantiatedMap;
+    [HideInInspector] public int instantiatedMapRef;
+    
+    public void BuildNavMesh(NavMeshSurface[] mapSurfaces)
+    {
+        for (int i = 0; i < mapSurfaces.Length; i++)
+        {
+            mapSurfaces[i].BuildNavMesh();
+        }
+    }
+
     public Transform GetSpawnPoint(Rooms room)
     {
         switch (room)
@@ -110,13 +120,11 @@ public class GameManager : MonoBehaviour
             isInteracting = value;
             if (isInteracting)
             {
-                gun.SetActive(false);
                 Cursor.lockState = CursorLockMode.Confined;
                 Cursor.visible = true;
             }
             else
             {
-                gun.SetActive(true);
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }

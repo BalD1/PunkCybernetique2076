@@ -22,7 +22,7 @@ public class Ennemy : LivingEntities
     public Animator animator;
     Transform target;
     NavMeshAgent agent;
-    Vector3 shootpos;
+    [SerializeField] private GameObject shootpos;
 
     [SerializeField] private AnimationCurve HPperLevel;
     [SerializeField] private AnimationCurve attackPerLevel;
@@ -123,10 +123,9 @@ public class Ennemy : LivingEntities
 
                         if (Time.time > nextFire)
                         {
-                            shootpos = new Vector3(this.transform.position.x, this.transform.position.y + 0.8f, this.transform.position.z);
-
+                            shootpos.transform.LookAt(player.transform.position);
                             nextFire = Time.time + (fireTimer / 0.5f);
-                            PoolManager.Instance.SpawnFromPool(PoolManager.tags.LaserEnnemy, shootpos, this.transform.rotation);
+                            PoolManager.Instance.SpawnFromPool(PoolManager.tags.LaserEnnemy, shootpos.transform.position, shootpos.transform.rotation);
                             source.PlayOneShot(SoundManager.Instance.GetAudioClip(SoundManager.ClipsTags.laser));
 
                         }

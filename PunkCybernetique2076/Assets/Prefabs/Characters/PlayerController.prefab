@@ -5185,7 +5185,7 @@ MonoBehaviour:
   deathAnimation: {fileID: 3166709822370615075}
   playerAudio: {fileID: 2651567295509138291}
   fireBurstForceField: {fileID: 1410706988}
-  invincible: 1
+  invincible: 0
   healCollectiblesAmount: 20
   healthPerLevelCurve:
     serializedVersion: 2
@@ -5596,7 +5596,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 962359
+    m_Bits: 2010935
   m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

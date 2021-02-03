@@ -26,7 +26,6 @@ public class Gun : MonoBehaviour
     private int actualAmmo;
     private bool reloading;
 
-
     private void Start()
     {
         player = transform.parent.parent.GetComponent<Player>();
@@ -88,6 +87,7 @@ public class Gun : MonoBehaviour
 
     private void Reload()
     {
+        animator.speed = 1;
         gunAudio.PlayOneShot(SoundManager.Instance.GetAudioClip(SoundManager.ClipsTags.gunReload));
         reloadSmoke.Play();
         reloading = true;
