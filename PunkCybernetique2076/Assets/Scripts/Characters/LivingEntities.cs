@@ -272,7 +272,7 @@ public class LivingEntities : MonoBehaviour
             UIManager.Instance.RemoveImageInEnnemyHUD(statusHolder, imageToRemove);
     }
 
-    protected void Heal(float amount)
+    public void Heal(float amount)
     {
         this.HP.ChangeData(null, this.HP.Value + amount);
         if (this.name.Equals("Player"))

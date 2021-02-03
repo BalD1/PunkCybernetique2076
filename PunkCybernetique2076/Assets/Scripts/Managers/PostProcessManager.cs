@@ -73,7 +73,7 @@ public class PostProcessManager : MonoBehaviour
         InvokeRepeating("DecreaseVignette", 0.1f, 0.1f);
     }
 
-    private void DecreaseVignette()
+    public void DecreaseVignette()
     {
         vignette.intensity.value -= Time.deltaTime;
         if (vignette.intensity.value <= 0)
@@ -105,7 +105,9 @@ public class PostProcessManager : MonoBehaviour
         if (color == Color.black)
         {
             CancelInvoke("IncreaseVignette");
-            UIManager.Instance.GameOverScreen(true);
+            GameManager.Instance.GameState = GameManager.gameState.InHub;
+            chromatic.intensity.value = 0;
+            vignette.intensity.value = 0;
         }
     }
 

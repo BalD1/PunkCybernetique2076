@@ -47,7 +47,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject abilityDisplayImage;
     [SerializeField] private GameObject abilityDisplaySummary;
 
-    [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject winScreen;
 
     [SerializeField] private Text ennemiesLeft;
@@ -79,7 +78,8 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
         buttonsRef = new List<int>();
-        powerUpSummary.text = "";
+        if (powerUpSummary != null)
+            powerUpSummary.text = "";
         canRoll = true;
     }
 
@@ -293,11 +293,6 @@ public class UIManager : MonoBehaviour
         wave.text = "Wave " + GameManager.Instance.WaveNumber.ToString() + " / " + GameManager.Instance.MaxWave.ToString();
     }
 
-    public void GameOverScreen(bool active)
-    {
-        gameOverScreen.SetActive(active);
-    }
-
     #endregion
 
     #region Player Related
@@ -340,7 +335,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateLeftPoints()
     {
-        pointsLeft.text = "Points Left : " + GameManager.Instance.AbilitiesPoints.ToString();
+        if (pointsLeft != null)
+            pointsLeft.text = "Points Left : " + GameManager.Instance.AbilitiesPoints.ToString();
     }
 
     public void FillBar(float amount, string bar)

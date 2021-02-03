@@ -173,6 +173,7 @@ public class GameManager : MonoBehaviour
                     Time.timeScale = 1;
                     if (isInHub)
                     {
+                        player.Heal(player.GetStat(StatsObject.stats.HP).Max);
                         CharacterController controller = player.GetComponentInParent<CharacterController>();
                         controller.enabled = false;
                         controller.transform.position = roomSpawnPoint.position;
@@ -202,6 +203,8 @@ public class GameManager : MonoBehaviour
                     }
                     if (instantiatedMap != null)
                         Destroy(instantiatedMap);
+                    PostProcessManager.Instance.DecreaseVignette();
+                    PostProcessManager.Instance.Grading.colorFilter.value = Color.white;
                     isInHub = true;
                     break;
 
@@ -223,6 +226,11 @@ public class GameManager : MonoBehaviour
                     Cursor.lockState = CursorLockMode.Confined;
                     Cursor.visible = true;
                     PostProcessManager.Instance.GameOver();
+                    GameObject[] activeEnnemies = GameObject.FindGameObjectsWithTag("Ennemie");
+                    for (int i = 0; i < activeEnnemies.Length; i++)
+                    {
+                        activeEnnemies[i].SetActive(false);
+                    }
                     break;
                 case gameState.Loading:
                     UIManager.Instance.WindowManager(gameState.Loading);

@@ -111,7 +111,6 @@ public class Player : LivingEntities
         }
         else if (GameManager.Instance.GameState.Equals(GameManager.gameState.Pause))
         {
-            Debug.Log(gameState);
             GameManager.Instance.GameState = gameState;
         }
     }
@@ -221,6 +220,8 @@ public class Player : LivingEntities
     {
         yield return new WaitForSeconds(1);
         PostProcessManager.Instance.ScreenFadeOut();
+        deathAnimation.SetBool("GameOver", false);
+        gameOver = false;
     }
 
     private void OnTriggerEnter(Collider other)
