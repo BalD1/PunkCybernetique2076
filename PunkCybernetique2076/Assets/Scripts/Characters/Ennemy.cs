@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Ennemy : LivingEntities
-    {
+{
     #region Variables Declaration
 
     [SerializeField] private Player player;
@@ -11,7 +11,7 @@ public class Ennemy : LivingEntities
     [SerializeField] private LayerMask mask;
     private Ray ray;
     private RaycastHit hit;
-    
+
     #region Data
 
     [SerializeField] private float fireTimer = 1f;
@@ -88,41 +88,45 @@ public class Ennemy : LivingEntities
 
     private void Update()
     {
-        if (AppliedTickDamagers.Count > 0)
-            if (HP.Value <= 0 && !dead)
+        if(AppliedTickDamagers.Count > 0)
+            if(HP.Value <= 0 && !dead)
             {
                 Death();
             }
 
-        if (!dead && GameManager.Instance.GameState == GameManager.gameState.InGame)
+        if(!dead && GameManager.Instance.GameState == GameManager.gameState.InGame)
         {
             float distance = Vector3.Distance(target.position, transform.position);
             animator.SetBool("IsFiring", false);
             animator.SetBool("IsIdle", true);
 
-            if (distance <= lookRadius)
+            if(distance <= lookRadius)
             {
                 MoveToTarget(target.position);
 
-                if (distance <= agent.stoppingDistance)
+                if(distance <= agent.stoppingDistance)
                 {
                     Physics.Linecast(this.transform.position, player.transform.position, out hit, ~mask);
-                    if (hit.collider.tag.Equals("Player"))
+                    if(hit.collider != null)
                     {
-                        animator.SetBool("IsWalking", false);
-                        animator.SetBool("IsFiring", true);
-                        FaceTarget();
 
-                        //Attack 
-
-                        if (Time.time > nextFire)
+                        if(hit.collider.tag.Equals("Player"))
                         {
-                            shootpos = new Vector3(this.transform.position.x, this.transform.position.y + 0.8f, this.transform.position.z);
+                            animator.SetBool("IsWalking", false);
+                            animator.SetBool("IsFiring", true);
+                            FaceTarget();
 
-                            nextFire = Time.time + (fireTimer / 0.5f);
-                            PoolManager.Instance.SpawnFromPool(PoolManager.tags.LaserEnnemy, shootpos, this.transform.rotation);
-                            source.PlayOneShot(SoundManager.Instance.GetAudioClip(SoundManager.ClipsTags.laser));
+                            //Attack 
 
+                            if(Time.time > nextFire)
+                            {
+                                shootpos = new Vector3(this.transform.position.x, this.transform.position.y + 0.8f, this.transform.position.z);
+
+                                nextFire = Time.time + (fireTimer / 0.5f);
+                                PoolManager.Instance.SpawnFromPool(PoolManager.tags.LaserEnnemy, shootpos, this.transform.rotation);
+                                source.PlayOneShot(SoundManager.Instance.GetAudioClip(SoundManager.ClipsTags.laser));
+
+                            }
                         }
                     }
                 }
@@ -136,7 +140,7 @@ public class Ennemy : LivingEntities
 
     private void LevelToWave()
     {
-        if (this.level.Value < GameManager.Instance.WaveNumber)
+        if(this.level.Value < GameManager.Instance.WaveNumber)
         {
             LevelUp(0, HPperLevel.Evaluate(level.Value), attackPerLevel.Evaluate(level.Value), null, null);
             LevelToWave();
@@ -159,12 +163,12 @@ public class Ennemy : LivingEntities
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Laser") && !dead)
+        if(other.CompareTag("Laser") && !dead)
         {
             MoveToTarget(GameManager.Instance.PlayerRef.transform.position);
             UIManager.Instance.ActivateHitMarker();
             this.InflictDamage(player.GetStatValue(StatsObject.stats.attack), player);
-            if (HP.Value <= 0 && !dead)
+            if(HP.Value <= 0 && !dead)
             {
                 Death();
             }
@@ -174,15 +178,15 @@ public class Ennemy : LivingEntities
     private void DropObject()
     {
         int weight = 0;
-        foreach (DropableObjects drop in dropableObjects)
+        foreach(DropableObjects drop in dropableObjects)
         {
             weight += drop.dropChances;
         }
 
         int rand = Random.Range(0, weight + 1);
-        foreach (DropableObjects drop in dropableObjects)
+        foreach(DropableObjects drop in dropableObjects)
         {
-            if (rand < weight)
+            if(rand < weight)
             {
                 Instantiate(drop.prefab, this.transform.position, Quaternion.identity);
                 return;
@@ -198,12 +202,12 @@ public class Ennemy : LivingEntities
         dead = true;
         source.PlayOneShot(SoundManager.Instance.GetAudioClip(SoundManager.ClipsTags.explosion));
         GameManager.Instance.EnnemiesLeft--;
-        if (GameManager.Instance.WaveNumber == 1)
+        if(GameManager.Instance.WaveNumber == 1)
             player.GainExperience(100);
         else
             player.GainExperience(10 * (GameManager.Instance.WaveNumber / 2));
 
-        if (Random.Range(0, 101) < dropChances)
+        if(Random.Range(0, 101) < dropChances)
             DropObject();
         RemoveImage("fireStatut");
         RemoveImage("poisonStatut");
@@ -223,6 +227,6 @@ public class Ennemy : LivingEntities
     }
 
     #endregion
-    
+
     #endregion
 }
